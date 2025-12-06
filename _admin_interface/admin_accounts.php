@@ -61,39 +61,39 @@ $result = mysqli_query($conn, $query);
         </div>
     </div>
 
-    <div class="main-content">
+    <div class="main-content-account">
         
         <h1>Driver Account Management</h1>
 
-        <div class="dashboard-columns">
+        <div class="dashboard-columns-account">
 
-            <div class="dashboard-card">
+            <div class="dashboard-card-account">
                 <h2>Create New Driver</h2>
                 <form method="POST" action="../__back-end_processes/auth_signup_driver.php">
-                    <div class="form-group">
-                        <label for="fullname" class="form-label">Full Name</label>
-                        <input name="fullname" type="text" id="full_name" class="form-input" placeholder="F_Name, L_Name" required>
+                    <div class="form-group-account">
+                        <label for="fullname" class="form-label-account">Full Name</label>
+                        <input name="fullname" type="text" id="full_name" class="form-input-account" placeholder="F_Name, L_Name" required>
                     </div>
-                    <div class="form-group">
-                        <label for="email" class="form-label">Email</label>
-                        <input name="email" type="email" id="email" class="form-input" placeholder="driver@example.com" required>
+                    <div class="form-group-account">
+                        <label for="email" class="form-label-account">Email</label>
+                        <input name="email" type="email" id="email" class="form-input-account" placeholder="driver@example.com" required>
                     </div>
-                    <div class="form-group">
-                        <label for="username" class="form-label">Username</label>
-                        <input name="username"  type="text" id="username" class="form-input" placeholder="e.g., neil.jason" required>
+                    <div class="form-group-account">
+                        <label for="username" class="form-label-account">Username</label>
+                        <input name="username"  type="text" id="username" class="form-input-account" placeholder="e.g., neil.jason" required>
                     </div>
-                    <div class="form-group">
-                        <label for="password" class="form-label">Password</label>
-                        <input name="password"  type="password" id="password" class="form-input" placeholder="Set a temporary password" required>
+                    <div class="form-group-account">
+                        <label for="password" class="form-label-account">Password</label>
+                        <input name="password"  type="password" id="password" class="form-input-account" placeholder="Set a temporary password" required>
                     </div>
-                    <button type="submit" class="form-button">Create Driver Account</button>
+                    <button type="submit" class="form-button-account">Create Driver Account</button>
                 </form>
             </div>
 
-            <div class="dashboard-card">
+            <div class="dashboard-card-account">
                 <h2>Driver List</h2>
-                <div class="card-content-table-wrapper">
-                    <table class="content-table">
+                <div class="card-content-table-wrapper-account">
+                    <table class="content-table-account">
                         <thead>
                             <tr>
                                 <th>Driver Name</th>
@@ -109,8 +109,8 @@ $result = mysqli_query($conn, $query);
                                 <td><?php echo htmlspecialchars($row['username']);?></td>
                                 <td><?php echo htmlspecialchars($row['email']);?></td>
                                 <td>
-                                    <button class="action-btn edit">Edit</button>
-                                    <button class="action-btn archive">Archive</button>
+                                    <button class="action-btn-account edit">Edit</button>
+                                    <button class="action-btn-account archive">Archive</button>
                                 </td>
                             </tr>
                             <?php endwhile; ?>

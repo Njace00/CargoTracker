@@ -58,23 +58,23 @@ $result = mysqli_query($conn, $query);
         </div>
     </div>
 
-    <div class="main-content">
+    <div class="main-content-announcement">
         
         <h1>Announcements</h1>
 
-        <div class="dashboard-columns">
+        <div class="dashboard-columns-announcement">
 
-            <div class="dashboard-card-an">
+            <div class="dashboard-card-announcement">
                 <h2>Create New Announcement</h2>
                 <form action="../__back-end_processes/process_announcement.php" method="POST">
-                    <div class="form-group">
-                        <label for="ann-title" class="form-label">Title</label>
-                        <input type="text" id="ann-title" class="form-input" placeholder="e.g., Schedule" name="announcement_title">
+                    <div class="form-group-announcement">
+                        <label for="ann-title" class="form-label-announcement">Title</label>
+                        <input type="text" id="ann-title" class="form-input-announcement" placeholder="e.g., Schedule" name="announcement_title">
                     </div>
                     
-                    <div class="form-group">
-                        <label for="ann-priority" class="form-label">Priority</label>
-                        <select id="ann-priority" class="form-select" name="priority_lvl">
+                    <div class="form-group-announcement">
+                        <label for="ann-priority" class="form-label-announcement">Priority</label>
+                        <select id="ann-priority" class="form-select-announcement" name="priority_lvl">
                             <option value="low">Standard (Blue)</option>
                             <option value="medium">Normal (Green)</option>
                             <option value="high">Warning (Yellow)</option>
@@ -82,27 +82,27 @@ $result = mysqli_query($conn, $query);
                         </select>
                     </div>
                     
-                    <div class="form-group">
-                        <label for="ann-message" class="form-label">Message</label>
-                        <textarea id="ann-message" class="form-textarea" placeholder="Write message to all drivers and staff..." name="announcement_msg"></textarea>
+                    <div class="form-group-announcement">
+                        <label for="ann-message" class="form-label-announcement">Message</label>
+                        <textarea id="ann-message" class="form-textarea-announcement" placeholder="Write message to all drivers and staff..." name="announcement_msg"></textarea>
                     </div>
                     
-                    <button type="submit" class="form-button" >Post Announcement</button>
+                    <button type="submit" class="form-button-announcement" >Post Announcement</button>
                 </form>
             </div>
 
-            <div class="dashboard-card-an">
+            <div class="dashboard-card-announcement">
                 <h2>Recent Announcements</h2>
-                <div class="card-content-scrollable">
-                    <ul class="announcement-list">
+                <div class="card-content-scrollable-announcement">
+                    <ul class="announcement-list-announcement">
                         <?php while ($row = mysqli_fetch_assoc($result)): ?>
-                        <li class="announcement-item priority-red">
-                            <div class="notification <?php echo strtolower(htmlspecialchars($row['priority_level'])); ?>">
-                                <div class="announcement-title"><h2><?php echo htmlspecialchars($row['title']); ?></h2></div>
+                        <li class="announcement-item-announcement priority-red">
+                            <div class="notification-announcement <?php echo strtolower(htmlspecialchars($row['priority_level'])); ?>">
+                                <div class="announcement-title-announcement"><h2><?php echo htmlspecialchars($row['title']); ?></h2></div>
                             </div>
-                                <div class="announcement-date">Posted 5 minutes ago</div>
+                                <div class="announcement-date-announcement">Posted 5 minutes ago</div>
                                 <p><?php echo htmlspecialchars($row['announcement_message']); ?></p>
-                                <button class="announcement-delete-btn">Delete</button>
+                                <button class="announcement-delete-btn-announcement">Delete</button>
                             </p>
                         </li>
                         <?php endwhile; ?>

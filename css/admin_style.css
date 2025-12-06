@@ -156,25 +156,25 @@
 /* ==================== DRIVER ACCOUNTS  ==================== */
 
 
- .main-content {
+ .main-content-account {
             padding: 20px;
             color: #333;
         }
         
-        .main-content h1 {
+        .main-content-account h1 {
             font-size: 32px;
             font-weight: 700;
             margin-bottom: 20px;
             color: #1f2c3d;
         }
 
-        .dashboard-columns {
+        .dashboard-columns-account {
             display: grid;
             grid-template-columns: 1fr;
             gap: 20px;
         }
         
-        .dashboard-card {
+        .dashboard-card-account {
             background-color: #ffffff;
             border-radius: 10px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
@@ -184,7 +184,7 @@
             margin-bottom: 20px;
         }
         
-        .dashboard-card h2 {
+        .dashboard-card-account h2 {
             font-size: 20px;
             font-weight: 600;
             margin-top: 0;
@@ -194,16 +194,16 @@
             padding-bottom: 10px;
         }
         
-        .card-content-scrollable {
+        .card-content-scrollable-account {
             overflow-y: auto;
             flex-grow: 1;
         }
         
-        .form-group {
+        .form-group-account {
             margin-bottom: 15px;
         }
         
-        .form-label {
+        .form-label-account {
             display: block;
             margin-bottom: 5px;
             font-size: 14px;
@@ -211,9 +211,9 @@
             color: #374151;
         }
         
-        .form-input,
-        .form-textarea,
-        .form-select {
+        .form-input-account,
+        .form-textarea-account,
+        .form-select-account {
             width: 100%;
             padding: 10px 12px;
             font-size: 15px;
@@ -223,15 +223,15 @@
             font-family: Arial, sans-serif; 
         }
         
-        .form-input:focus,
-        .form-textarea:focus,
-        .form-select:focus {
+        .form-input-account:focus,
+        .form-textarea-account:focus,
+        .form-select-account:focus {
             outline: none;
             border-color: #2980b9;
             box-shadow: 0 0 0 2px #eaf5fb;
         }
         
-        .form-button {
+        .form-button-account {
             padding: 12px 18px;
             font-size: 15px;
             font-weight: 600;
@@ -243,38 +243,38 @@
             margin-top: 10px;
         }
         
-        .form-button:hover {
+        .form-button-account:hover {
             background-color: #2471a3;
         }
 
-        .card-content-table-wrapper {
+        .card-content-table-wrapper-account {
             overflow-x: auto; 
         }
 
-        .content-table {
+        .content-table-account {
             width: 100%;
             border-collapse: collapse; 
             font-size: 14px;
         }
 
-        .content-table th,
-        .content-table td {
+        .content-table-account th,
+        .content-table-account td {
             padding: 12px 15px;
             text-align: left;
             border-bottom: 1px solid #f0f0f0; 
         }
 
-        .content-table th {
+        .content-table-account th {
             background-color: #f9fafb; 
             font-weight: 600;
             color: #374151;
         }
 
-        .content-table tbody tr:hover {
+        .content-table-account tbody tr:hover {
             background-color: #f4f7fa; 
         }
 
-        .action-btn {
+        .action-btn-account {
             border: none;
             padding: 6px 10px;
             border-radius: 6px;
@@ -283,11 +283,11 @@
             font-size: 13px;
             margin-right: 5px;
         }
-        .action-btn.edit {
+        .action-btn-account.edit {
             background-color: #eaf5fb;
             color: #2980b9;
         }
-        .action-btn.archive {
+        .action-btn-account.archive {
             background-color: #fef5f4;
             color: #e74c3c;
         }
@@ -305,14 +305,14 @@
                 transform: translateX(0%);
             }
             
-            .main-content {
+            .main-content-account {
                 margin-left: 260px;
                 padding: 30px;
             }
         }
 
         @media (min-width: 992px) {
-            .dashboard-columns {
+            .dashboard-columns-account {
                 grid-template-columns: 1fr 2fr;
             }
         }
@@ -441,26 +441,26 @@
 
 
 /* ==================== ANNOUNCEMENT  ==================== */
-        .main-content {
+        .main-content-announcement {
             padding: 20px;
             color: #333;
         }
         
-        .main-content h1 {
+        .main-content-announcement h1 {
             font-size: 32px;
             font-weight: 700;
             margin-bottom: 20px;
             color: #1f2c3d;
         }
 
-        .dashboard-columns {
+        .dashboard-columns-announcement {
             display: grid;
             grid-template-columns: 1fr;
             gap: 20px;
             
         }
         
-        .dashboard-card-an {
+        .dashboard-card-announcement {
             background-color: #ffffff;
             border-radius: 10px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
@@ -470,7 +470,7 @@
             margin-bottom: 20px;
         }
         
-        .dashboard-card h2 {
+        .dashboard-card-announcement h2 {
             font-size: 20px;
             font-weight: 600;
             margin-top: 0;
@@ -480,16 +480,16 @@
             padding-bottom: 10px;
         }
         
-        .card-content-scrollable {
+        .card-content-scrollable-announcement {
             overflow-y: auto;
             flex-grow: 1;
         }
         
-        .form-group {
+        .form-group-announcement {
             margin-bottom: 15px;
         }
         
-        .form-label {
+        .form-label-announcement {
             display: block;
             margin-bottom: 5px;
             font-size: 14px;
@@ -497,9 +497,9 @@
             color: #374151;
         }
         
-        .form-input,
-        .form-textarea,
-        .form-select {
+        .form-input-announcement,
+        .form-textarea-announcement,
+        .form-select-announcement {
             width: 100%;
             padding: 10px 12px;
             font-size: 15px;
@@ -509,27 +509,27 @@
             font-family: Arial, sans-serif; 
         }
 
-        .form-select {
+        .form-select-announcement {
             appearance: none;
             background-repeat: no-repeat;
             background-position: right 12px center;
             background-size: 10px;
         }
         
-        .form-textarea {
+        .form-textarea-announcement {
             min-height: 120px; 
             resize: vertical; 
         }
         
-        .form-input:focus,
-        .form-textarea:focus,
-        .form-select:focus {
+        .form-input-announcement:focus,
+        .form-textarea-announcement:focus,
+        .form-select-announcement:focus {
             outline: none;
             border-color: #2980b9;
             box-shadow: 0 0 0 2px #eaf5fb;
         }
         
-        .form-button {
+        .form-button-announcement {
             padding: 12px 18px;
             font-size: 15px;
             font-weight: 600;
@@ -541,15 +541,15 @@
             margin-top: 10px;
         }
         
-        .form-button:hover {
+        .form-button-announcement:hover {
             background-color: #2471a3;
         }
         
-        .announcement-list {
+        .announcement-list-announcement {
             list-style: none;
         }
         
-        .announcement-item {
+        .announcement-item-announcement {
             padding: 15px;
             margin-bottom: 15px;
             
@@ -557,48 +557,48 @@
             background-color: #fdfdfd;
         }
         
-        .announcement-item:last-child {
+        .announcement-item-announcement:last-child {
             margin-bottom: 0;
         }
 
-        .notification.low h2{ 
+        .notification-announcement.low h2{ 
             color: #136aceff; 
         }
         
-        .notification.low{
+        .notification-announcement.low{
             border-left-color: #136aceff;
             background-color: #fffcf5;
         }
 
-        .notification.medium {
+        .notification-announcement.medium {
             border-left-color: #27ae60;
             background-color: #f6fff9;
         }
 
-        .notification.medium h2 { 
+        .notification-announcement.medium h2 { 
             color: #27ae60; 
         }
        
-        .notification.high {
+        .notification-announcement.high {
             border-left-color: #f39c12;
             background-color: #fff7f6;
         }
-        .notification.high h2 { 
+        .notification-announcement.high h2 { 
             color: #f39c12; 
         }
 
 
-        .notification.urgent {
+        .notification-announcement.urgent {
             border-left-color: #e74c3c;
             background-color: #fff7f6;
         }
-        .notification.urgent h2 { 
+        .notification-announcement.urgent h2 { 
             color: #e74c3c; 
         }
         
 
         
-        .announcement-delete-btn {
+        .announcement-delete-btn-announcement {
             margin-top: 1rem;
             background-color: #fef5f4; 
             color: #e74c3c; 
@@ -611,11 +611,11 @@
             flex-shrink: 0; 
         }
         
-        .announcement-delete-btn:hover {
+        .announcement-delete-btn-announcement:hover {
             background-color: #fbebe9; 
         }
         
-        .announcement-date {
+        .announcement-date-announcement {
             font-size: 13px;
             color: #6c757d;
             margin-bottom: 8px;
@@ -636,14 +636,14 @@
                 transform: translateX(0%);
             }
             
-            .main-content {
+            .main-content-announcement {
                 margin-left: 260px;
                 padding: 30px;
             }
         }
 
         @media (min-width: 992px) {
-            .dashboard-columns {
+            .dashboard-columns-announcement {
                 grid-template-columns: 1fr 1fr;
             }
         }

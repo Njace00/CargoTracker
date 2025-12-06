@@ -49,81 +49,81 @@ if (!isset($_SESSION['account_id']) || $_SESSION['role'] != 2) {
         </div>
     </div>
 
-    <div class="main-content">
+    <div class="main-content-overview">
         
         <h1>Overview Metrics</h1>
 
-        <div class="metrics-grid">
+        <div class="metrics-grid-overview">
             
-            <div class="metric-card">
-                <div class="icon revenue"> </div>
-                <div class="info">
-                    <div class="value">₱28,120</div>
-                    <div class="label">Revenue (This Month)</div>
+            <div class="metric-card-overview">
+                <div class="icon-overview revenue"> </div>
+                <div class="info-overview">
+                    <div class="value-overview">₱28,120</div>
+                    <div class="label-overview">Revenue (This Month)</div>
                 </div>
             </div>
 
-            <div class="metric-card">
-                <div class="icon trips"> </div>
-                <div class="info">
-                    <div class="value">142</div>
-                    <div class="label">Trips (This Month)</div>
+            <div class="metric-card-overview">
+                <div class="icon-overview trips"> </div>
+                <div class="info-overview">
+                    <div class="value-overview">142</div>
+                    <div class="label-overview">Trips (This Month)</div>
                 </div>
             </div>
 
-            <div class="metric-card">
-                <div class="icon distance"> </div>
-                <div class="info">
-                    <div class="value">8,920 km</div>
-                    <div class="label">Total Distance</div>
+            <div class="metric-card-overview">
+                <div class="icon-overview distance"> </div>
+                <div class="info-overview">
+                    <div class="value-overview">8,920 km</div>
+                    <div class="label-overview">Total Distance</div>
                 </div>
             </div>
 
-            <div class="metric-card">
-                <div class="icon issues"> </div>
-                <div class="info">
-                    <div class="value">8</div>
-                    <div class="label">All Pending Issues</div>
-                </div>
-            </div>
-            
-            <div class="metric-card">
-                <div class="icon vehicles"> </div>
-                <div class="info">
-                    <div class="value">5</div>
-                    <div class="label">Vehicles on Road</div>
-                </div>
-            </div>
-
-            <div class="metric-card">
-                <div class="icon vehicles"> </div>
-                <div class="info">
-                    <div class="value">3</div>
-                    <div class="label">Vehicles in Maintenance</div>
-                </div>
-            </div>
-
-            <div class="metric-card">
-                <div class="icon clients"> </div>
-                <div class="info">
-                    <div class="value">24</div>
-                    <div class="label">Active Clients</div>
+            <div class="metric-card-overview">
+                <div class="icon-overview issues"> </div>
+                <div class="info-overview">
+                    <div class="value-overview">8</div>
+                    <div class="label-overview">All Pending Issues</div>
                 </div>
             </div>
             
-            <div class="metric-card">
-                <div class="icon revenue"> </div>
-                <div class="info">
-                    <div class="value">2.5 hrs</div>
-                    <div class="label">Avg. Trip Duration</div>
+            <div class="metric-card-overview">
+                <div class="icon-overview vehicles"> </div>
+                <div class="info-overview">
+                    <div class="value-overview">5</div>
+                    <div class="label-overview">Vehicles on Road</div>
+                </div>
+            </div>
+
+            <div class="metric-card-overview">
+                <div class="icon-overview vehicles"> </div>
+                <div class="info-overview">
+                    <div class="value-overview">3</div>
+                    <div class="label-overview">Vehicles in Maintenance</div>
+                </div>
+            </div>
+
+            <div class="metric-card-overview">
+                <div class="icon-overview clients"> </div>
+                <div class="info-overview">
+                    <div class="value-overview">24</div>
+                    <div class="label-overview">Active Clients</div>
+                </div>
+            </div>
+            
+            <div class="metric-card-overview">
+                <div class="icon-overview revenue"> </div>
+                <div class="info-overview">
+                    <div class="value-overview">2.5 hrs</div>
+                    <div class="label-overview">Avg. Trip Duration</div>
                 </div>
             </div>
 
         </div>
 
-        <div class="dashboard-columns">
-            <div class="dashboard-card" style="grid-column: 1 / -1;"> <h2>Revenue vs. Trips (Last 30 Days)</h2>
-                <div class="card-content-scrollable" style="display: flex; align-items: center; justify-content: center; min-height: 300px; color: #999; background-color: #fafafa; border-radius: 8px;">
+        <div class="dashboard-columns-overview">
+            <div class="dashboard-card-overview" style="grid-column: 1 / -1;"> <h2>Revenue vs. Trips (Last 30 Days)</h2>
+                <div class="card-content-scrollable-overview" style="display: flex; align-items: center; justify-content: center; min-height: 300px; color: #999; background-color: #fafafa; border-radius: 8px;">
                     [Chart Area Placeholder]
                 </div>
             </div>

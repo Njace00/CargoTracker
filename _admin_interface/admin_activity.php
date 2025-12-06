@@ -49,66 +49,66 @@ if (!isset($_SESSION['account_id']) || $_SESSION['role'] != 2) {
         </div>
     </div>
 
-    <div class="main-content">
+    <div class="main-content-activity">
         
         <h1>Recent Activity</h1>
 
-        <div class="dashboard-card">
+        <div class="dashboard-card-activity">
             <h2>Activity Log</h2>
-            <div class="card-content-scrollable">
-                <ul class="activity-log">
-                    <li class="activity-item">
-                        <div class="activity-icon">
+            <div class="card-content-scrollable-activity">
+                <ul class="activity-log-activity">
+                    <li class="activity-item-activity">
+                        <div class="activity-icon-activity">
                             </div>
-                        <div class="activity-details">
-                            <div class="activity-description">
+                        <div class="activity-details-activity">
+                            <div class="activity-description-activity">
                                 <strong>Trip T-1025</strong> was created and assigned to <strong>Neil Jason Flores</strong>.
                             </div>
-                            <div class="activity-timestamp">5 minutes ago</div>
+                            <div class="activity-timestamp-activity">5 minutes ago</div>
                         </div>
                     </li>
 
-                    <li class="activity-item">
-                        <div class="activity-icon">
+                    <li class="activity-item-activity">
+                        <div class="activity-icon-activity">
                             </div>
-                        <div class="activity-details">
-                            <div class="activity-description">
+                        <div class="activity-details-activity">
+                            <div class="activity-description-activity">
                                 New issue reported for <strong>TRUCK-001</strong>: "Engine Overheating".
                             </div>
-                            <div class="activity-timestamp">1 hour ago</div>
+                            <div class="activity-timestamp-activity">1 hour ago</div>
                         </div>
                     </li>
 
-                    <li class="activity-item">
-                        <div class="activity-icon">
+                    <li class="activity-item-activity">
+                        <div class="activity-icon-activity">
                             </div>
-                        <div class="activity-details">
-                            <div class="activity-description">
+                        <div class="activity-details-activity">
+                            <div class="activity-description-activity">
                                 <strong>Trip T-1024</strong> (Driver: Driefen Alfonso) was marked as <strong>Completed</strong>.
                             </div>
-                            <div class="activity-timestamp">3 hours ago</div>
+                            <div class="activity-timestamp-activity">3 hours ago</div>
                         </div>
                     </li>
                     
-                    <li class="activity-item">
-                        <div class="activity-icon">
+                    <li class="activity-item-activity">
+                        <div class="activity-icon-activity">
                             </div>
-                        <div class="activity-details">
-                            <div class="activity-description">
+                        <div class="activity-details-activity">
+                            <div class="activity-description-activity">
                                 <strong>TRUCK-003</strong> status changed to <strong>"Under Maintenance"</strong>.
                             </div>
-                            <div class="activity-timestamp">8 hours ago</div>
+                            <div class="activity-timestamp-activity">8 hours ago</div>
                         </div>
                     </li>
                     
-                    <li class="activity-item">
-                        <div class="activity-icon">
+                    <li class="activity-item-activity">
+                        <div class="activity-icon-activity">
                             </div>
-                        <div class="activity-details">
-                            <div class="activity-description">
+                        <div class="activity-details-activity">
+                            <div class="activity-description-activity">
                                 <strong>Admin</strong> logged in.
                             </div>
-                            <div class="activity-timestamp">Yesterday at 8:00 AM</div>
+                            <div class="activity-timestamp-activity">Yesterday at 8:00 AM</div>
                         </div>
                     </li>
                 </ul>

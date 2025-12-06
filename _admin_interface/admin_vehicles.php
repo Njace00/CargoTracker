@@ -57,58 +57,58 @@ $result1 = mysqli_query($conn, $query);
         </div>
     </div>
 
-    <div class="main-content">
+    <div class="main-content-vehicle">
         
         <h1>Vehicle Management</h1>
 
-        <div class="dashboard-columns">
+        <div class="dashboard-columns-vehicle">
 
-            <div class="dashboard-card">
+            <div class="dashboard-card-vehicle">
                 <h2>Add New Vehicle</h2>
                 <form method="POST" action="../__back-end_processes\processs_add_vehicle.php" >
-                    <div class="form-group">
-                        <label for="vehicle_name" class="form-label" >Vehicle Name</label>
-                        <input name="vehicle_name" type="text" id="vehicle_name" class="form-input" placeholder="e.g., truck-1"  required>
+                    <div class="form-group-vehicle">
+                        <label for="vehicle_name" class="form-label-vehicle" >Vehicle Name</label>
+                        <input name="vehicle_name" type="text" id="vehicle_name" class="form-input-vehicle" placeholder="e.g., truck-1"  required>
                     </div>
                     
-                    <div class="form-group">
-                        <label for="vehicle_class" class="form-label">Class</label>
-                        <select id="vehicle_class" class="form-select" name="vehicle_type">
+                    <div class="form-group-vehicle">
+                        <label for="vehicle_class" class="form-label-vehicle">Class</label>
+                        <select id="vehicle_class" class="form-select-vehicle" name="vehicle_type">
                             <option value="rigid">Rigid</option>
                             <option value="trailer">Trailer</option>
                         </select>
                     </div>
                     
-                    <div class="form-group">
-                        <label for="vehicle_size" class="form-label">Size</label>
-                        <select id="vehicle_size" class="form-select" name="vehicle_class">
+                    <div class="form-group-vehicle">
+                        <label for="vehicle_size" class="form-label-vehicle">Size</label>
+                        <select id="vehicle_size" class="form-select-vehicle" name="vehicle_class">
                             <option value="2-tonner">2-tonner</option>
                             <option value="5-tonner">5-tonner</option>
                             <option value="10-tonner">10-tonner</option>
                         </select>
                     </div>
                     
-                    <button type="submit" class="form-button">Add Vehicle</button>
+                    <button type="submit" class="form-button-vehicle">Add Vehicle</button>
                 </form>
             </div>
 
-            <div class="dashboard-card">
+            <div class="dashboard-card-vehicle">
                 <h2>Vehicle Status</h2>
-                <div class="card-content-scrollable">
+                <div class="card-content-scrollable-vehicle">
                     <?php while ($row = mysqli_fetch_assoc($result)): ?>
-                    <div class="status-info">
-                        <span class="status-info-name"><?php echo htmlspecialchars($row['vehicle_name']);?></span>
-                        <span class="status-badge available"><?php echo htmlspecialchars($row['status']);?></span>
+                    <div class="status-info-vehicle">
+                        <span class="status-info-name-vehicle"><?php echo htmlspecialchars($row['vehicle_name']);?></span>
+                        <span class="status-badge-vehicle available"><?php echo htmlspecialchars($row['status']);?></span>
                     </div>
                     <?php endwhile; ?>
                     
                 </div>
             </div>
 
-            <div class="dashboard-card" style="grid-column: 1 / -1;">
+            <div class="dashboard-card-vehicle" style="grid-column: 1 / -1;">
                 <h2>Vehicle List</h2>
-                <div class="card-content-table-wrapper">
-                    <table class="content-table">
+                <div class="card-content-table-wrapper-vehicle">
+                    <table class="content-table-vehicle">
                         
                         <thead>
                             <tr>
@@ -125,10 +125,10 @@ $result1 = mysqli_query($conn, $query);
                                 <td><?php echo htmlspecialchars($row['vehicle_type']);?></td>
                                 <td><?php echo htmlspecialchars($row['vehicle_class']);?></td>
                                 <td>
-                                    <button class="action-btn edit">Edit</button>
+                                    <button class="action-btn-vehicle edit">Edit</button>
                                     <form method="POST" action="../__back-end_processes/process_archive-vehicles.php">
                                         <input type="hidden" name="vehicle_name" value="<?php echo htmlspecialchars($row['vehicle_name']); ?>">
-                                        <button type="submit" class="action-btn archive">Archive</button>
+                                        <button type="submit" class="action-btn-vehicle archive">Archive</button>
                                     </form>
                                 </td>
                             </tr>

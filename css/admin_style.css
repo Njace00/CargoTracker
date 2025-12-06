@@ -322,21 +322,21 @@
 
 
 
-/* ==================== ACITIVITY  ==================== */
+/* ==================== ACTIVITY  ==================== */
 
-.main-content {
+.main-content-activity {
             padding: 20px;
             color: #333;
         }
         
-        .main-content h1 {
+        .main-content-activity h1 {
             font-size: 32px;
             font-weight: 700;
             margin-bottom: 20px;
             color: #1f2c3d;
         }
         
-        .dashboard-card {
+        .dashboard-card-activity {
             background-color: #ffffff;
             border-radius: 10px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
@@ -346,7 +346,7 @@
             margin-bottom: 20px;
         }
         
-        .dashboard-card h2 {
+        .dashboard-card-activity h2 {
             font-size: 20px;
             font-weight: 600;
             margin-top: 0;
@@ -356,27 +356,27 @@
             padding-bottom: 10px;
         }
         
-        .card-content-scrollable {
+        .card-content-scrollable-activity {
             overflow-y: auto;
             flex-grow: 1;
         }
 
-        .activity-log {
+        .activity-log-activity {
             list-style: none; 
         }
         
-        .activity-item {
+        .activity-item-activity {
             display: flex;
             gap: 15px; 
             padding: 15px 5px;
             border-bottom: 1px solid #f0f0f0;
         }
         
-        .activity-item:last-child {
+        .activity-item-activity:last-child {
             border-bottom: none;
         }
 
-        .activity-icon {
+        .activity-icon-activity {
             width: 40px;
             height: 40px;
             border-radius: 50%;
@@ -387,26 +387,26 @@
             flex-shrink: 0; 
         }
         
-        .activity-icon img {
+        .activity-icon-activity img {
             width: 20px;
             height: 20px;
         }
 
-        .activity-details {
+        .activity-details-activity {
             flex-grow: 1;
         }
 
-        .activity-description {
+        .activity-description-activity {
             font-size: 15px;
             color: #333;
             margin-bottom: 4px;
         }
         
-        .activity-description strong {
+        .activity-description-activity strong {
             color: #1f2c3d; 
         }
 
-        .activity-timestamp {
+        .activity-timestamp-activity {
             font-size: 13px;
             color: #6c757d; 
         }
@@ -424,20 +424,20 @@
                 transform: translateX(0%);
             }
             
-            .main-content {
+            .main-content-activity {
                 margin-left: 260px;
                 padding: 30px;
             }
         }
 
-        .activity-icon img {
+        .activity-icon-activity img {
             max-width: 100%;
             max-height: 100%;
             display: block;
         }
 
 
-/* ==================== ACITIVITY END ==================== */
+/* ==================== ACTIVITY END ==================== */
 
 
 /* ==================== ANNOUNCEMENT  ==================== */
@@ -653,26 +653,26 @@
 
 /* ==================== OVERVIEW  ==================== */
 
-.main-content {
+.main-content-overview {
             padding: 20px;
             color: #333;
         }
         
-        .main-content h1 {
+        .main-content-overview h1 {
             font-size: 32px;
             font-weight: 700;
             margin-bottom: 20px;
             color: #1f2c3d;
         }
 
-        .metrics-grid {
+        .metrics-grid-overview {
             display: grid;
             grid-template-columns: 1fr;
             gap: 15px;
             margin-bottom: 20px;
         }
         
-        .metric-card {
+        .metric-card-overview {
             background-color: #ffffff;
             padding: 20px;
             border-radius: 10px;
@@ -682,7 +682,7 @@
             gap: 15px;
         }
         
-        .metric-card .icon {
+        .metric-card-overview .icon-overview {
             width: 40px;
             height: 40px;
             padding: 15px;
@@ -692,31 +692,31 @@
             justify-content: center;
         }
         
-        .metric-card .icon.trips { background-color: #eaf5fb; }
-        .metric-card .icon.vehicles { background-color: #eafaf1; }
-        .metric-card .icon.issues { background-color: #fef5f4; }
-        .metric-card .icon.revenue { background-color: #fffaf0; }
-        .metric-card .icon.distance { background-color: #f2eaff; } 
-        .metric-card .icon.clients { background-color: #e6f7ff; } 
+        .metric-card-overview .icon-overview.trips { background-color: #eaf5fb; }
+        .metric-card-overview .icon-overview.vehicles { background-color: #eafaf1; }
+        .metric-card-overview .icon-overview.issues { background-color: #fef5f4; }
+        .metric-card-overview .icon-overview.revenue { background-color: #fffaf0; }
+        .metric-card-overview .icon-overview.distance { background-color: #f2eaff; } 
+        .metric-card-overview .icon-overview.clients { background-color: #e6f7ff; } 
         
-        .metric-card .value {
+        .metric-card-overview .value-overview {
             font-size: 30px;
             font-weight: 700;
             color: #1f2c3d;
         }
         
-        .metric-card .label {
+        .metric-card-overview .label-overview {
             font-size: 15px;
             color: #6c757d;
         }
 
-        .dashboard-columns {
+        .dashboard-columns-overview {
             display: grid;
             grid-template-columns: 1fr;
             gap: 20px;
         }
         
-        .dashboard-card {
+        .dashboard-card-overview {
             background-color: #ffffff;
             border-radius: 10px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
@@ -725,7 +725,7 @@
             flex-direction: column;
         }
         
-        .dashboard-card h2 {
+        .dashboard-card-overview h2 {
             font-size: 20px;
             font-weight: 600;
             margin-top: 0;
@@ -735,13 +735,13 @@
             padding-bottom: 10px;
         }
         
-        .card-content-scrollable {
+        .card-content-scrollable-overview {
             overflow-y: auto;
             flex-grow: 1;
         }
 
         @media (min-width: 576px) {
-            .metrics-grid {
+            .metrics-grid-overview {
                 grid-template-columns: 1fr 1fr;
             }
         }
@@ -759,23 +759,23 @@
                 transform: translateX(0%);
             }
             
-            .main-content {
+            .main-content-overview {
                 margin-left: 260px;
                 padding: 30px;
             }
         }
 
         @media (min-width: 992px) {
-            .metrics-grid {
+            .metrics-grid-overview {
                 grid-template-columns: 1fr 1fr 1fr 1fr;
             }
             
-            .dashboard-columns {
+            .dashboard-columns-overview {
                 grid-template-columns: 2fr 1fr;
             }
         }
         
-        .metric-card .icon img,
+        .metric-card-overview .icon-overview img,
         .alert-item .icon img,
         .quick-btn img {
             max-width: 100%;
@@ -793,19 +793,19 @@
 
 /* ==================== PERFORMANCE  ==================== */
 
-.main-content {
+.main-content-performance {
             padding: 20px;
             color: #333;
         }
         
-        .main-content h1 {
+        .main-content-performance h1 {
             font-size: 32px;
             font-weight: 700;
             margin-bottom: 20px;
             color: #1f2c3d;
         }
         
-        .dashboard-card {
+        .dashboard-card-performance {
             background-color: #ffffff;
             border-radius: 10px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
@@ -815,7 +815,7 @@
             margin-bottom: 20px;
         }
         
-        .dashboard-card h2 {
+        .dashboard-card-performance h2 {
             font-size: 20px;
             font-weight: 600;
             margin-top: 0;
@@ -825,35 +825,35 @@
             padding-bottom: 10px;
         }
         
-        .card-content-scrollable {
+        .card-content-scrollable-performance {
             overflow-y: auto;
             flex-grow: 1;
         }
         
-        .card-content-table-wrapper {
+        .card-content-table-wrapper-performance {
             overflow-x: auto; 
         }
 
-        .content-table {
+        .content-table-performance {
             width: 100%;
             border-collapse: collapse; 
             font-size: 14px;
         }
 
-        .content-table th,
-        .content-table td {
+        .content-table-performance th,
+        .content-table-performance td {
             padding: 12px 15px;
             text-align: left;
             border-bottom: 1px solid #f0f0f0; 
         }
 
-        .content-table th {
+        .content-table-performance th {
             background-color: #f9fafb; 
             font-weight: 600;
             color: #374151;
         }
 
-        .content-table tbody tr:hover {
+        .content-table-performance tbody tr:hover {
             background-color: #f4f7fa; 
         }
         
@@ -870,7 +870,7 @@
                 transform: translateX(0%);
             }
             
-            .main-content {
+            .main-content-performance {
                 margin-left: 260px;
                 padding: 30px;
             }
@@ -889,19 +889,19 @@
 
 /* ==================== TRIPS  ==================== */
 
-.main-content {
+.main-content-trip {
             padding: 20px;
             color: #333;
         }
         
-        .main-content h1 {
+        .main-content-trip h1 {
             font-size: 32px;
             font-weight: 700;
             margin-bottom: 20px;
             color: #1f2c3d;
         }
 
-        .dashboard-columns {
+        .dashboard-columns-trip {
             display: grid;
             grid-template-columns: 1fr;
             gap: 20px;
@@ -917,7 +917,7 @@
             margin-bottom: 20px;
         }
         
-        .dashboard-card h2 {
+        .dashboard-card-trip h2 {
             font-size: 20px;
             font-weight: 600;
             margin-top: 0;
@@ -927,16 +927,16 @@
             padding-bottom: 10px;
         }
         
-        .card-content-scrollable {
+        .card-content-scrollable-trip {
             overflow-y: auto;
             flex-grow: 1;
         }
         
-        .form-group {
+        .form-group-trip {
             margin-bottom: 15px;
         }
         
-        .form-label {
+        .form-label-trip {
             display: block;
             margin-bottom: 5px;
             font-size: 14px;
@@ -944,8 +944,8 @@
             color: #374151;
         }
         
-        .form-input,
-        .form-select {
+        .form-input-trip,
+        .form-select-trip {
             width: 100%;
             padding: 10px 12px;
             font-size: 15px;
@@ -955,14 +955,14 @@
             font-family: Arial, sans-serif; 
         }
         
-        .form-input:focus,
-        .form-select:focus {
+        .form-input-trip:focus,
+        .form-select-trip:focus {
             outline: none;
             border-color: #2980b9;
             box-shadow: 0 0 0 2px #eaf5fb;
         }
         
-        .form-button {
+        .form-button-trip {
             padding: 12px 18px;
             font-size: 15px;
             font-weight: 600;
@@ -974,38 +974,38 @@
             margin-top: 10px;
         }
         
-        .form-button:hover {
+        .form-button-trip:hover {
             background-color: #2471a3;
         }
 
-        .card-content-table-wrapper {
+        .card-content-table-wrapper-trip {
             overflow-x: auto; 
         }
 
-        .content-table {
+        .content-table-trip {
             width: 100%;
             border-collapse: collapse; 
             font-size: 14px;
         }
 
-        .content-table th,
-        .content-table td {
+        .content-table-trip th,
+        .content-table-trip td {
             padding: 12px 15px;
             text-align: left;
             border-bottom: 1px solid #f0f0f0; 
         }
 
-        .content-table th {
+        .content-table-trip th {
             background-color: #f9fafb; 
             font-weight: 600;
             color: #374151;
         }
 
-        .content-table tbody tr:hover {
+        .content-table-trip tbody tr:hover {
             background-color: #f4f7fa; 
         }
 
-        .action-btn {
+        .action-btn-trip {
             border: none;
             padding: 6px 10px;
             border-radius: 6px;
@@ -1014,7 +1014,7 @@
             font-size: 13px;
             margin-right: 5px;
         }
-        .action-btn.edit {
+        .action-btn-trip.edit {
             background-color: #eaf5fb;
             color: #2980b9;
         }
@@ -1023,11 +1023,11 @@
             .mobile-header { display: none; }
             #sidebar-close-btn { display: none; }
             .sidebar { transform: translateX(0%); }
-            .main-content { margin-left: 260px; padding: 30px; }
+            .main-content-trip { margin-left: 260px; padding: 30px; }
         }
 
         @media (min-width: 992px) {
-            .dashboard-columns {
+            .dashboard-columns-trip {
                 grid-template-columns: 1fr 2fr;
             }
         }
@@ -1039,25 +1039,25 @@
 
 /* ==================== VEHICLES  ==================== */
 
- .main-content {
+ .main-content-vehicle {
             padding: 20px;
             color: #333;
         }
         
-        .main-content h1 {
+        .main-content-vehicle h1 {
             font-size: 32px;
             font-weight: 700;
             margin-bottom: 20px;
             color: #1f2c3d;
         }
 
-        .dashboard-columns {
+        .dashboard-columns-vehicle {
             display: grid;
             grid-template-columns: 1fr;
             gap: 20px;
         }
         
-        .dashboard-card {
+        .dashboard-card-vehicle {
             background-color: #ffffff;
             border-radius: 10px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
@@ -1067,7 +1067,7 @@
             margin-bottom: 20px;
         }
         
-        .dashboard-card h2 {
+        .dashboard-card-vehicle h2 {
             font-size: 20px;
             font-weight: 600;
             margin-top: 0;
@@ -1077,16 +1077,16 @@
             padding-bottom: 10px;
         }
         
-        .card-content-scrollable {
+        .card-content-scrollable-vehicle {
             overflow-y: auto;
             flex-grow: 1;
         }
         
-        .form-group {
+        .form-group-vehicle {
             margin-bottom: 15px;
         }
         
-        .form-label {
+        .form-label-vehicle {
             display: block;
             margin-bottom: 5px;
             font-size: 14px;
@@ -1094,8 +1094,8 @@
             color: #374151;
         }
         
-        .form-input,
-        .form-select {
+        .form-input-vehicle,
+        .form-select-vehicle {
             width: 100%;
             padding: 10px 12px;
             font-size: 15px;
@@ -1105,14 +1105,14 @@
             font-family: Arial, sans-serif; 
         }
         
-        .form-input:focus,
-        .form-select:focus {
+        .form-input-vehicle:focus,
+        .form-select-vehicle:focus {
             outline: none;
             border-color: #2980b9;
             box-shadow: 0 0 0 2px #eaf5fb;
         }
         
-        .form-button {
+        .form-button-vehicle {
             padding: 12px 18px;
             font-size: 15px;
             font-weight: 600;
@@ -1122,41 +1122,40 @@
             border-radius: 6px;
             cursor: pointer;
             margin-top: 10px;
-            margin-left: 628px;
         }
         
-        .form-button:hover {
+        .form-button-vehicle:hover {
             background-color: #2471a3;
         }
 
-        .card-content-table-wrapper {
+        .card-content-table-wrapper-vehicle {
             overflow-x: auto; 
         }
 
-        .content-table {
+        .content-table-vehicle {
             width: 100%;
             border-collapse: collapse; 
             font-size: 14px;
         }
 
-        .content-table th,
-        .content-table td {
+        .content-table-vehicle th,
+        .content-table-vehicle td {
             padding: 12px 15px;
             text-align: left;
             border-bottom: 1px solid #f0f0f0; 
         }
 
-        .content-table th {
+        .content-table-vehicle th {
             background-color: #f9fafb; 
             font-weight: 600;
             color: #374151;
         }
 
-        .content-table tbody tr:hover {
+        .content-table-vehicle tbody tr:hover {
             background-color: #f4f7fa; 
         }
 
-        .action-btn {
+        .action-btn-vehicle {
             border: none;
             padding: 6px 10px;
             border-radius: 6px;
@@ -1165,47 +1164,46 @@
             font-size: 13px;
             margin-right: 5px;
         }
-        .action-btn.edit {
+        .action-btn-vehicle.edit {
             background-color: #eaf5fb;
             color: #2980b9;
         }
-        .action-btn.archive {
+        .action-btn-vehicle.archive {
             background-color: #fef5f4;
             color: #e74c3c;
         }
 
-        /* --- NEW: Vehicle Status Styles --- */
-        .status-badge {
+        .status-badge-vehicle {
             display: inline-block;
             padding: 5px 10px;
             border-radius: 20px;
             font-size: 13px;
             font-weight: 600;
         }
-        .status-badge.available {
+        .status-badge-vehicle.available {
             background-color: #eafaf1;
             color: #27ae60;
         }
-        .status-badge.on-trip {
+        .status-badge-vehicle.on-trip {
             background-color: #eaf5fb;
             color: #2980b9;
         }
-        .status-badge.maintenance {
+        .status-badge-vehicle.maintenance {
             background-color: #fef5f4;
             color: #e74c3c;
         }
         
-        .status-info {
+        .status-info-vehicle {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 10px 0;
             border-bottom: 1px solid #f0f0f0;
         }
-        .status-info:last-child {
+        .status-info-vehicle:last-child {
             border-bottom: none;
         }
-        .status-info-name {
+        .status-info-name-vehicle {
             font-size: 16px;
             font-weight: 600;
             color: #333;
@@ -1215,11 +1213,11 @@
             .mobile-header { display: none; }
             #sidebar-close-btn { display: none; }
             .sidebar { transform: translateX(0%); }
-            .main-content { margin-left: 260px; padding: 30px; }
+            .main-content-vehicle { margin-left: 260px; padding: 30px; }
         }
 
         @media (min-width: 992px) {
-            .dashboard-columns {
+            .dashboard-columns-vehicle {
                 grid-template-columns: 1fr 1fr;
             }
         }
@@ -1228,26 +1226,26 @@
 
 /* ==================== ADMIN DASHBOARD ==================== */
 
- .main-content {
+ .main-content-dashboard {
             padding: 20px;
             color: #333;
         }
 
-        .main-content h1 {
+        .main-content-dashboard h1 {
             font-size: 32px;
             font-weight: 700;
             margin-bottom: 20px;
             color: #1f2c3d;
         }
 
-        .metrics-grid {
+        .metrics-grid-dashboard {
             display: grid;
             grid-template-columns: 1fr; 
             gap: 15px;
             margin-bottom: 20px;
         }
 
-        .metric-card {
+        .metric-card-dashboard {
             background-color: #ffffff;
             padding: 20px;
             border-radius: 10px;
@@ -1257,7 +1255,7 @@
             gap: 15px;
         }
         
-        .metric-card .icon {
+        .metric-card-dashboard .icon-dashboard {
             width: 60px; 
             height: 60px;
             padding: 15px;
@@ -1267,28 +1265,28 @@
             justify-content: center;
         }
 
-        .metric-card .icon.trips { background-color: #eaf5fb; }
-        .metric-card .icon.vehicles { background-color: #eafaf1; }
-        .metric-card .icon.issues { background-color: #fef5f4; }
+        .metric-card-dashboard .icon-dashboard.trips { background-color: #eaf5fb; }
+        .metric-card-dashboard .icon-dashboard.vehicles { background-color: #eafaf1; }
+        .metric-card-dashboard .icon-dashboard.issues { background-color: #fef5f4; }
 
-        .metric-card .value {
+        .metric-card-dashboard .value-dashboard {
             font-size: 30px;
             font-weight: 700;
             color: #1f2c3d;
         }
         
-        .metric-card .label {
+        .metric-card-dashboard .label-dashboard {
             font-size: 15px;
             color: #6c757d;
         }
 
-        .dashboard-columns {
+        .dashboard-columns-dashboard {
             display: grid;
             grid-template-columns: 1fr;
             gap: 20px;
         }
 
-        .dashboard-card {
+        .dashboard-card-dashboard {
             background-color: #ffffff;
             border-radius: 10px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
@@ -1298,7 +1296,7 @@
             flex-direction: column;
         }
 
-        .dashboard-card h2 {
+        .dashboard-card-dashboard h2 {
             font-size: 20px;
             font-weight: 600;
             margin-top: 0;
@@ -1308,14 +1306,14 @@
             padding-bottom: 10px;
         }
         
-        .card-content-scrollable {
+        .card-content-scrollable-dashboard {
             overflow-y: auto;
             flex-grow: 1;
         }
 
-        .trip-list { list-style: none; }
+        .trip-list-dashboard { list-style: none; }
 
-        .trip-item, .alert-item {
+        .trip-item-dashboard, .alert-item-dashboard {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -1323,10 +1321,10 @@
             border-bottom: 1px solid #f0f0f0;
         }
 
-        .trip-item .driver { font-weight: 600; }
-        .trip-item .details { font-size: 14px; color: #777; }
+        .trip-item-dashboard .driver-dashboard { font-weight: 600; }
+        .trip-item-dashboard .details-dashboard { font-size: 14px; color: #777; }
 
-        .trip-item .status {
+        .trip-item-dashboard .status-dashboard {
             background-color: #eafaf1;
             color: #27ae60;
             padding: 5px 10px;
@@ -1335,17 +1333,17 @@
             font-weight: 600;
         }
         
-        .alert-item .icon { 
+        .alert-item-dashboard .icon-dashboard { 
             width: 20px; 
             height: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
         }
-        .alert-item .details { flex-grow: 1; margin: 0 10px; }
-        .alert-item .vehicle { font-weight: 600; }
-        .alert-item .issue { font-size: 14px; color: #777; }
-        .alert-item .view-btn {
+        .alert-item-dashboard .details-dashboard { flex-grow: 1; margin: 0 10px; }
+        .alert-item-dashboard .vehicle-dashboard { font-weight: 600; }
+        .alert-item-dashboard .issue-dashboard { font-size: 14px; color: #777; }
+        .alert-item-dashboard .view-btn-dashboard {
             background-color: #fef5f4;
             color: #e74c3c;
             border: none;
@@ -1355,11 +1353,9 @@
             font-weight: 600;
             font-size: 13px;
         }
-
-        /* Quick actions styles are no longer needed */
         
         @media (min-width: 576px) {
-            .metrics-grid {
+            .metrics-grid-dashboard {
                 grid-template-columns: 1fr 1fr; 
             }
         }
@@ -1377,24 +1373,24 @@
                 transform: translateX(0%);
             }
 
-            .main-content {
+            .main-content-dashboard {
                 margin-left: 260px;
                 padding: 30px;
             }
         }
 
         @media (min-width: 992px) {
-            .metrics-grid {
+            .metrics-grid-dashboard {
                 grid-template-columns: 1fr 1fr 1fr; 
             }
 
-            .dashboard-columns {
+            .dashboard-columns-dashboard {
                 grid-template-columns: 2fr 1fr;
             }
         }
         
-        .metric-card .icon img,
-        .alert-item .icon img,
+        .metric-card-dashboard .icon-dashboard img,
+        .alert-item-dashboard .icon-dashboard img,
         .quick-btn img {
             max-width: 100%;
             max-height: 100%;

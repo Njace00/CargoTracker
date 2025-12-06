@@ -50,14 +50,14 @@ if (!isset($_SESSION['account_id']) || $_SESSION['role'] != 2) {
         </div>
     </div>
 
-    <div class="main-content">
+    <div class="main-content-performance">
         
         <h1>Performance Analytics</h1>
 
-        <div class="dashboard-card">
+        <div class="dashboard-card-performance">
             <h2>Driver Performance</h2>
-            <div class="card-content-table-wrapper">
-                <table class="content-table">
+            <div class="card-content-table-wrapper-performance">
+                <table class="content-table-performance">
                     <thead>
                         <tr>
                             <th>Driver Name</th>
@@ -91,10 +91,10 @@ if (!isset($_SESSION['account_id']) || $_SESSION['role'] != 2) {
             </div>
         </div>
 
-        <div class="dashboard-card">
+        <div class="dashboard-card-performance">
             <h2>Vehicle Performance</h2>
-            <div class="card-content-table-wrapper">
-                <table class="content-table">
+            <div class="card-content-table-wrapper-performance">
+                <table class="content-table-performance">
                     <thead>
                         <tr>
                             <th>Vehicle (Plate)</th>

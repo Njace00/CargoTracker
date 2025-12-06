@@ -60,19 +60,19 @@ $result1 = mysqli_query($conn, $query);
         </div>
     </div>
 
-    <div class="main-content">
+    <div class="main-content-trip">
         
         <h1>Trip Management</h1>
 
-        <div class="dashboard-columns">
+        <div class="dashboard-columns-trip">
 
             <div class="dashboard-card-trip">
                 <h2>Create New Trip</h2>
                 <form action="#">
                     
-                    <div class="form-group">
-                        <label for="trip_driver" class="form-label">Assign Driver</label>
-                        <select id="trip_driver" class="form-select">
+                    <div class="form-group-trip">
+                        <label for="trip_driver" class="form-label-trip">Assign Driver</label>
+                        <select id="trip_driver" class="form-select-trip">
                             <option value="">Select a driver...</option>
                             <?php while ($row = mysqli_fetch_assoc($result)): ?>
                             <option value="<?php echo htmlspecialchars($row['fullname']);?>"><?php echo htmlspecialchars($row['fullname']);?></option>
@@ -80,9 +80,9 @@ $result1 = mysqli_query($conn, $query);
                         </select>
                     </div>
 
-                    <div class="form-group">
-                        <label for="trip_vehicle" class="form-label">Assign Vehicle</label>
-                        <select id="trip_vehicle" class="form-select">
+                    <div class="form-group-trip">
+                        <label for="trip_vehicle" class="form-label-trip">Assign Vehicle</label>
+                        <select id="trip_vehicle" class="form-select-trip">
                             <option value="">Select an available vehicle...</option>
                             <?php while ($row = mysqli_fetch_assoc($result1)): ?>
                             <option value="1"><?php echo htmlspecialchars($row['vehicle_name']);?></option>
@@ -90,35 +90,35 @@ $result1 = mysqli_query($conn, $query);
                         </select>
                     </div>
 
-                    <div class="form-group">
-                        <label for="trip_client" class="form-label">Assign Client</label>
-                        <select id="trip_client" class="form-select">
+                    <div class="form-group-trip">
+                        <label for="trip_client" class="form-label-trip">Assign Client</label>
+                        <select id="trip_client" class="form-select-trip">
                             <option value="">Select a client...</option>
                             <option value="1">Client A (Manila)</option>
                             <option value="2">Client B (Batangas)</option>
                         </select>
                     </div>
 
-                    <div class="form-group">
-                        <label for="trip_destination" class="form-label">Destination</label>
-                        <input type="text" id="trip_destination" class="form-input" placeholder="e.g., Manila Port" required>
+                    <div class="form-group-trip">
+                        <label for="trip_destination" class="form-label-trip">Destination</label>
+                        <input type="text" id="trip_destination" class="form-input-trip" placeholder="e.g., Manila Port" required>
                     </div>
 
                     
 
-                    <div class="form-group">
-                        <label for="trip_distance" class="form-label">Distance (km)</label>
-                        <input type="number" id="trip_distance" class="form-input" placeholder="e.g., 85">
+                    <div class="form-group-trip">
+                        <label for="trip_distance" class="form-label-trip">Distance (km)</label>
+                        <input type="number" id="trip_distance" class="form-input-trip" placeholder="e.g., 85">
                     </div>
                     
-                    <button type="submit" class="form-button">Create Trip</button>
+                    <button type="submit" class="form-button-trip">Create Trip</button>
                 </form>
             </div>
 
-            <div class="dashboard-card">
+            <div class="dashboard-card-trip">
                 <h2>All Trips</h2>
-                <div class="card-content-table-wrapper">
-                    <table class="content-table">
+                <div class="card-content-table-wrapper-trip">
+                    <table class="content-table-trip">
                         <thead>
                             <tr>
                                 <th>Driver</th>
@@ -134,7 +134,7 @@ $result1 = mysqli_query($conn, $query);
                                 <td>truck-1</td>
                                 <td>Manila Port</td>
                                 <td>Ongoing</td>                           
-                                <td><button class="action-btn edit">View/Edit</button></td>
+                                <td><button class="action-btn-trip edit">View/Edit</button></td>
                             </tr>
                             <tr>
                                 <td>Driefen Alfonso</td>
@@ -142,14 +142,14 @@ $result1 = mysqli_query($conn, $query);
                                 <td>Batangas</td>
                                 <td>Ongoing</td>
                                
-                                <td><button class="action-btn edit">View/Edit</button></td>
+                                <td><button class="action-btn-trip edit">View/Edit</button></td>
                             </tr>
                             <tr>
                                 <td>Edward Ringor</td>
                                 <td>truck-2</td>
                                 <td>Quezon City</td>
                                 <td>Completed</td>
-                                <td><button class="action-btn edit">View/Edit</button></td>
+                                <td><button class="action-btn-trip edit">View/Edit</button></td>
                             </tr>
                         </tbody>
                     </table>

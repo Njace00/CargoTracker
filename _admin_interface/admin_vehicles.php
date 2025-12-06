@@ -1,0 +1,166 @@
+<?php
+include '../__back-end_processes/db_connect.php';
+session_start();
+
+// If not logged in OR not driver, redirect away
+if (!isset($_SESSION['account_id']) || $_SESSION['role'] != 2) {
+    header("Location: ../_user_interface/user_signup.php");
+    exit();
+}
+
+
+
+$query = "SELECT * FROM vehicles WHERE is_archived = 0";
+$result = mysqli_query($conn, $query);
+//2nd re-query for the 2nd loop
+$result1 = mysqli_query($conn, $query);
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GNBTL Admin - Vehicle Management</title>
+    <link rel="icon" type="image/x-icon" href="../images/favicon.jpg">
+    <link rel="stylesheet" href="../css/admin_style.css">
+</head>
+<body>
+
+    <div class="mobile-header">
+        <button id="menu-toggle-btn">
+            <span class="menu-icon-line"></span>
+            <span class="menu-icon-line"></span>
+            <span class="menu-icon-line"></span>
+        </button>
+        <div class="mobile-header-title">GNBTL</div>
+    </div>
+
+    <div class="sidebar" id="sidebar">
+        <button id="sidebar-close-btn">&times;</button>
+        <div class="sidebar-header"> GNBTL </div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="../_admin_interface/admin.php">Dashboard</a></li>
+                <li><a href="../_admin_interface/admin_overview.php">Overview Metrics</a></li>
+                <li><a href="../_admin_interface/admin_trips.php">Trips</a></li>
+                <li><a href="../_admin_interface/admin_vehicles.php">Vehicles</a></li>
+                <li><a href="../_admin_interface/admin_performance.php">Performance</a></li>
+                <li><a href="../_admin_interface/admin_activity.php">Recent Activity</a></li>
+                <li><a href="../_admin_interface/admin_accounts.php">Driver Accounts</a></li>
+                <li><a href="../_admin_interface/admin_announcement.php">Announcement</a></li>
+            </ul>
+        </nav>
+        <div class="logout-container">
+            <form action="../__back-end_processes/auth_logout.php" method="post">
+                <button class="logout-btn">Log out</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="main-content">
+        
+        <h1>Vehicle Management</h1>
+
+        <div class="dashboard-columns">
+
+            <div class="dashboard-card">
+                <h2>Add New Vehicle</h2>
+                <form method="POST" action="../__back-end_processes\processs_add_vehicle.php" >
+                    <div class="form-group">
+                        <label for="vehicle_name" class="form-label" >Vehicle Name</label>
+                        <input name="vehicle_name" type="text" id="vehicle_name" class="form-input" placeholder="e.g., truck-1"  required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="vehicle_class" class="form-label">Class</label>
+                        <select id="vehicle_class" class="form-select" name="vehicle_type">
+                            <option value="rigid">Rigid</option>
+                            <option value="trailer">Trailer</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="vehicle_size" class="form-label">Size</label>
+                        <select id="vehicle_size" class="form-select" name="vehicle_class">
+                            <option value="2-tonner">2-tonner</option>
+                            <option value="5-tonner">5-tonner</option>
+                            <option value="10-tonner">10-tonner</option>
+                        </select>
+                    </div>
+                    
+                    <button type="submit" class="form-button">Add Vehicle</button>
+                </form>
+            </div>
+
+            <div class="dashboard-card">
+                <h2>Vehicle Status</h2>
+                <div class="card-content-scrollable">
+                    <?php while ($row = mysqli_fetch_assoc($result)): ?>
+                    <div class="status-info">
+                        <span class="status-info-name"><?php echo htmlspecialchars($row['vehicle_name']);?></span>
+                        <span class="status-badge available"><?php echo htmlspecialchars($row['status']);?></span>
+                    </div>
+                    <?php endwhile; ?>
+                    
+                </div>
+            </div>
+
+            <div class="dashboard-card" style="grid-column: 1 / -1;">
+                <h2>Vehicle List</h2>
+                <div class="card-content-table-wrapper">
+                    <table class="content-table">
+                        
+                        <thead>
+                            <tr>
+                                <th>Vehicle Name</th>
+                                <th>Class</th>
+                                <th>Size</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php while ($row = mysqli_fetch_assoc($result1)): ?>
+                            <tr>
+                                <td><?php echo htmlspecialchars($row['vehicle_name']);?></td>
+                                <td><?php echo htmlspecialchars($row['vehicle_type']);?></td>
+                                <td><?php echo htmlspecialchars($row['vehicle_class']);?></td>
+                                <td>
+                                    <button class="action-btn edit">Edit</button>
+                                    <form method="POST" action="../__back-end_processes/process_archive-vehicles.php">
+                                        <input type="hidden" name="vehicle_name" value="<?php echo htmlspecialchars($row['vehicle_name']); ?>">
+                                        <button type="submit" class="action-btn archive">Archive</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            <?php endwhile; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+        </div>
+        
+    </div>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var menuButton = document.getElementById("menu-toggle-btn");
+            var closeButton = document.getElementById("sidebar-close-btn");
+            var sidebar = document.getElementById("sidebar");
+            menuButton.addEventListener("click", function() { sidebar.classList.add("open"); });
+            closeButton.addEventListener("click", function() { sidebar.classList.remove("open"); });
+
+            const currentPage = window.location.pathname.split('/').pop();
+            const navLinks = document.querySelectorAll('.nav-links a');
+
+            navLinks.forEach(link => {
+                const linkPage = link.getAttribute('href').split('/').pop();
+                if (linkPage === currentPage) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

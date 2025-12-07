@@ -88,7 +88,7 @@ $result2 = mysqli_query($conn, $query);
                         <select id="trip_vehicle" class="form-select-trip" name="assigned_Vehicle">
                             <option value="">Select an available vehicle...</option>
                             <?php while ($row = mysqli_fetch_assoc($result1)): ?>
-                            <option value="1"><?php echo htmlspecialchars($row['vehicle_name']);?></option>
+                            <option value="<?php echo htmlspecialchars($row['vehicle_name']);?>"><?php echo htmlspecialchars($row['vehicle_name']);?></option>
                             <?php endwhile; ?>
                         </select>
                     </div>

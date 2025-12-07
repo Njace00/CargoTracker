@@ -1,7 +1,7 @@
 <?php
 include '../__back-end_processes/db_connect.php';
 $Driver = $_POST['assigned_Driver'] ?? '';
-$Vehicle = $_POST['assign_Driver'] ?? '';
+$Vehicle = $_POST['assigned_Vehicle'] ?? '';
 $Client = $_POST['Client'] ?? '';
 $Destination = $_POST['delivery_Destination'] ?? '';
 

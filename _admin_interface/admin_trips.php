@@ -17,6 +17,10 @@ $result = mysqli_query($conn, $query);
 
 $query = "SELECT * FROM vehicles";
 $result1 = mysqli_query($conn, $query);
+
+
+$query = "SELECT * FROM trips";
+$result2 = mysqli_query($conn, $query);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -68,11 +72,10 @@ $result1 = mysqli_query($conn, $query);
 
             <div class="dashboard-card-trip">
                 <h2>Create New Trip</h2>
-                <form action="#">
-                    
+                <form action="../__back-end_processes/process_add_trips.php" method="POST">
                     <div class="form-group-trip">
                         <label for="trip_driver" class="form-label-trip">Assign Driver</label>
-                        <select id="trip_driver" class="form-select-trip">
+                        <select id="trip_driver" class="form-select-trip" name="assigned_Driver">
                             <option value="">Select a driver...</option>
                             <?php while ($row = mysqli_fetch_assoc($result)): ?>
                             <option value="<?php echo htmlspecialchars($row['fullname']);?>"><?php echo htmlspecialchars($row['fullname']);?></option>
@@ -82,7 +85,7 @@ $result1 = mysqli_query($conn, $query);
 
                     <div class="form-group-trip">
                         <label for="trip_vehicle" class="form-label-trip">Assign Vehicle</label>
-                        <select id="trip_vehicle" class="form-select-trip">
+                        <select id="trip_vehicle" class="form-select-trip" name="assigned_Vehicle">
                             <option value="">Select an available vehicle...</option>
                             <?php while ($row = mysqli_fetch_assoc($result1)): ?>
                             <option value="1"><?php echo htmlspecialchars($row['vehicle_name']);?></option>
@@ -92,7 +95,7 @@ $result1 = mysqli_query($conn, $query);
 
                     <div class="form-group-trip">
                         <label for="trip_client" class="form-label-trip">Assign Client</label>
-                        <select id="trip_client" class="form-select-trip">
+                        <select id="trip_client" class="form-select-trip" name="Client">
                             <option value="">Select a client...</option>
                             <option value="1">Client A (Manila)</option>
                             <option value="2">Client B (Batangas)</option>
@@ -101,15 +104,15 @@ $result1 = mysqli_query($conn, $query);
 
                     <div class="form-group-trip">
                         <label for="trip_destination" class="form-label-trip">Destination</label>
-                        <input type="text" id="trip_destination" class="form-input-trip" placeholder="e.g., Manila Port" required>
+                        <input type="text" id="trip_destination" class="form-input-trip" placeholder="e.g., Manila Port" name="delivery_Destination" required>
                     </div>
 
                     
 
-                    <div class="form-group-trip">
+                    <!-- <div class="form-group-trip">
                         <label for="trip_distance" class="form-label-trip">Distance (km)</label>
                         <input type="number" id="trip_distance" class="form-input-trip" placeholder="e.g., 85">
-                    </div>
+                    </div> -->
                     
                     <button type="submit" class="form-button-trip">Create Trip</button>
                 </form>
@@ -121,35 +124,30 @@ $result1 = mysqli_query($conn, $query);
                     <table class="content-table-trip">
                         <thead>
                             <tr>
+                                <th>Trip ID</th>
                                 <th>Driver</th>
                                 <th>Vehicle</th>
+                                <th>Client</th>
                                 <th>Destination</th>
-                                <th>Status</th>                              
+                                <th>Type</th>
+                                <th>Status</th>
+                                <th>Created</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
+                            <?php while ($row = mysqli_fetch_assoc($result2)): ?>
                             <tr>
-                                <td>Neil Jason Flores</td>
-                                <td>truck-1</td>
-                                <td>Manila Port</td>
-                                <td>Ongoing</td>                           
+                                <td><?php echo htmlspecialchars($row['trip_id']);?></td>
+                                <td><?php echo htmlspecialchars($row['driver']);?></td>
+                                <td><?php echo htmlspecialchars($row['vehicle']);?></td>
+                                <td><?php echo htmlspecialchars($row['client']);?></td>
+                                <td><?php echo htmlspecialchars($row['destination']);?></td>
+                                <td><?php echo htmlspecialchars($row['trip_type']);?></td>
+                                <td><?php echo htmlspecialchars($row['status']);?></td>
+                                <td><?php echo htmlspecialchars($row['created_at']);?></td>                    
                                 <td><button class="action-btn-trip edit">View/Edit</button></td>
-                            </tr>
-                            <tr>
-                                <td>Driefen Alfonso</td>
-                                <td>truck-3</td>
-                                <td>Batangas</td>
-                                <td>Ongoing</td>
-                               
-                                <td><button class="action-btn-trip edit">View/Edit</button></td>
-                            </tr>
-                            <tr>
-                                <td>Edward Ringor</td>
-                                <td>truck-2</td>
-                                <td>Quezon City</td>
-                                <td>Completed</td>
-                                <td><button class="action-btn-trip edit">View/Edit</button></td>
+                            <?php endwhile?>
                             </tr>
                         </tbody>
                     </table>

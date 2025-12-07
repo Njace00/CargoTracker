@@ -164,3 +164,44 @@ $result1 = mysqli_query($conn, $query);
 
 </body>
 </html>
+
+
+
+
+
+
+
+CREATE TABLE trips (
+    trip_id INT PRIMARY KEY AUTO_INCREMENT,
+    driver_id INT NOT NULL,
+    vehicle_id INT NOT NULL,
+    client_id INT NOT NULL,
+    destination VARCHAR(255) NOT NULL,
+    trip_type ENUM('reservation', 'call-in') NOT NULL DEFAULT 'call-in',
+    status ENUM('pending', 'in-progress', 'completed', 'cancelled') NOT NULL DEFAULT 'pending',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    started_at DATETIME NULL,
+    completed_at DATETIME NULL,
+    notes TEXT NULL,
+    FOREIGN KEY (driver_id) REFERENCES account(account_id),
+    FOREIGN KEY (vehicle_id) REFERENCES vehicles(vehicle_id),
+    FOREIGN KEY (client_id) REFERENCES clients(client_id)
+);
+
+
+CREATE TABLE trips (
+    trip_id INT PRIMARY KEY AUTO_INCREMENT,
+    driver_id INT NOT NULL,
+    vehicle_id INT NOT NULL,
+    client_id INT NOT NULL,
+    destination VARCHAR(255) NOT NULL,
+    trip_type ENUM('reservation', 'call-in') NOT NULL DEFAULT 'call-in',
+    status ENUM('pending', 'in-progress', 'completed', 'cancelled') NOT NULL DEFAULT 'pending',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    started_at DATETIME NULL,
+    completed_at DATETIME NULL,
+    notes TEXT NULL,
+    FOREIGN KEY (driver_id) REFERENCES account(account_id),
+    FOREIGN KEY (vehicle_id) REFERENCES vehicles(vehicle_id),
+    FOREIGN KEY (client_id) REFERENCES clients(client_id)
+);

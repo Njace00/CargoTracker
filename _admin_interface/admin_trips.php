@@ -103,6 +103,15 @@ $result2 = mysqli_query($conn, $query);
                     </div>
 
                     <div class="form-group-trip">
+                        <label for="trip_driver" class="form-label-trip">Type of Delivery</label>
+                        <select id="trip_driver" class="form-select-trip" name="tripType">
+                            <option value="">Type of Delivery</option>
+                            <option value="call-in">Call-in</option>
+                            <option value="reservation">Reservation</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group-trip">
                         <label for="trip_destination" class="form-label-trip">Destination</label>
                         <input type="text" id="trip_destination" class="form-input-trip" placeholder="e.g., Manila Port" name="delivery_Destination" required>
                     </div>

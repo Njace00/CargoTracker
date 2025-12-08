@@ -12,6 +12,8 @@ if (!isset($_SESSION['account_id']) || $_SESSION['role'] != 1) {
 $query = "SELECT vehicle_name FROM vehicles";
 $result = mysqli_query($conn, $query);
 
+$query = "SELECT * FROM trips WHERE driver = 'Jake Edward Kenway'";
+$result_Job = mysqli_query($conn, $query);
 
 ?>
 <!DOCTYPE html>
@@ -113,25 +115,23 @@ $result = mysqli_query($conn, $query);
     <div class="main-content">
         
         <h1>Assigned Jobs</h1>
-
         <div class="job-list-container">
+            <?php while ($row = mysqli_fetch_assoc($result_Job)): ?>
             <div class="job-card">
-                <p class="job-label">Tracking ID</p>
-                <h1>GNBTL-R5F7GE3</h1>
+                <p class="job-label">Trip ID</p>
+                <h1><?php echo htmlspecialchars($row['trip_id']); ?></h1>
+                <p class="job-label">Driver</p>
+                <h1><?php echo htmlspecialchars($row['driver']); ?></h1>
+                <p class="job-label">Assigned_Vehicle</p>
+                <h1><?php echo htmlspecialchars($row['vehicle']); ?></h1>
                 <p class="job-label">Destination</p>
-                <h1>Antipolo City</h1>
+                <h1><?php echo htmlspecialchars($row['destination']); ?></h1>
                 <p class="job-label">Date</p>
-                <h1>12-23-2025</h1>
+                <h1><?php echo htmlspecialchars($row['created_at']); ?></h1>
+                <p class="job-label">Status</p>
+                <h1><?php echo htmlspecialchars($row['status']); ?></h1>
             </div>
-
-            <div class="job-card">
-                <p class="job-label">Tracking ID</p>
-                <h1>GNBTL-A8F2K19</h1>
-                <p class="job-label">Destination</p>
-                <h1>Batangas Port</h1>
-                <p class="job-label">Date</p>
-                <h1>12-24-2025</h1>
-            </div>
+            <?php endwhile; ?>
         </div>
 
     </div>

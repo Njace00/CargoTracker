@@ -38,7 +38,6 @@ $result = mysqli_query($conn, $query);
     <title>Driver - Announcements</title>
     <link rel="icon" type="image/x-icon" href="../images/favicon.jpg">
     <link rel="stylesheet" href="../css/driver_style.css">
-   
 </head>
 
 <body>

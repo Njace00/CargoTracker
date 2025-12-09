@@ -15,6 +15,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     values ('$name', '$email','$hash_pwd', '$role')";
 
     $query = mysqli_query($conn, $insert);
+
+    header("Location: ../_user_interface/user_signup.php");
    
 
     

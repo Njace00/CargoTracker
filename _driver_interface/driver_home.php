@@ -1,10 +1,26 @@
 <?php
+include '../__back-end_processes/db_connect.php';
 session_start();
 
 // If not logged in OR not driver, redirect away
 if (!isset($_SESSION['account_id']) || $_SESSION['role'] != 1) {
     header("Location: ../_user_interface/user_signup.php");
     exit();
+}
+
+$logged_in_username = null;
+if (isset($_SESSION['account_id'])) {
+    $account_id = $_SESSION['account_id'];
+    $query = "SELECT username FROM account WHERE account_id = ?";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("i", $account_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    
+    if ($row = $result->fetch_assoc()) {
+        $logged_in_username = $row['username'];
+    }
+    $stmt->close();
 }
 ?>
 <!DOCTYPE html>
@@ -155,6 +171,10 @@ if (!isset($_SESSION['account_id']) || $_SESSION['role'] != 1) {
             background-color: #c9302c;
         }
 
+        .username-display{
+            font-size: 1rem;
+        }
+
     </style>
 </head>
 <body>
@@ -170,7 +190,14 @@ if (!isset($_SESSION['account_id']) || $_SESSION['role'] != 1) {
 
     <div class="sidebar" id="sidebar">
         <button id="sidebar-close-btn">&times;</button>
-        <div class="sidebar-header"> GNBTL </div>
+         <div class="sidebar-header">
+            GNBTL
+            <?php if ($logged_in_username): ?>
+                <div class="username-display">
+                   User: <?php echo htmlspecialchars($logged_in_username); ?>
+                </div>
+            <?php endif; ?>
+        </div>
         <nav>
             <ul class="nav-links">
                 <li><a href="../_driver_interface/driver_home.php">Dashboard</a></li>
@@ -197,22 +224,22 @@ if (!isset($_SESSION['account_id']) || $_SESSION['role'] != 1) {
             <div class="dashboard-card job-card-content">
                 <h2>Current Assigned Job</h2>
                 <p class="job-label">Tracking ID</p>
-                <h3>GNBTL-R5F7GE3</h3>
+                <h3>No Job assigned yet...</h3>
 
                 <p class="job-label">Destination</p>
-                <h3>Antipolo City</h3>
+                <h3>No Job assigned yet...</h3>
 
                 <p class="job-label">Date</p>
-                <h3>12-23-2025</h3>
+                <h3>No Job assigned yet...</h3>
             </div>
 
             <div class="dashboard-card">
-                <h2>Your Weekly Stats</h2>
+                <h2>ANO PWEDE ILAGAY</h2>
                 <ul class="stat-list">
-                    <li><span>Trips This Week:</span> <strong>5</strong></li>
-                    <li><span>Total Distance:</span> <strong>450 km</strong></li>
-                    <li><span>On-Time Rate:</span> <strong>98%</strong></li>
-                    <li><span>Issues Reported:</span> <strong>1</strong></li>
+                    <li><span>ANO PWEDE ILAGAY</span> <strong>ANO PWEDE ILAGAY</strong></li>
+                    <li><span>ANO PWEDE ILAGAY</span> <strong>ANO PWEDE ILAGAY</strong></li>
+                    <li><span>ANO PWEDE ILAGAY</span> <strong>ANO PWEDE ILAGAY</strong></li>
+                    <li><span>ANO PWEDE ILAGAY</span> <strong>ANO PWEDE ILAGAY</strong></li>
                 </ul>
             </div>
 
@@ -226,7 +253,7 @@ if (!isset($_SESSION['account_id']) || $_SESSION['role'] != 1) {
             
             <div class="dashboard-card">
                 <h2>Quick Actions</h2>
-                <button class="quick-btn">Report Vehicle Issue</button>
+                <button class="quick-btn">Report</button>
             </div>
 
         </div>

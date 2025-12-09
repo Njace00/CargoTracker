@@ -8,6 +8,21 @@ if (!isset($_SESSION['account_id']) || $_SESSION['role'] != 1) {
     exit();
 }
 
+$logged_in_username = null;
+if (isset($_SESSION['account_id'])) {
+    $account_id = $_SESSION['account_id'];
+    $query = "SELECT username FROM account WHERE account_id = ?";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("i", $account_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    
+    if ($row = $result->fetch_assoc()) {
+        $logged_in_username = $row['username'];
+    }
+    $stmt->close();
+}
+
 
 
 // Retrieve announcements
@@ -21,6 +36,7 @@ $result = mysqli_query($conn, $query);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Driver - Announcements</title>
     <link rel="icon" type="image/x-icon" href="../images/favicon.jpg">
+ 
     <style>
         /* --- 1. Basic Setup (from Admin) --- */
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -124,6 +140,11 @@ $result = mysqli_query($conn, $query);
             color: #e74c3c; 
         }
 
+        .username-display{
+            font-size: 1rem;
+        }
+        
+
     </style>
 </head>
 <body>
@@ -139,7 +160,17 @@ $result = mysqli_query($conn, $query);
 
     <div class="sidebar" id="sidebar">
         <button id="sidebar-close-btn">&times;</button>
-        <div class="sidebar-header"> GNBTL </div>
+        <div class="sidebar-header">
+            GNBTL
+            <?php if ($logged_in_username): ?>
+                <div class="username-display">
+                    User: <?php echo htmlspecialchars($logged_in_username); ?>
+                </div>
+            <?php endif; ?>
+        </div>
+        
+
+        
         <nav>
             <ul class="nav-links">
                 <li><a href="../_driver_interface/driver_home.php">Dashboard</a></li>

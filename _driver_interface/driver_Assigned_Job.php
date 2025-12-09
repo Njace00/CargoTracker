@@ -8,11 +8,28 @@ if (!isset($_SESSION['account_id']) || $_SESSION['role'] != 1) {
     exit();
 }
 
+$logged_in_username = null;
+$logged_in_fullname = null;
+if (isset($_SESSION['account_id'])) {
+    $account_id = $_SESSION['account_id'];
+    $query = "SELECT username, fullname FROM account WHERE account_id = ?";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("i", $account_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    
+    if ($row = $result->fetch_assoc()) {
+        $logged_in_username = $row['username'];
+        $logged_in_fullname = $row['fullname'];
+    }
+    $stmt->close();
+}
+
 
 $query = "SELECT vehicle_name FROM vehicles";
 $result = mysqli_query($conn, $query);
 
-$query = "SELECT * FROM trips WHERE driver = 'Jake Edward Kenway'";
+$query = "SELECT * FROM trips WHERE driver = '$logged_in_fullname'";
 $result_Job = mysqli_query($conn, $query);
 
 ?>
@@ -78,6 +95,9 @@ $result_Job = mysqli_query($conn, $query);
             font-weight: 600;
             margin-bottom: 5px;
         }
+        .username-display{
+            font-size: 1rem;
+        }
 
     </style>
 </head>
@@ -94,7 +114,14 @@ $result_Job = mysqli_query($conn, $query);
 
     <div class="sidebar" id="sidebar">
         <button id="sidebar-close-btn">&times;</button>
-        <div class="sidebar-header"> GNBTL </div>
+        <div class="sidebar-header">
+            GNBTL
+            <?php if ($logged_in_username): ?>
+                <div class="username-display">
+                   User: <?php echo htmlspecialchars($logged_in_username); ?>
+                </div>
+            <?php endif; ?>
+        </div>
         <nav>
             <ul class="nav-links">
                 <li><a href="../_driver_interface/driver_home.php">Dashboard</a></li>

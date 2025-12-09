@@ -1,10 +1,26 @@
 <?php
+include '../__back-end_processes/db_connect.php';
 session_start();
 
 // If not logged in OR not driver, redirect away
 if (!isset($_SESSION['account_id']) || $_SESSION['role'] != 1) {
     header("Location: ../_user_interface/user_signup.php");
     exit();
+}
+
+$logged_in_username = null;
+if (isset($_SESSION['account_id'])) {
+    $account_id = $_SESSION['account_id'];
+    $query = "SELECT username FROM account WHERE account_id = ?";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("i", $account_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    
+    if ($row = $result->fetch_assoc()) {
+        $logged_in_username = $row['username'];
+    }
+    $stmt->close();
 }
 ?>
 <!DOCTYPE html>

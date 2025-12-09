@@ -9,6 +9,7 @@ if (!isset($_SESSION['account_id']) || $_SESSION['role'] != 2) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,6 +17,7 @@ if (!isset($_SESSION['account_id']) || $_SESSION['role'] != 2) {
     <link rel="icon" type="image/x-icon" href="../images/favicon.jpg">
     <link rel="stylesheet" href="../css/admin_style.css">
 </head>
+
 <body>
 
     <div class="mobile-header">
@@ -28,15 +30,15 @@ if (!isset($_SESSION['account_id']) || $_SESSION['role'] != 2) {
     </div>
 
     <div class="sidebar" id="sidebar">
-        
+
         <button id="sidebar-close-btn">&times;</button>
 
         <div class="sidebar-header">
             GNBTL
         </div>
-        
+
         <nav>
-           <ul class="nav-links">
+            <ul class="nav-links">
                 <li><a href="../_admin_interface/admin.php">Dashboard</a></li>
                 <li><a href="../_admin_interface/admin_overview.php">Overview Metrics</a></li>
                 <li><a href="../_admin_interface/admin_trips.php">Trips</a></li>
@@ -47,7 +49,7 @@ if (!isset($_SESSION['account_id']) || $_SESSION['role'] != 2) {
                 <li><a href="../_admin_interface/admin_announcement.php">Announcement</a></li>
             </ul>
         </nav>
-        
+
         <div class="logout-container">
             <form action="../__back-end_processes/auth_logout.php" method="post">
                 <button class="logout-btn">Log out</button>
@@ -56,11 +58,11 @@ if (!isset($_SESSION['account_id']) || $_SESSION['role'] != 2) {
     </div>
 
     <div class="main-content-dashboard">
-        
+
         <h1>Dashboard</h1>
 
         <div class="metrics-grid-dashboard">
-            
+
             <div class="metric-card-dashboard">
                 <div class="icon-dashboard trips">
                     <img src="../images/ongoing.png" alt="Active Trips">
@@ -143,17 +145,17 @@ if (!isset($_SESSION['account_id']) || $_SESSION['role'] != 2) {
                         </div>
                         <button class="view-btn-dashboard">View</button>
                     </div>
-                    
+
                 </div>
             </div>
-            
+
         </div>
-        
+
     </div>
-    
+
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            
+
             // --- Sidebar Logic ---
             var menuButton = document.getElementById("menu-toggle-btn");
             var closeButton = document.getElementById("sidebar-close-btn");
@@ -166,7 +168,7 @@ if (!isset($_SESSION['account_id']) || $_SESSION['role'] != 2) {
             closeButton.addEventListener("click", function() {
                 sidebar.classList.remove("open");
             });
-            
+
             // --- Active Nav Link Logic ---
             const currentPage = window.location.pathname.split('/').pop();
             const navLinks = document.querySelectorAll('.nav-links a');
@@ -177,9 +179,10 @@ if (!isset($_SESSION['account_id']) || $_SESSION['role'] != 2) {
                     link.classList.add('active');
                 }
             });
-            
+
         });
     </script>
 
 </body>
+
 </html>

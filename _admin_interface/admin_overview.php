@@ -9,6 +9,7 @@ if (!isset($_SESSION['account_id']) || $_SESSION['role'] != 2) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,6 +17,7 @@ if (!isset($_SESSION['account_id']) || $_SESSION['role'] != 2) {
     <link rel="icon" type="image/x-icon" href="../images/favicon.jpg">
     <link rel="stylesheet" href="../css/admin_style.css">
 </head>
+
 <body>
 
     <div class="mobile-header">
@@ -50,11 +52,11 @@ if (!isset($_SESSION['account_id']) || $_SESSION['role'] != 2) {
     </div>
 
     <div class="main-content-overview">
-        
+
         <h1>Overview Metrics</h1>
 
         <div class="metrics-grid-overview">
-            
+
             <div class="metric-card-overview">
                 <div class="icon-overview revenue"> </div>
                 <div class="info-overview">
@@ -86,7 +88,7 @@ if (!isset($_SESSION['account_id']) || $_SESSION['role'] != 2) {
                     <div class="label-overview">All Pending Issues</div>
                 </div>
             </div>
-            
+
             <div class="metric-card-overview">
                 <div class="icon-overview vehicles"> </div>
                 <div class="info-overview">
@@ -110,7 +112,7 @@ if (!isset($_SESSION['account_id']) || $_SESSION['role'] != 2) {
                     <div class="label-overview">Active Clients</div>
                 </div>
             </div>
-            
+
             <div class="metric-card-overview">
                 <div class="icon-overview revenue"> </div>
                 <div class="info-overview">
@@ -122,22 +124,27 @@ if (!isset($_SESSION['account_id']) || $_SESSION['role'] != 2) {
         </div>
 
         <div class="dashboard-columns-overview">
-            <div class="dashboard-card-overview" style="grid-column: 1 / -1;"> <h2>Revenue vs. Trips (Last 30 Days)</h2>
+            <div class="dashboard-card-overview" style="grid-column: 1 / -1;">
+                <h2>Revenue vs. Trips (Last 30 Days)</h2>
                 <div class="card-content-scrollable-overview" style="display: flex; align-items: center; justify-content: center; min-height: 300px; color: #999; background-color: #fafafa; border-radius: 8px;">
                     [Chart Area Placeholder]
                 </div>
             </div>
         </div>
-        
+
     </div>
-    
+
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             var menuButton = document.getElementById("menu-toggle-btn");
             var closeButton = document.getElementById("sidebar-close-btn");
             var sidebar = document.getElementById("sidebar");
-            menuButton.addEventListener("click", function() { sidebar.classList.add("open"); });
-            closeButton.addEventListener("click", function() { sidebar.classList.remove("open"); });
+            menuButton.addEventListener("click", function() {
+                sidebar.classList.add("open");
+            });
+            closeButton.addEventListener("click", function() {
+                sidebar.classList.remove("open");
+            });
 
             const currentPage = window.location.pathname.split('/').pop();
             const navLinks = document.querySelectorAll('.nav-links a');
@@ -152,4 +159,5 @@ if (!isset($_SESSION['account_id']) || $_SESSION['role'] != 2) {
     </script>
 
 </body>
+
 </html>

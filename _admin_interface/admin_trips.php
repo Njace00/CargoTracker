@@ -24,6 +24,7 @@ $result2 = mysqli_query($conn, $query);
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -31,6 +32,7 @@ $result2 = mysqli_query($conn, $query);
     <link rel="icon" type="image/x-icon" href="../images/favicon.jpg">
     <link rel="stylesheet" href="../css/admin_style.css">
 </head>
+
 <body>
 
     <div class="mobile-header">
@@ -65,7 +67,7 @@ $result2 = mysqli_query($conn, $query);
     </div>
 
     <div class="main-content-trip">
-        
+
         <h1>Trip Management</h1>
 
         <div class="dashboard-columns-trip">
@@ -78,7 +80,7 @@ $result2 = mysqli_query($conn, $query);
                         <select id="trip_driver" class="form-select-trip" name="assigned_Driver">
                             <option value="">Select a driver...</option>
                             <?php while ($row = mysqli_fetch_assoc($result)): ?>
-                            <option value="<?php echo htmlspecialchars($row['fullname']);?>"><?php echo htmlspecialchars($row['fullname']);?></option>
+                                <option value="<?php echo htmlspecialchars($row['fullname']); ?>"><?php echo htmlspecialchars($row['fullname']); ?></option>
                             <?php endwhile; ?>
                         </select>
                     </div>
@@ -88,7 +90,7 @@ $result2 = mysqli_query($conn, $query);
                         <select id="trip_vehicle" class="form-select-trip" name="assigned_Vehicle">
                             <option value="">Select an available vehicle...</option>
                             <?php while ($row = mysqli_fetch_assoc($result1)): ?>
-                            <option value="<?php echo htmlspecialchars($row['vehicle_name']);?>"><?php echo htmlspecialchars($row['vehicle_name']);?></option>
+                                <option value="<?php echo htmlspecialchars($row['vehicle_name']); ?>"><?php echo htmlspecialchars($row['vehicle_name']); ?></option>
                             <?php endwhile; ?>
                         </select>
                     </div>
@@ -116,13 +118,13 @@ $result2 = mysqli_query($conn, $query);
                         <input type="text" id="trip_destination" class="form-input-trip" placeholder="e.g., Manila Port" name="delivery_Destination" required>
                     </div>
 
-                    
+
 
                     <!-- <div class="form-group-trip">
                         <label for="trip_distance" class="form-label-trip">Distance (km)</label>
                         <input type="number" id="trip_distance" class="form-input-trip" placeholder="e.g., 85">
                     </div> -->
-                    
+
                     <button type="submit" class="form-button-trip">Create Trip</button>
                 </form>
             </div>
@@ -146,34 +148,38 @@ $result2 = mysqli_query($conn, $query);
                         </thead>
                         <tbody>
                             <?php while ($row = mysqli_fetch_assoc($result2)): ?>
-                            <tr>
-                                <td><?php echo htmlspecialchars($row['trip_id']);?></td>
-                                <td><?php echo htmlspecialchars($row['driver']);?></td>
-                                <td><?php echo htmlspecialchars($row['vehicle']);?></td>
-                                <td><?php echo htmlspecialchars($row['client']);?></td>
-                                <td><?php echo htmlspecialchars($row['destination']);?></td>
-                                <td><?php echo htmlspecialchars($row['trip_type']);?></td>
-                                <td><?php echo htmlspecialchars($row['status']);?></td>
-                                <td><?php echo htmlspecialchars($row['created_at']);?></td>                    
-                                <td><button class="action-btn-trip edit">View/Edit</button></td>
-                            <?php endwhile?>
-                            </tr>
+                                <tr>
+                                    <td><?php echo htmlspecialchars($row['trip_id']); ?></td>
+                                    <td><?php echo htmlspecialchars($row['driver']); ?></td>
+                                    <td><?php echo htmlspecialchars($row['vehicle']); ?></td>
+                                    <td><?php echo htmlspecialchars($row['client']); ?></td>
+                                    <td><?php echo htmlspecialchars($row['destination']); ?></td>
+                                    <td><?php echo htmlspecialchars($row['trip_type']); ?></td>
+                                    <td><?php echo htmlspecialchars($row['status']); ?></td>
+                                    <td><?php echo htmlspecialchars($row['created_at']); ?></td>
+                                    <td><button class="action-btn-trip edit">View/Edit</button></td>
+                                <?php endwhile ?>
+                                </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
-            
+
         </div>
-        
+
     </div>
-    
+
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             var menuButton = document.getElementById("menu-toggle-btn");
             var closeButton = document.getElementById("sidebar-close-btn");
             var sidebar = document.getElementById("sidebar");
-            menuButton.addEventListener("click", function() { sidebar.classList.add("open"); });
-            closeButton.addEventListener("click", function() { sidebar.classList.remove("open"); });
+            menuButton.addEventListener("click", function() {
+                sidebar.classList.add("open");
+            });
+            closeButton.addEventListener("click", function() {
+                sidebar.classList.remove("open");
+            });
 
             const currentPage = window.location.pathname.split('/').pop();
             const navLinks = document.querySelectorAll('.nav-links a');
@@ -188,4 +194,5 @@ $result2 = mysqli_query($conn, $query);
     </script>
 
 </body>
+
 </html>

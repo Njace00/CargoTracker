@@ -9,6 +9,7 @@ if (!isset($_SESSION['account_id']) || $_SESSION['role'] != 2) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,6 +18,7 @@ if (!isset($_SESSION['account_id']) || $_SESSION['role'] != 2) {
     <link rel="stylesheet" href="../css/admin_style.css">
 
 </head>
+
 <body>
 
     <div class="mobile-header">
@@ -51,7 +53,7 @@ if (!isset($_SESSION['account_id']) || $_SESSION['role'] != 2) {
     </div>
 
     <div class="main-content-performance">
-        
+
         <h1>Performance Analytics</h1>
 
         <div class="dashboard-card-performance">
@@ -61,29 +63,29 @@ if (!isset($_SESSION['account_id']) || $_SESSION['role'] != 2) {
                     <thead>
                         <tr>
                             <th>Driver Name</th>
-                            <th>Trips Completed</th>                  
+                            <th>Trips Completed</th>
                             <th>Issues Reported</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td>Neil Jason Flores</td>
-                            <td>32</td>                           
+                            <td>32</td>
                             <td>1</td>
                         </tr>
                         <tr>
                             <td>Driefen Alfonso</td>
-                            <td>28</td>                            
+                            <td>28</td>
                             <td>3</td>
                         </tr>
                         <tr>
                             <td>Edward Ringor</td>
-                            <td>30</td>                           
+                            <td>30</td>
                             <td>0</td>
                         </tr>
                         <tr>
                             <td>Keon Kazu Capua</td>
-                            <td>25</td>                           
+                            <td>25</td>
                             <td>2</td>
                         </tr>
                     </tbody>
@@ -122,16 +124,20 @@ if (!isset($_SESSION['account_id']) || $_SESSION['role'] != 2) {
                 </table>
             </div>
         </div>
-        
+
     </div>
-    
+
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             var menuButton = document.getElementById("menu-toggle-btn");
             var closeButton = document.getElementById("sidebar-close-btn");
             var sidebar = document.getElementById("sidebar");
-            menuButton.addEventListener("click", function() { sidebar.classList.add("open"); });
-            closeButton.addEventListener("click", function() { sidebar.classList.remove("open"); });
+            menuButton.addEventListener("click", function() {
+                sidebar.classList.add("open");
+            });
+            closeButton.addEventListener("click", function() {
+                sidebar.classList.remove("open");
+            });
 
             const currentPage = window.location.pathname.split('/').pop();
             const navLinks = document.querySelectorAll('.nav-links a');
@@ -146,4 +152,5 @@ if (!isset($_SESSION['account_id']) || $_SESSION['role'] != 2) {
     </script>
 
 </body>
+
 </html>

@@ -11,7 +11,7 @@ if (isset($_SESSION['account_id'])) {
     $stmt->bind_param("i", $account_id);
     $stmt->execute();
     $result = $stmt->get_result();
-    
+
     if ($row = $result->fetch_assoc()) {
         $logged_in_username = $row['username'];
     }
@@ -26,6 +26,7 @@ if (isset($_SESSION['account_id'])) {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -48,33 +49,34 @@ if (isset($_SESSION['account_id'])) {
         }
     </style>
 </head>
+
 <body>
     <nav>
         <div class="logo-container">
             <img src="../images/GNBTL logo only.png" alt="Logo">
         </div>
-        
+
         <div class="navbar-div">
             <a href="user_index.php">Home</a>
             <a href="user_about.php">About Us</a>
             <a href="user_contact.php">Contact</a>
-            
+
             <div class="dropdown">
                 <button>Rates&#9660;</button>
                 <div class="dropdown-menu">
                     <a href="user_qoute.php">Request a Quote</a>
                     <a href="user_rate.php">Rate Calculator</a>
-                </div>  
+                </div>
             </div>
-            
+
             <div class="dropdown">
                 <button>Cargo&#9660;</button>
                 <div class="dropdown-menu">
                     <a href="user_tracker.php">Track your Delivery</a>
                     <a href="#">Contact Courier</a>
-                </div>  
+                </div>
             </div>
-            
+
             <?php if ($logged_in_username): ?>
                 <!-- Show username dropdown if logged in -->
                 <div class="user-dropdown">
@@ -83,7 +85,7 @@ if (isset($_SESSION['account_id'])) {
                     </button>
                     <div class="user-dropdown-menu"
                         <form action="../_admin_interface/auth_logout.php" method="post">
-                            <button type="submit" class="logout-btn">Log Out</button>
+                        <button type="submit" class="logout-btn">Log Out</button>
                         </form>
                     </div>
                 </div>
@@ -96,9 +98,9 @@ if (isset($_SESSION['account_id'])) {
 
     <div class="calculator-container">
         <h2 class="calculator-title">Calculate Your Shipping Rate</h2>
-        
+
         <form class="calculator-form" id="rateForm">
-            
+
             <!-- Point A -->
             <div class="location-section point-a">
                 <div class="section-title">Point A - Pickup Location</div>
@@ -205,26 +207,26 @@ if (isset($_SESSION['account_id'])) {
         <div>
             <h1>GNBTL</h1>
         </div>
-        
+
         <div>
             <p>Trucking Logistics</p>
         </div>
-        
+
         <div class="footer-grid">
-            <p>Providing reliable trucking and logistics services across the nation. Our commitment to excellence 
-            ensures your cargo arrives safely and on time, every time.</p>
-            <p>With modern fleet management and real-time tracking, we offer transparency and efficiency in all 
-            our operations. Trust us for your transportation needs.</p>
-            <p>Our professional team is available 24/7 to assist you with quotes, tracking, and any logistics 
-            inquiries. Customer satisfaction is our top priority.</p>
-            <p>Contact us today to learn more about our competitive rates and comprehensive logistics solutions 
-            tailored to your business requirements.</p>
+            <p>Providing reliable trucking and logistics services across the nation. Our commitment to excellence
+                ensures your cargo arrives safely and on time, every time.</p>
+            <p>With modern fleet management and real-time tracking, we offer transparency and efficiency in all
+                our operations. Trust us for your transportation needs.</p>
+            <p>Our professional team is available 24/7 to assist you with quotes, tracking, and any logistics
+                inquiries. Customer satisfaction is our top priority.</p>
+            <p>Contact us today to learn more about our competitive rates and comprehensive logistics solutions
+                tailored to your business requirements.</p>
         </div>
-        
+
         <hr>
 
         <div class="footer-copyright">
-            <p>@GNBTL</p> 
+            <p>@GNBTL</p>
             <p>All Rights Reserved</p>
         </div>
     </footer>
@@ -233,46 +235,55 @@ if (isset($_SESSION['account_id'])) {
         // Location data with cities per region
         const locations = {
             NCR: [
-                'Manila', 'Quezon City', 'Makati', 'Pasig', 'Taguig', 
-                'Mandaluyong', 'Pasay', 'Caloocan', 'Las Piñas', 
-                'Muntinlupa', 'Parañaque', 'Valenzuela', 'Malabon', 
+                'Manila', 'Quezon City', 'Makati', 'Pasig', 'Taguig',
+                'Mandaluyong', 'Pasay', 'Caloocan', 'Las Piñas',
+                'Muntinlupa', 'Parañaque', 'Valenzuela', 'Malabon',
                 'Navotas', 'San Juan', 'Marikina', 'Pateros'
             ],
             Region3: [
-                'Angeles City', 'San Fernando (Pampanga)', 'Mabalacat', 
+                'Angeles City', 'San Fernando (Pampanga)', 'Mabalacat',
                 'Olongapo', 'Tarlac City', 'Cabanatuan', 'San Jose (Nueva Ecija)',
-                'Balanga', 'Gapan', 'Meycauayan', 'San Jose del Monte', 
+                'Balanga', 'Gapan', 'Meycauayan', 'San Jose del Monte',
                 'Malolos', 'Baliuag'
             ],
             Region4: [
-                'Calamba', 'Batangas City', 'Lipa', 'San Pablo', 
-                'Lucena', 'Antipolo', 'Bacoor', 'Dasmariñas', 
-                'Imus', 'Cavite City', 'Santa Rosa', 'Biñan', 
+                'Calamba', 'Batangas City', 'Lipa', 'San Pablo',
+                'Lucena', 'Antipolo', 'Bacoor', 'Dasmariñas',
+                'Imus', 'Cavite City', 'Santa Rosa', 'Biñan',
                 'Tagaytay', 'Tanauan', 'Calapan'
             ]
         };
 
         // Comprehensive distance matrix (in km) - based on actual road distances
-    
+
 
         // Pricing structure
         const baseRatePerKm = 30; // ₱30 per km
-        
+
         // Truck size fees (base fee + per km multiplier)
         const truckPricing = {
-            '2': { baseFee: 800, multiplier: 1.0 },    // 2-tonner: base pricing
-            '5': { baseFee: 1500, multiplier: 1.3 },   // 5-tonner: +30% per km
-            '10': { baseFee: 2500, multiplier: 1.6 }   // 10-tonner: +60% per km
+            '2': {
+                baseFee: 800,
+                multiplier: 1.0
+            }, // 2-tonner: base pricing
+            '5': {
+                baseFee: 1500,
+                multiplier: 1.3
+            }, // 5-tonner: +30% per km
+            '10': {
+                baseFee: 2500,
+                multiplier: 1.6
+            } // 10-tonner: +60% per km
         };
-        
-       
+
+
 
         // Populate city dropdown based on region selection
         function populateCities(regionSelect, citySelect) {
             regionSelect.addEventListener('change', function() {
                 const region = this.value;
                 citySelect.innerHTML = '<option value="">Select City/Area</option>';
-                
+
                 if (region && locations[region]) {
                     citySelect.disabled = false;
                     locations[region].forEach(city => {
@@ -290,12 +301,8 @@ if (isset($_SESSION['account_id'])) {
         // Initialize dropdowns
         populateCities(document.getElementById('regionA'), document.getElementById('cityA'));
         populateCities(document.getElementById('regionB'), document.getElementById('cityB'));
-
-
-        
-        
-
     </script>
 
 </body>
+
 </html>

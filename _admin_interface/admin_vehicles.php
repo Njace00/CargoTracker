@@ -17,6 +17,7 @@ $result1 = mysqli_query($conn, $query);
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,6 +25,7 @@ $result1 = mysqli_query($conn, $query);
     <link rel="icon" type="image/x-icon" href="../images/favicon.jpg">
     <link rel="stylesheet" href="../css/admin_style.css">
 </head>
+
 <body>
 
     <div class="mobile-header">
@@ -58,19 +60,19 @@ $result1 = mysqli_query($conn, $query);
     </div>
 
     <div class="main-content-vehicle">
-        
+
         <h1>Vehicle Management</h1>
 
         <div class="dashboard-columns-vehicle">
 
             <div class="dashboard-card-vehicle">
                 <h2>Add New Vehicle</h2>
-                <form method="POST" action="../__back-end_processes\processs_add_vehicle.php" >
+                <form method="POST" action="../__back-end_processes\processs_add_vehicle.php">
                     <div class="form-group-vehicle">
-                        <label for="vehicle_name" class="form-label-vehicle" >Vehicle Name</label>
-                        <input name="vehicle_name" type="text" id="vehicle_name" class="form-input-vehicle" placeholder="e.g., truck-1"  required>
+                        <label for="vehicle_name" class="form-label-vehicle">Vehicle Name</label>
+                        <input name="vehicle_name" type="text" id="vehicle_name" class="form-input-vehicle" placeholder="e.g., truck-1" required>
                     </div>
-                    
+
                     <div class="form-group-vehicle">
                         <label for="vehicle_class" class="form-label-vehicle">Class</label>
                         <select id="vehicle_class" class="form-select-vehicle" name="vehicle_type">
@@ -78,7 +80,7 @@ $result1 = mysqli_query($conn, $query);
                             <option value="trailer">Trailer</option>
                         </select>
                     </div>
-                    
+
                     <div class="form-group-vehicle">
                         <label for="vehicle_size" class="form-label-vehicle">Size</label>
                         <select id="vehicle_size" class="form-select-vehicle" name="vehicle_class">
@@ -87,7 +89,7 @@ $result1 = mysqli_query($conn, $query);
                             <option value="10-tonner">10-tonner</option>
                         </select>
                     </div>
-                    
+
                     <button type="submit" class="form-button-vehicle">Add Vehicle</button>
                 </form>
             </div>
@@ -96,12 +98,12 @@ $result1 = mysqli_query($conn, $query);
                 <h2>Vehicle Status</h2>
                 <div class="card-content-scrollable-vehicle">
                     <?php while ($row = mysqli_fetch_assoc($result)): ?>
-                    <div class="status-info-vehicle">
-                        <span class="status-info-name-vehicle"><?php echo htmlspecialchars($row['vehicle_name']);?></span>
-                        <span class="status-badge-vehicle available"><?php echo htmlspecialchars($row['status']);?></span>
-                    </div>
+                        <div class="status-info-vehicle">
+                            <span class="status-info-name-vehicle"><?php echo htmlspecialchars($row['vehicle_name']); ?></span>
+                            <span class="status-badge-vehicle available"><?php echo htmlspecialchars($row['status']); ?></span>
+                        </div>
                     <?php endwhile; ?>
-                    
+
                 </div>
             </div>
 
@@ -109,7 +111,7 @@ $result1 = mysqli_query($conn, $query);
                 <h2>Vehicle List</h2>
                 <div class="card-content-table-wrapper-vehicle">
                     <table class="content-table-vehicle">
-                        
+
                         <thead>
                             <tr>
                                 <th>Vehicle Name</th>
@@ -120,35 +122,39 @@ $result1 = mysqli_query($conn, $query);
                         </thead>
                         <tbody>
                             <?php while ($row = mysqli_fetch_assoc($result1)): ?>
-                            <tr>
-                                <td><?php echo htmlspecialchars($row['vehicle_name']);?></td>
-                                <td><?php echo htmlspecialchars($row['vehicle_type']);?></td>
-                                <td><?php echo htmlspecialchars($row['vehicle_class']);?></td>
-                                <td>
-                                    <button class="action-btn-vehicle edit">Edit</button>
-                                    <form method="POST" action="../__back-end_processes/process_archive-vehicles.php">
-                                        <input type="hidden" name="vehicle_name" value="<?php echo htmlspecialchars($row['vehicle_name']); ?>">
-                                        <button type="submit" class="action-btn-vehicle archive">Archive</button>
-                                    </form>
-                                </td>
-                            </tr>
+                                <tr>
+                                    <td><?php echo htmlspecialchars($row['vehicle_name']); ?></td>
+                                    <td><?php echo htmlspecialchars($row['vehicle_type']); ?></td>
+                                    <td><?php echo htmlspecialchars($row['vehicle_class']); ?></td>
+                                    <td>
+                                        <button class="action-btn-vehicle edit">Edit</button>
+                                        <form method="POST" action="../__back-end_processes/process_archive-vehicles.php">
+                                            <input type="hidden" name="vehicle_name" value="<?php echo htmlspecialchars($row['vehicle_name']); ?>">
+                                            <button type="submit" class="action-btn-vehicle archive">Archive</button>
+                                        </form>
+                                    </td>
+                                </tr>
                             <?php endwhile; ?>
                         </tbody>
                     </table>
                 </div>
             </div>
-            
+
         </div>
-        
+
     </div>
-    
+
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             var menuButton = document.getElementById("menu-toggle-btn");
             var closeButton = document.getElementById("sidebar-close-btn");
             var sidebar = document.getElementById("sidebar");
-            menuButton.addEventListener("click", function() { sidebar.classList.add("open"); });
-            closeButton.addEventListener("click", function() { sidebar.classList.remove("open"); });
+            menuButton.addEventListener("click", function() {
+                sidebar.classList.add("open");
+            });
+            closeButton.addEventListener("click", function() {
+                sidebar.classList.remove("open");
+            });
 
             const currentPage = window.location.pathname.split('/').pop();
             const navLinks = document.querySelectorAll('.nav-links a');
@@ -163,6 +169,7 @@ $result1 = mysqli_query($conn, $query);
     </script>
 
 </body>
+
 </html>
 
 
@@ -172,36 +179,36 @@ $result1 = mysqli_query($conn, $query);
 
 
 CREATE TABLE trips (
-    trip_id INT PRIMARY KEY AUTO_INCREMENT,
-    driver_id INT NOT NULL,
-    vehicle_id INT NOT NULL,
-    client_id INT NOT NULL,
-    destination VARCHAR(255) NOT NULL,
-    trip_type ENUM('reservation', 'call-in') NOT NULL DEFAULT 'call-in',
-    status ENUM('pending', 'in-progress', 'completed', 'cancelled') NOT NULL DEFAULT 'pending',
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    started_at DATETIME NULL,
-    completed_at DATETIME NULL,
-    notes TEXT NULL,
-    FOREIGN KEY (driver_id) REFERENCES account(account_id),
-    FOREIGN KEY (vehicle_id) REFERENCES vehicles(vehicle_id),
-    FOREIGN KEY (client_id) REFERENCES clients(client_id)
+trip_id INT PRIMARY KEY AUTO_INCREMENT,
+driver_id INT NOT NULL,
+vehicle_id INT NOT NULL,
+client_id INT NOT NULL,
+destination VARCHAR(255) NOT NULL,
+trip_type ENUM('reservation', 'call-in') NOT NULL DEFAULT 'call-in',
+status ENUM('pending', 'in-progress', 'completed', 'cancelled') NOT NULL DEFAULT 'pending',
+created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+started_at DATETIME NULL,
+completed_at DATETIME NULL,
+notes TEXT NULL,
+FOREIGN KEY (driver_id) REFERENCES account(account_id),
+FOREIGN KEY (vehicle_id) REFERENCES vehicles(vehicle_id),
+FOREIGN KEY (client_id) REFERENCES clients(client_id)
 );
 
 
 CREATE TABLE trips (
-    trip_id INT PRIMARY KEY AUTO_INCREMENT,
-    driver_id INT NOT NULL,
-    vehicle_id INT NOT NULL,
-    client_id INT NOT NULL,
-    destination VARCHAR(255) NOT NULL,
-    trip_type ENUM('reservation', 'call-in') NOT NULL DEFAULT 'call-in',
-    status ENUM('pending', 'in-progress', 'completed', 'cancelled') NOT NULL DEFAULT 'pending',
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    started_at DATETIME NULL,
-    completed_at DATETIME NULL,
-    notes TEXT NULL,
-    FOREIGN KEY (driver_id) REFERENCES account(account_id),
-    FOREIGN KEY (vehicle_id) REFERENCES vehicles(vehicle_id),
-    FOREIGN KEY (client_id) REFERENCES clients(client_id)
+trip_id INT PRIMARY KEY AUTO_INCREMENT,
+driver_id INT NOT NULL,
+vehicle_id INT NOT NULL,
+client_id INT NOT NULL,
+destination VARCHAR(255) NOT NULL,
+trip_type ENUM('reservation', 'call-in') NOT NULL DEFAULT 'call-in',
+status ENUM('pending', 'in-progress', 'completed', 'cancelled') NOT NULL DEFAULT 'pending',
+created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+started_at DATETIME NULL,
+completed_at DATETIME NULL,
+notes TEXT NULL,
+FOREIGN KEY (driver_id) REFERENCES account(account_id),
+FOREIGN KEY (vehicle_id) REFERENCES vehicles(vehicle_id),
+FOREIGN KEY (client_id) REFERENCES clients(client_id)
 );

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,11 +8,12 @@
   <link rel="icon" type="image/x-icon" href="../images/favicon.jpg">
   <title>Login / Sign Up</title>
 </head>
+
 <body>
 
 
   <a href="user_index.php" class="back-btn">← Back</a>
-  
+
   <div class="container" id="container">
     <!-- Sign Up -->
     <div class="form-container sign-up-container">
@@ -33,18 +35,18 @@
       <form Method="POST" action="../__back-end_processes/auth_login.php">
         <h1>Sign In</h1>
         <div class="social-container">
-         
+
         </div>
         <span>or use your account</span>
         <p class="error <?php echo isset($_SESSION['error']) ? 'show' : ''; ?>">
-        Please check your credentials.
+          Please check your credentials.
         </p>
         <?php unset($_SESSION['error']); ?>
         <input type="email" placeholder="Email" name="email">
         <input type="password" placeholder="Password" name="password">
         <a href="#" class="text-[#ffffff]">Forgot your password?</a>
         <button type="submit">Sign In</button>
-        
+
       </form>
     </div>
 
@@ -68,4 +70,5 @@
   <!-- Scripts -->
   <script src="../js/account.js"></script>
 </body>
+
 </html>

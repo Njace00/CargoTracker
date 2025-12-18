@@ -54,6 +54,7 @@ $result = mysqli_query($conn, $query);
                 <li><a href="../_admin_interface/admin_activity.php">Recent Activity</a></li>
                 <li><a href="../_admin_interface/admin_accounts.php">Driver Accounts</a></li>
                 <li><a href="../_admin_interface/admin_announcement.php">Announcement</a></li>
+                <li><a href="../_admin_interface/admin_reservation.php">Reservation</a></li>
             </ul>
         </nav>
         <div class="logout-container">

@@ -25,7 +25,7 @@
         <input type="text" placeholder="Company Name" name="cname" required>
         <input type="email" placeholder="Email" name="email" required>
         <input type="password" placeholder="Password" name="password" required>
-        <input type="tel" name="number" placeholder="Phone Number (eg, +639123456789)" pattern="\+639\d{9}" title="Please enter a valid Philippine mobile number starting with +639 followed by 9 digits." required
+        <input type="tel" name="number" placeholder="Phone Number (eg, +639123456789)" value="+639" pattern="\+639\d{9}"  maxlength="13" title="Please enter a valid Philippine mobile number starting with +639 followed by 9 digits." required
 >
         <button type="submit">Sign Up</button>
       </form>

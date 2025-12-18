@@ -81,14 +81,6 @@ $result1 = mysqli_query($conn, $query);
                         </select>
                     </div>
 
-                    <div class="form-group-vehicle">
-                        <label for="vehicle_size" class="form-label-vehicle">Size</label>
-                        <select id="vehicle_size" class="form-select-vehicle" name="vehicle_class">
-                            <option value="2-tonner">2-tonner</option>
-                            <option value="5-tonner">5-tonner</option>
-                            <option value="10-tonner">10-tonner</option>
-                        </select>
-                    </div>
 
                     <button type="submit" class="form-button-vehicle">Add Vehicle</button>
                 </form>
@@ -116,7 +108,6 @@ $result1 = mysqli_query($conn, $query);
                             <tr>
                                 <th>Vehicle Name</th>
                                 <th>Class</th>
-                                <th>Size</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -125,7 +116,6 @@ $result1 = mysqli_query($conn, $query);
                                 <tr>
                                     <td><?php echo htmlspecialchars($row['vehicle_name']); ?></td>
                                     <td><?php echo htmlspecialchars($row['vehicle_type']); ?></td>
-                                    <td><?php echo htmlspecialchars($row['vehicle_class']); ?></td>
                                     <td>
                                         <button class="action-btn-vehicle edit">Edit</button>
                                         <form method="POST" action="../__back-end_processes/process_archive-vehicles.php">
@@ -177,38 +167,3 @@ $result1 = mysqli_query($conn, $query);
 
 
 
-
-CREATE TABLE trips (
-trip_id INT PRIMARY KEY AUTO_INCREMENT,
-driver_id INT NOT NULL,
-vehicle_id INT NOT NULL,
-client_id INT NOT NULL,
-destination VARCHAR(255) NOT NULL,
-trip_type ENUM('reservation', 'call-in') NOT NULL DEFAULT 'call-in',
-status ENUM('pending', 'in-progress', 'completed', 'cancelled') NOT NULL DEFAULT 'pending',
-created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-started_at DATETIME NULL,
-completed_at DATETIME NULL,
-notes TEXT NULL,
-FOREIGN KEY (driver_id) REFERENCES account(account_id),
-FOREIGN KEY (vehicle_id) REFERENCES vehicles(vehicle_id),
-FOREIGN KEY (client_id) REFERENCES clients(client_id)
-);
-
-
-CREATE TABLE trips (
-trip_id INT PRIMARY KEY AUTO_INCREMENT,
-driver_id INT NOT NULL,
-vehicle_id INT NOT NULL,
-client_id INT NOT NULL,
-destination VARCHAR(255) NOT NULL,
-trip_type ENUM('reservation', 'call-in') NOT NULL DEFAULT 'call-in',
-status ENUM('pending', 'in-progress', 'completed', 'cancelled') NOT NULL DEFAULT 'pending',
-created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-started_at DATETIME NULL,
-completed_at DATETIME NULL,
-notes TEXT NULL,
-FOREIGN KEY (driver_id) REFERENCES account(account_id),
-FOREIGN KEY (vehicle_id) REFERENCES vehicles(vehicle_id),
-FOREIGN KEY (client_id) REFERENCES clients(client_id)
-);

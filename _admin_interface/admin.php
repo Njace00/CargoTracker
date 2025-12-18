@@ -1,4 +1,5 @@
 <?php
+include '../__back-end_processes/db_connect.php';
 session_start();
 
 // If not logged in OR not driver, redirect away
@@ -6,6 +7,23 @@ if (!isset($_SESSION['account_id']) || $_SESSION['role'] != 2) {
     header("Location: ../_user_interface/user_signup.php");
     exit();
 }
+
+$query = "SELECT COUNT(*) as total_trips from trips";
+$total_trips_result = mysqli_query($conn,$query);
+$row = mysqli_fetch_assoc($total_trips_result);
+$total_trips = $row['total_trips'];
+
+$query1 = "SELECT COUNT(*) as total_active_trips FROM trips WHERE accepted = 1";
+$total_active_trips_result = mysqli_query($conn, $query1);
+$row1 = mysqli_fetch_assoc($total_active_trips_result);
+$total_active_trips = $row1['total_active_trips'];
+
+$query2 = "SELECT COUNT(*) as total_pending_trips FROM trips WHERE accepted = 0";
+$total_pending_trips_result = mysqli_query($conn, $query2);
+$row2 = mysqli_fetch_assoc($total_pending_trips_result);
+$total_pending_trips_result = $row2['total_pending_trips'];
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -68,7 +86,7 @@ if (!isset($_SESSION['account_id']) || $_SESSION['role'] != 2) {
                     <img src="../images/ongoing.png" alt="Active Trips">
                 </div>
                 <div class="info-dashboard">
-                    <div class="value-dashboard">5</div>
+                    <div class="value-dashboard"><?php echo $total_trips; ?></div>
                     <div class="label-dashboard">Active Trips</div>
                 </div>
             </div>
@@ -78,7 +96,7 @@ if (!isset($_SESSION['account_id']) || $_SESSION['role'] != 2) {
                     <img src="../images/truck.png" alt="Available Vehicles">
                 </div>
                 <div class="info-dashboard">
-                    <div class="value-dashboard">6</div>
+                    <div class="value-dashboard"><?php echo $total_active_trips; ?></div>
                     <div class="label-dashboard">Available Vehicles</div>
                 </div>
             </div>
@@ -88,7 +106,7 @@ if (!isset($_SESSION['account_id']) || $_SESSION['role'] != 2) {
                     <img src="../images/pending.png" alt="Pending Jobs">
                 </div>
                 <div class="info-dashboard">
-                    <div class="value-dashboard">0</div>
+                    <div class="value-dashboard"><?php echo $total_pending_trips_result;?></div>
                     <div class="label-dashboard">Pending Jobs</div>
                 </div>
             </div>

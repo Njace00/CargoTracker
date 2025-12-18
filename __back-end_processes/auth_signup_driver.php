@@ -16,11 +16,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $query = mysqli_query($conn, $insert);
    
-
+    header("Location: ../_admin_interface/admin_accounts.php");
     
     
 }
-
 
 
 

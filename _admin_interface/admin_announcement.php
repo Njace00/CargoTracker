@@ -96,6 +96,7 @@ $result = mysqli_query($conn, $query);
             <div class="dashboard-card-announcement">
                 <h2>Recent Announcements</h2>
                 <div class="card-content-scrollable-announcement">
+                    <form action="../__back-end_processes/process_archive_announcement.php" method="POST"></form>
                     <ul class="announcement-list-announcement">
                         <?php while ($row = mysqli_fetch_assoc($result)): ?>
                             <li class="announcement-item-announcement priority-red">
@@ -104,10 +105,12 @@ $result = mysqli_query($conn, $query);
                                         <h2><?php echo htmlspecialchars($row['title']); ?></h2>
                                     </div>
                                 </div>
-                                <div class="announcement-date-announcement">Posted 5 minutes ago</div>
+                                
                                 <p><?php echo htmlspecialchars($row['announcement_message']); ?></p>
-                                <button class="announcement-delete-btn-announcement">Delete</button>
-                                </p>
+                                <form action="../__back-end_processes/process_archive_announcement.php" method="POST" style="display:inline;">
+                                    <input type="hidden" name="announcement_id" value="<?php echo $row['announcement_id']; ?>">
+                                    <button class="announcement-delete-btn-announcement" type="submit">Archive</button>
+                                </form>
                             </li>
                         <?php endwhile; ?>
                     </ul>

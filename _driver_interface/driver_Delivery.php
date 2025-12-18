@@ -9,19 +9,24 @@ if (!isset($_SESSION['account_id']) || $_SESSION['role'] != 1) {
 }
 
 $logged_in_username = null;
+$logged_in_fullname = null;
 if (isset($_SESSION['account_id'])) {
     $account_id = $_SESSION['account_id'];
-    $query = "SELECT username FROM account WHERE account_id = ?";
+    $query = "SELECT username, fullname FROM account WHERE account_id = ?";
     $stmt = $conn->prepare($query);
     $stmt->bind_param("i", $account_id);
     $stmt->execute();
     $result = $stmt->get_result();
-
+    
     if ($row = $result->fetch_assoc()) {
         $logged_in_username = $row['username'];
+        $logged_in_fullname = $row['fullname'];
     }
     $stmt->close();
 }
+
+$query = "SELECT * FROM trips where driver = '$logged_in_fullname' AND completed = 1";
+$result = mysqli_query($conn, $query);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -91,27 +96,14 @@ if (isset($_SESSION['account_id'])) {
                     </tr>
                 </thead>
                 <tbody>
+                    <?php while ($row = mysqli_fetch_assoc($result)): ?>
                     <tr>
-                        <td>TEST</td>
-                        <td>TEST</td>
-                        <td>TEST</td>
-                        <td>TEST</td>
-                        <td>TEST</td>
+                        <td><?php echo htmlspecialchars($row['trip_id']); ?></td>
+                        <td><?php echo htmlspecialchars($row['driver']); ?></td>
+                        <td><?php echo htmlspecialchars($row['vehicle']); ?></td>
+                        <td><?php echo htmlspecialchars($row['destination']); ?></td>
                     </tr>
-                    <tr>
-                        <td>TEST</td>
-                        <td>TEST</td>
-                        <td>TEST</td>
-                        <td>TEST</td>
-                        <td>TEST</td>
-                    </tr>
-                    <tr>
-                        <td>TEST</td>
-                        <td>TEST</td>
-                        <td>TEST</td>
-                        <td>TEST</td>
-                        <td>TEST</td>
-                    </tr>
+                     <?php endwhile; ?>
                 </tbody>
             </table>
         </div>

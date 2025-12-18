@@ -88,6 +88,9 @@ if (isset($_SESSION['account_id'])) {
 
                 <p class="job-label">Date</p>
                 <h3>No Job assigned yet...</h3>
+                <a href="driver_Assigned_Job.php">
+                <button class="anchor_Job_page">Go to Job Page</button>
+                </a>
             </div>
 
             <div class="dashboard-card">

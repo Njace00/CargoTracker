@@ -1,4 +1,5 @@
 <?php
+include '../__back-end_processes\db_connect.php';
 session_start();
 
 // If not logged in OR not driver, redirect away
@@ -6,6 +7,13 @@ if (!isset($_SESSION['account_id']) || $_SESSION['role'] != 2) {
     header("Location: ../_user_interface/user_signup.php");
     exit();
 }
+
+$query = "SELECT trips_completed, fullname FROM account WHERE role = 1";
+$driver_trips_complete = mysqli_query($conn, $query);
+
+$query ="SELECT vehicle_id, vehicle_name, total_trips FROM vehicles WHERE is_archived = 0";
+$vehicle_total_trips = mysqli_query($conn, $query);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -63,31 +71,16 @@ if (!isset($_SESSION['account_id']) || $_SESSION['role'] != 2) {
                     <thead>
                         <tr>
                             <th>Driver Name</th>
-                            <th>Trips Completed</th>
-                            <th>Issues Reported</th>
+                            <th>Trips Completed</th>   
                         </tr>
                     </thead>
                     <tbody>
+                        <?php while ($row = mysqli_fetch_assoc($driver_trips_complete)): ?>
                         <tr>
-                            <td>Neil Jason Flores</td>
-                            <td>32</td>
-                            <td>1</td>
+                            <td><?php echo strtolower(htmlspecialchars($row['fullname'])); ?></td>
+                            <td><?php echo strtolower(htmlspecialchars($row['trips_completed'])); ?></td>
                         </tr>
-                        <tr>
-                            <td>Driefen Alfonso</td>
-                            <td>28</td>
-                            <td>3</td>
-                        </tr>
-                        <tr>
-                            <td>Edward Ringor</td>
-                            <td>30</td>
-                            <td>0</td>
-                        </tr>
-                        <tr>
-                            <td>Keon Kazu Capua</td>
-                            <td>25</td>
-                            <td>2</td>
-                        </tr>
+                        <?php endwhile; ?>
                     </tbody>
                 </table>
             </div>
@@ -99,27 +92,19 @@ if (!isset($_SESSION['account_id']) || $_SESSION['role'] != 2) {
                 <table class="content-table-performance">
                     <thead>
                         <tr>
-                            <th>Vehicle (Plate)</th>
+                            <th>Vehicle ID</th>
                             <th>Total Trips</th>
                             <th>Status</th>
                         </tr>
                     </thead>
                     <tbody>
+                        <?php while ($row = mysqli_fetch_assoc($vehicle_total_trips)): ?>
                         <tr>
-                            <td>TRUCK-001 (ABC 123)</td>
-                            <td>45</td>
-                            <td>Available</td>
+                            <td><?php echo strtolower(htmlspecialchars($row['vehicle_id'])); ?></td>
+                            <td><?php echo strtolower(htmlspecialchars($row['vehicle_name'])); ?></td>
+                            <td><?php echo strtolower(htmlspecialchars($row['total_trips'])); ?></td>
                         </tr>
-                        <tr>
-                            <td>TRUCK-002 (DEF 456)</td>
-                            <td>51</td>
-                            <td>Available</td>
-                        </tr>
-                        <tr>
-                            <td>TRUCK-003 (GHI 789)</td>
-                            <td>42</td>
-                            <td>Maintenance</td>
-                        </tr>
+                        <?php endwhile; ?>
                     </tbody>
                 </table>
             </div>

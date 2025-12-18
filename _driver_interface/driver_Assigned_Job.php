@@ -32,6 +32,8 @@ $result = mysqli_query($conn, $query);
 $query = "SELECT * FROM trips WHERE driver = '$logged_in_fullname'";
 $result_Job = mysqli_query($conn, $query);
 
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -83,10 +85,11 @@ $result_Job = mysqli_query($conn, $query);
    <div class="main-content">
     
     <h1>Assigned Jobs</h1>
+    <form action="#" method="POST">
     <div class="job-list-container">
         <?php while ($row = mysqli_fetch_assoc($result_Job)): ?>
         <div class="job-card-assignedjob">
-            <p class="job-label-assignedjob">Trip ID</p>
+            <p class="job-label-assignedjob">Trip ID</p>    
             <h1><?php echo htmlspecialchars($row['trip_id']); ?></h1>
             <p class="job-label-assignedjob">Driver</p>
             <h1><?php echo htmlspecialchars($row['driver']); ?></h1>
@@ -100,7 +103,9 @@ $result_Job = mysqli_query($conn, $query);
             <h1><?php echo htmlspecialchars($row['status']); ?></h1>
         </div>
         <?php endwhile; ?>
+        <button>Mark as In Progress</button>
     </div>
+    </form>
 
 </div>
     

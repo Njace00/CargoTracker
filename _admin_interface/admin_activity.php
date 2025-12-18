@@ -6,6 +6,16 @@ if (!isset($_SESSION['account_id']) || $_SESSION['role'] != 2) {
     header("Location: ../_user_interface/user_signup.php");
     exit();
 }
+
+
+
+
+
+
+
+
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

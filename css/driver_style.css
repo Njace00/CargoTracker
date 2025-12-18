@@ -337,6 +337,8 @@ body {
     font-size: 1rem;
 }
 
+
+
 /* ================= ASSIGNED JOB END ========================== */
 
 
@@ -538,6 +540,15 @@ body {
             font-weight: 700;
             color: #1f2c3d;
             margin-bottom: 20px;
+        }
+
+        .anchor_Job_page{
+            font-size: 1rem;
+            width: 50%;
+            background-color: #27ae60;
+            color: whitesmoke;
+            border-width: 0;
+            border-radius: 0.4rem;
         }
 
         /* Stats Card Styles */

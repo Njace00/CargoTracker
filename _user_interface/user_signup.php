@@ -26,6 +26,13 @@
         <input type="text" placeholder="Name" name="name">
         <input type="email" placeholder="Email" name="email">
         <input type="password" placeholder="Password" name="password">
+        <input
+          type="tel"
+          name="number"
+          placeholder="Phone Number (eg, +63)"
+          pattern="\+639\d{9}"
+          title="Please enter a valid Philippine mobile number starting with +639 followed by 9 digits."
+          required>
         <button type="submit">Sign Up</button>
       </form>
     </div>

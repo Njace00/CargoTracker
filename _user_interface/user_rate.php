@@ -47,7 +47,206 @@ if (isset($_SESSION['account_id'])) {
                 grid-template-columns: 1fr;
             }
         }
+
+        /* --- General Page Body --- */
+
+
+        .main-content {
+            flex-grow: 1;
+            padding-top: 40px;
+            padding-bottom: 60px;
+        }
+
+        /* --- Main Quote Page Layout --- */
+        .quote-page-layout {
+            display: flex;
+            flex-wrap: wrap;
+            /* Allows stacking on mobile */
+            max-width: 1200px;
+            margin: 0 auto;
+            gap: 40px;
+            /* Space between form and sidebar */
+            padding: 0 5%;
+        }
+
+        /* --- 1. Form Container (Left Side) --- */
+        .quote-form-container {
+            flex: 2;
+            /* Form takes 2/3 of the space */
+            min-width: 300px;
+            /* Prevents it from getting too small */
+            background: #fff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .quote-form-container h1 {
+            font-size: 36px;
+            color: #333;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        .quote-form-container .subtitle {
+            font-size: 18px;
+            color: #555;
+            margin-bottom: 30px;
+        }
+
+        /* --- Form Styling --- */
+        .quote-form fieldset {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+
+        .quote-form legend {
+            font-size: 20px;
+            font-weight: 600;
+            color: #009900;
+            /* Brand color */
+            padding: 0 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group input[type="tel"],
+        .form-group input[type="date"],
+        .form-group input[type="number"],
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            /* Important for padding to work */
+            transition: border-color 0.3s;
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #009900;
+            /* Highlight on focus */
+            outline: none;
+            box-shadow: 0 0 5px rgba(0, 86, 179, 0.2);
+        }
+
+        /* Utility for side-by-side fields */
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+            min-width: 200px;
+            /* Fields will stack if space is tight */
+        }
+
+        .submit-button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            font-size: 18px;
+            font-weight: 700;
+            color: #fff;
+            background-color: #009900;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .submit-button:hover {
+            background-color: #004a99;
+        }
+
+        /* --- 2. Sidebar (Right Side) --- */
+        .quote-sidebar {
+            flex: 1;
+            /* Sidebar takes 1/3 of the space */
+            min-width: 300px;
+        }
+
+        .sidebar-widget {
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+        }
+
+        .sidebar-widget h3 {
+            font-size: 22px;
+            color: #333;
+            margin-top: 0;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 10px;
+        }
+
+        .sidebar-widget ul {
+            list-style: none;
+            padding-left: 0;
+            margin: 0;
+        }
+
+        .sidebar-widget ul li {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .sidebar-widget ul li::before {
+            content: '✓';
+            /* Simple icon */
+            font-weight: 700;
+            color: #009900;
+            margin-right: 12px;
+            font-size: 18px;
+        }
+
+        .sidebar-widget p {
+            font-size: 16px;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        /* --- Responsive Design --- */
+        @media (max-width: 900px) {
+            .quote-page-layout {
+                flex-direction: column-reverse;
+                /* Stacks sidebar on top on mobile */
+            }
+        }
     </style>
+
+
 </head>
 
 <body>
@@ -60,22 +259,8 @@ if (isset($_SESSION['account_id'])) {
             <a href="user_index.php">Home</a>
             <a href="user_about.php">About Us</a>
             <a href="user_contact.php">Contact</a>
+            <a href="user_rate.php">Quote</a>
 
-            <div class="dropdown">
-                <button>Rates&#9660;</button>
-                <div class="dropdown-menu">
-                    <a href="user_qoute.php">Request a Quote</a>
-                    <a href="user_rate.php">Rate Calculator</a>
-                </div>
-            </div>
-
-            <div class="dropdown">
-                <button>Cargo&#9660;</button>
-                <div class="dropdown-menu">
-                    <a href="user_tracker.php">Track your Delivery</a>
-                    <a href="#">Contact Courier</a>
-                </div>
-            </div>
 
             <?php if ($logged_in_username): ?>
                 <!-- Show username dropdown if logged in -->
@@ -96,110 +281,96 @@ if (isset($_SESSION['account_id'])) {
         </div>
     </nav>
 
-    <div class="calculator-container">
-        <h2 class="calculator-title">Calculate Your Shipping Rate</h2>
+    <div class="main-content">
+        <div class="quote-page-layout">
 
-        <form class="calculator-form" id="rateForm">
+            <div class="quote-form-container">
+                <h1>Request a Quote</h1>
+                <p class="subtitle">Get a free, no-obligation quote for your shipping needs. Fill out the form below, and one of our logistics specialists will contact you shortly.</p>
 
-            <!-- Point A -->
-            <div class="location-section point-a">
-                <div class="section-title">Point A - Pickup Location</div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="regionA">Region</label>
-                        <select name="regionA" id="regionA" required>
-                            <option value="">Select Region</option>
-                            <option value="NCR">NCR (National Capital Region)</option>
-                            <option value="Region3">Region 3 (Central Luzon)</option>
-                            <option value="Region4">Region 4 (CALABARZON)</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="cityA">City/Area</label>
-                        <select name="cityA" id="cityA" required disabled>
-                            <option value="">Select Region First</option>
-                        </select>
-                    </div>
+                <form action="process_quote.php" method="POST" class="quote-form">
+
+                    <fieldset>
+                        <legend>1. Contact Information</legend>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="first-name">First Name</label>
+                                <input type="text" id="first-name" name="first_name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="last-name">Last Name</label>
+                                <input type="text" id="last-name" name="last_name" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="company-name">Company Name (Optional)</label>
+                            <input type="text" id="company-name" name="company_name">
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="email">Email Address</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone Number</label>
+                                <input type="tel" id="phone" name="phone" required>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>2. Shipment Details</legend>
+
+                        <div class="form-group">
+                            <label for="pickup-address">Pickup Address</label>
+                            <textarea id="pickup-address" name="pickup_address" rows="3" placeholder="Enter street, city, and zip code" required></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="destination-address">Destination Address</label>
+                            <textarea id="destination-address" name="destination_address" rows="3" placeholder="Enter street, city, and zip code" required></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="pickup-date">Requested Pickup Date</label>
+                            <input type="date" id="pickup-date" name="pickup_date" required>
+                        </div>
+                    </fieldset>
+
+                    <button type="submit" class="submit-button">Get My Quote</button>
+
+                </form>
+            </div>
+
+            <div class="quote-sidebar">
+                <div class="sidebar-widget">
+                    <h3>Why Ship with GNBTL?</h3>
+                    <ul>
+                        <li>Reliable, On-Time Delivery</li>
+                        <li>Competitive & Transparent Pricing</li>
+                        <li>Real-Time GPS Tracking</li>
+                        <li>24/7 Customer Support</li>
+                        <li>Modern, Well-Maintained Fleet</li>
+                    </ul>
+                </div>
+
+                <div class="sidebar-widget">
+                    <h3>What Happens Next?</h3>
+                    <p>
+                        <strong>1. Submit Your Form:</strong> Once you send your request, our system logs it instantly.
+                    </p>
+                    <p>
+                        <strong>2. We Process Your Request:</strong> Once we receive your requested quote, we will email you within one business hour.
+                    </p>
+                    <p>
+                        <strong>3. We Contact You:</strong> One of our representatives will call or email you within one business hour to discuss your quote and next steps.
+                    </p>
                 </div>
             </div>
 
-            <!-- Point B -->
-            <div class="location-section point-b">
-                <div class="section-title">Point B - Delivery Location</div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="regionB">Region</label>
-                        <select name="regionB" id="regionB" required>
-                            <option value="">Select Region</option>
-                            <option value="NCR">NCR (National Capital Region)</option>
-                            <option value="Region3">Region 3 (Central Luzon)</option>
-                            <option value="Region4">Region 4 (CALABARZON)</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="cityB">City/Area</label>
-                        <select name="cityB" id="cityB" required disabled>
-                            <option value="">Select Region First</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Truck Section -->
-            <div class="truck-section">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="load_size">Load Size</label>
-                        <select name="load_size" id="load_size" required>
-                            <option value="">Select Size</option>
-                            <option value="2">2-tonner</option>
-                            <option value="5">5-tonner</option>
-                            <option value="10">10-tonner</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="truck_count">Truck(s) Needed</label>
-                        <select name="truck_count" id="truck_count" required>
-                            <option value="">Select Number</option>
-                            <option value="1">1 Truck</option>
-                            <option value="multiple">Multiple Trucks (Contact Us)</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-
-            <button type="submit" class="calculate-btn">Calculate Rate</button>
-        </form>
-
-        <!-- Results Section -->
-        <div class="result-section" id="resultSection">
-            <h3 class="result-title">Estimated Price Breakdown</h3>
-            <div class="breakdown-item">
-                <span>Route</span>
-                <span id="routeDisplay">-</span>
-            </div>
-            <div class="breakdown-item">
-                <span>Distance</span>
-                <span id="distanceDisplay">0 km</span>
-            </div>
-            <div class="breakdown-item">
-                <span>Base Rate (per km)</span>
-                <span id="baseRateDisplay">₱ 0.00</span>
-            </div>
-            <div class="breakdown-item">
-                <span>Truck Size Fee</span>
-                <span id="truckFeeDisplay">₱ 0.00</span>
-            </div>
-            <div class="breakdown-item">
-                <span>Area Surcharge</span>
-                <span id="surchargeDisplay">₱ 0.00</span>
-            </div>
-            <div class="breakdown-item total">
-                <span>Total Estimated Cost</span>
-                <span id="totalDisplay">₱ 0.00</span>
-            </div>
-            <p class="disclaimer">*Final price may vary based on actual road conditions and additional services</p>
         </div>
     </div>
 

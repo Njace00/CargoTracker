@@ -119,22 +119,8 @@ if (isset($_SESSION['account_id'])) {
                 <a href="user_index.php">Home</a>
                 <a href="user_about.php">About Us</a>
                 <a href="user_contact.php">Contact</a>
+                <a href="user_rate.php">Quote</a>
 
-                <div class="dropdown">
-                    <button>Rates&#9660;</button>
-                    <div class="dropdown-menu">
-                        <a href="user_qoute.php">Request a Quote</a>
-                        <a href="user_rate.php">Rate Calculator</a>
-                    </div>
-                </div>
-
-                <div class="dropdown">
-                    <button>Cargo&#9660;</button>
-                    <div class="dropdown-menu">
-                        <a href="user_tracker.php">Track your Delivery</a>
-                        <a href="#">Contact Courier</a>
-                    </div>
-                </div>
 
                 <?php if ($logged_in_username): ?>
                     <!-- Show username dropdown if logged in -->

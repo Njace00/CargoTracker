@@ -39,6 +39,7 @@ if (isset($_SESSION['account_id'])) {
         .main-content {
             flex-grow: 1;
             /* This pushes the footer down */
+            background-color: #085508ff;
         }
 
         /* --- 1. Hero Section --- */
@@ -54,6 +55,7 @@ if (isset($_SESSION['account_id'])) {
             justify-content: center;
             text-align: center;
             color: #fff;
+            background-color: #065706;
         }
 
         .hero-section::before {
@@ -88,6 +90,8 @@ if (isset($_SESSION['account_id'])) {
 
         /* --- 2. Two-Column About Section --- */
         .about-layout {
+            background-size: cover;
+            background-position: center;
             display: flex;
             flex-wrap: wrap;
             /* Allows stacking on mobile */
@@ -98,7 +102,7 @@ if (isset($_SESSION['account_id'])) {
             margin: 0 auto;
             /* Center the layout */
             gap: 40px;
-            /* Space between text and image */
+            background-color: #085508ff;
         }
 
         .about-text {
@@ -315,22 +319,7 @@ if (isset($_SESSION['account_id'])) {
             <a href="user_index.php">Home</a>
             <a href="user_about.php">About Us</a>
             <a href="user_contact.php">Contact</a>
-
-            <div class="dropdown">
-                <button>Rates&#9660;</button>
-                <div class="dropdown-menu">
-                    <a href="user_qoute.php">Request a Quote</a>
-                    <a href="user_rate.php">Rate Calculator</a>
-                </div>
-            </div>
-
-            <div class="dropdown">
-                <button>Cargo&#9660;</button>
-                <div class="dropdown-menu">
-                    <a href="user_tracker.php">Track your Delivery</a>
-                    <a href="#">Contact Courier</a>
-                </div>
-            </div>
+            <a href="user_rate.php">Quote</a>
 
             <?php if ($logged_in_username): ?>
                 <!-- Show username dropdown if logged in -->
@@ -364,15 +353,9 @@ if (isset($_SESSION['account_id'])) {
             <div class="about-text">
                 <h2>Who We Are</h2>
                 <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam velit quas
-                    mollitia quia, ipsum repudiandae similique temporibus labore maiores vero
-                    quisquam perferendis molestias doloremque, veniam quis facere corrupti est!
-                    Commodi!
+                    We are a local logistics company providing reliable and efficient delivery services for businesses and individuals. With a dedicated team and well-maintained vehicles, we ensure your goods are transported safely and on time.
                 </p>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae, rerum
-                    facere. Earum .
-                </p>
+
             </div>
             <div class="about-image">
                 <img src="../images/18-wheeler.png" alt="GNBTL Team or Office">
@@ -385,17 +368,17 @@ if (isset($_SESSION['account_id'])) {
                 <div class="value-card">
                     <div class="icon">✓</div>
                     <h3>Reliability</h3>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam velit quas mollitia quia, ipsum repudiandae similique temporibus labore maiores vero quisquam perferendis molestias doloremque, veniam quis facere corrupti est! Commodi!</p>
+                    <p>We deliver on time, every time. Our operations are carefully planned to ensure consistent and dependable service you can trust.</p>
                 </div>
                 <div class="value-card">
                     <div class="icon">🔒</div>
                     <h3>Safety & Security</h3>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam velit quas mollitia quia, ipsum repudiandae similique temporibus labore maiores vero quisquam perferendis molestias doloremque, veniam quis facere corrupti est! Commodi!.</p>
+                    <p>Your cargo is our priority. We follow strict handling procedures to keep your goods safe and secure throughout the delivery process.</p>
                 </div>
                 <div class="value-card">
                     <div class="icon">💬</div>
-                    <h3>24/7 Support</h3>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam velit quas mollitia quia, ipsum repudiandae similique temporibus labore maiores vero quisquam perferendis molestias doloremque, veniam quis facere corrupti est! Commodi!</p>
+                    <h3>24/6 Support</h3>
+                    <p>We are always ready to assist you. Our support team is available to answer inquiries, provide updates, and ensure smooth coordination whenever you need us.</p>
                 </div>
             </div>
         </section>

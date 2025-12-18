@@ -1,6 +1,6 @@
 <?php
 session_start();
-include 'db_connect.php'; 
+include 'db_connect.php';
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -33,7 +33,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 header("Location: ../_user_interface/user_index.php");
                 exit();
             }
-
         } else {
             // X Wrong password
             $_SESSION['error'] = "Please check your credentials.";
@@ -47,4 +46,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     }
 }
-?>

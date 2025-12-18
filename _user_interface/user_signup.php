@@ -19,20 +19,13 @@
     <div class="form-container sign-up-container">
       <form method="POST" action="../__back-end_processes/auth_signup.php">
         <h1>Create Account</h1>
-        <div class="social-container">
-          <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
-        </div>
-        <span>or use your email</span>
-        <input type="text" placeholder="Name" name="name">
-        <input type="email" placeholder="Email" name="email">
-        <input type="password" placeholder="Password" name="password">
-        <input 
-  type="tel" 
-  name="number" 
-  placeholder="Phone Number (eg, +639123456789)" 
-  pattern="\+639\d{9}" 
-  title="Please enter a valid Philippine mobile number starting with +639 followed by 9 digits." 
-  required
+        
+        <input type="text" placeholder="Username" name="name" required>
+        <input type="text" placeholder="Fullname" name="fname" required>
+        <input type="text" placeholder="Company Name" name="cname" required>
+        <input type="email" placeholder="Email" name="email" required>
+        <input type="password" placeholder="Password" name="password" required>
+        <input type="tel" name="number" placeholder="Phone Number (eg, +639123456789)" pattern="\+639\d{9}" title="Please enter a valid Philippine mobile number starting with +639 followed by 9 digits." required
 >
         <button type="submit">Sign Up</button>
       </form>

@@ -61,8 +61,6 @@ if (isset($_SESSION['account_id'])) {
                 <li><a href="../_driver_interface/driver_Announcement.php">Announcement</a></li>
                 <li><a href="../_driver_interface/driver_Delivery.php">Delivery</a></li>
                 <li><a href="../_driver_interface/driver_Assigned_Job.php">Assigned Job</a></li>
-                <li><a href="../_driver_interface/driver_Records.php">Weekly Records</a></li>
-                <li><a href="../_driver_interface/driver_Logs.php">Logs</a></li>
             </ul>
         </nav>
         <div class="logout-container">

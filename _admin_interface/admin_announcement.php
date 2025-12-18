@@ -43,7 +43,7 @@ $result = mysqli_query($conn, $query);
         <nav>
             <ul class="nav-links">
                 <li><a href="../_admin_interface/admin.php">Dashboard</a></li>
-                <li><a href="../_admin_interface/admin_overview.php">Overview Metrics</a></li>
+                <li><a href="../_admin_interface/admin_verify_account.php">Verify Clients</a></li>
                 <li><a href="../_admin_interface/admin_trips.php">Trips</a></li>
                 <li><a href="../_admin_interface/admin_vehicles.php">Vehicles</a></li>
                 <li><a href="../_admin_interface/admin_performance.php">Performance</a></li>

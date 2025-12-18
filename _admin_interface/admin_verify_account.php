@@ -1,4 +1,5 @@
 <?php
+include '../__back-end_processes/db_connect.php';
 session_start();
 
 // Dummy session check
@@ -13,6 +14,12 @@ $pending_accounts = [
     ['username' => 'jane_smith', 'email' => 'jane@example.com', 'created_at' => '2025-12-11'],
     ['username' => 'mike_ross', 'email' => 'mike@example.com', 'created_at' => '2025-12-12']
 ];
+
+
+
+$query = "SELECT * FROM account WHERE role =  0 AND is_new_client  = 1";
+$new_account_verify = mysqli_query($conn, $query);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -131,13 +138,12 @@ $pending_accounts = [
     <nav>
        <ul class="nav-links">
                 <li><a href="../_admin_interface/admin.php">Dashboard</a></li>
-                <li><a href="../_admin_interface/admin_overview.php">Overview Metrics</a></li>
+                <li><a href="../_admin_interface/admin_verify_account.php">Verify Clients</a></li>
                 <li><a href="../_admin_interface/admin_trips.php">Trips</a></li>
                 <li><a href="../_admin_interface/admin_vehicles.php">Vehicles</a></li>
                 <li><a href="../_admin_interface/admin_performance.php">Performance</a></li>
                 <li><a href="../_admin_interface/admin_activity.php">Recent Activity</a></li>
                 <li><a href="../_admin_interface/admin_accounts.php">Driver Accounts</a></li>
-                <li><a href="../_admin_interface/admin_verify_account.php">Verify Account</a></li>
                 <li><a href="../_admin_interface/admin_announcement.php">Announcement</a></li>
             </ul>
     </nav>
@@ -164,9 +170,9 @@ $pending_accounts = [
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($pending_accounts as $account): ?>
+                        <?php while ($row = mysqli_fetch_assoc($new_account_verify)): ?>
                             <tr>
-                                <td><?= htmlspecialchars($account['username']) ?></td>
+                                <td><?php echo htmlspecialchars($row['username']); ?></td>
                                 <td><?= htmlspecialchars($account['email']) ?></td>
                                 <td><?= date("F d, Y", strtotime($account['created_at'])) ?></td>
                                 <td>
@@ -174,10 +180,10 @@ $pending_accounts = [
                                     <button class="reject-btn">Reject</button>
                                 </td>
                             </tr>
-                        <?php endforeach; ?>
+                         <?php endwhile; ?>
                     </tbody>
                 </table>
-            <?php else: ?>
+            <?php else: ?>  
                 <p>No accounts pending verification.</p>
             <?php endif; ?>
         </div>

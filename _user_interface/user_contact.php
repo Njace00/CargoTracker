@@ -18,6 +18,12 @@ if (isset($_SESSION['account_id'])) {
     $stmt->close();
 }
 
+// Only allow verified clients (role = 0, is_new_client = 0)
+// // if (!isset($_SESSION['account_id']) || $_SESSION['role'] != 0 || $_SESSION['is_new_client'] != 0) {
+// //     header("Location: ../_user_interface/user_signup.php");
+// //     exit();
+// }
+
 ?>
 <!DOC
 
@@ -119,7 +125,7 @@ if (isset($_SESSION['account_id'])) {
                 <a href="user_index.php">Home</a>
                 <a href="user_about.php">About Us</a>
                 <a href="user_contact.php">Contact</a>
-                <a href="user_rate.php">Quote</a>
+                <a href="user_rate.php">Reservation</a>
 
 
                 <?php if ($logged_in_username): ?>

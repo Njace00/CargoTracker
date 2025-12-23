@@ -21,6 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['account_id'] = $user['account_id'];
             $_SESSION['username'] = $user['username'];
             $_SESSION['role'] = $user['role'];
+            $_SESSION['is_new_client'] = $user['is_new_client']; // ✅ ADD THIS LINE
 
             // Step 3: Redirect based on role
             if ($user['role'] == 2) {

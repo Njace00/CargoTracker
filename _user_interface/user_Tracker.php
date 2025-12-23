@@ -78,6 +78,7 @@ if (isset($_SESSION['account_id'])) {
             <a href="user_index.php">Home</a>
             <a href="user_about.php">About Us</a>
             <a href="user_contact.php">Contact</a>
+            <a href="user_rate.php">Reservation</a>
 
             <div class="dropdown">
                 <button>Rates&#9660;</button>

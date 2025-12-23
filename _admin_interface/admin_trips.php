@@ -14,7 +14,7 @@ $result = mysqli_query($conn, $query);
 $query = "SELECT * FROM vehicles WHERE is_assigned = 0";
 $result1 = mysqli_query($conn, $query);
 
-$query = "SELECT * FROM trips";
+$query = "SELECT * FROM trips WHERE status = 'pending'";
 $result2 = mysqli_query($conn, $query);
 
 // QUERY INSIDE THE MODAL
@@ -23,6 +23,14 @@ $result00 = mysqli_query($conn, $query);
 
 $query = "SELECT * FROM vehicles WHERE is_assigned = 0";
 $result01 = mysqli_query($conn, $query);
+
+// FETCH PENDING/APPROVED RESERVATIONS
+$query_reservations = "SELECT r.*, a.username 
+                       FROM reservations r 
+                       LEFT JOIN account a ON r.account_id = a.account_id 
+                       WHERE r.status IN ('pending', 'approved')
+                       ORDER BY r.reservation_date ASC";
+$result_reservations = mysqli_query($conn, $query_reservations);
 
 ?>
 <!DOCTYPE html>
@@ -157,6 +165,150 @@ $result01 = mysqli_query($conn, $query);
         .btn-cancel:hover {
             background-color: #616161;
         }
+
+        /* Reservations List Styles */
+        .reservations-card {
+            background: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .reservations-card h2 {
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 18px;
+            color: #333;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 10px;
+        }
+
+        .reservation-item {
+            background: #f9f9f9;
+            border-left: 4px solid #009900;
+            padding: 12px 15px;
+            margin-bottom: 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .reservation-item:hover {
+            background: #f0f9f0;
+            box-shadow: 0 2px 6px rgba(0, 153, 0, 0.1);
+        }
+
+        .reservation-item.pending {
+            border-left-color: #ffc107;
+        }
+
+        .reservation-item.approved {
+            border-left-color: #28a745;
+        }
+
+        .reservation-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .reservation-id {
+            font-weight: 700;
+            color: #009900;
+            font-size: 14px;
+        }
+
+        .reservation-date {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .reservation-company {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 4px;
+        }
+
+        .reservation-details {
+            font-size: 13px;
+            color: #555;
+            line-height: 1.4;
+        }
+
+        .reservation-status {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-top: 6px;
+        }
+
+        .reservation-status.pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .reservation-status.approved {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .empty-reservations {
+            text-align: center;
+            padding: 30px;
+            color: #999;
+        }
+
+        .use-btn {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+            margin-top: 8px;
+            margin-right: 6px;
+            transition: background 0.2s;
+        }
+
+        .use-btn:hover {
+            background: #0056b3;
+        }
+
+        .delete-reservation-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+            margin-top: 8px;
+            transition: background 0.2s;
+        }
+
+        .delete-reservation-btn:hover {
+            background: #c82333;
+        }
+
+        .reservation-actions {
+            margin-top: 8px;
+        }
+
+        .dashboard-columns-trip {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .dashboard-card-trip:nth-child(3) {
+            grid-column: span 2;
+            /* Make the 3rd card (All Trips) span both columns */
+        }
     </style>
 </head>
 
@@ -177,11 +329,10 @@ $result01 = mysqli_query($conn, $query);
         <nav>
             <ul class="nav-links">
                 <li><a href="../_admin_interface/admin.php">Dashboard</a></li>
-                <li><a href="../_admin_interface/admin_verify_account.php">Verify Clients</a></li>
-                <li><a href="../_admin_interface/admin_trips.php">Trips</a></li>
+                <li><a href="../_admin_interface/admin_verify_account.php">Verify Accounts</a></li>
+                <li><a href="../_admin_interface/admin_trips.php">Trips & Reservation</a></li>
                 <li><a href="../_admin_interface/admin_vehicles.php">Vehicles</a></li>
                 <li><a href="../_admin_interface/admin_performance.php">Performance</a></li>
-                <li><a href="../_admin_interface/admin_activity.php">Recent Activity</a></li>
                 <li><a href="../_admin_interface/admin_accounts.php">Driver Accounts</a></li>
                 <li><a href="../_admin_interface/admin_announcement.php">Announcement</a></li>
             </ul>
@@ -199,9 +350,43 @@ $result01 = mysqli_query($conn, $query);
 
         <div class="dashboard-columns-trip">
 
+            <!-- RESERVATIONS LIST -->
+            <div class="reservations-card">
+                <h2>📋 Pending Reservations</h2>
+                <div style="max-height: 400px; overflow-y: auto;">
+                    <?php if ($result_reservations && mysqli_num_rows($result_reservations) > 0): ?>
+                        <?php while ($res = mysqli_fetch_assoc($result_reservations)): ?>
+                            <div class="reservation-item <?php echo $res['status']; ?>">
+                                <div class="reservation-header">
+                                    <span class="reservation-id">#<?php echo htmlspecialchars($res['reservation_id']); ?></span>
+                                    <span class="reservation-date"><?php echo date('M d, Y', strtotime($res['reservation_date'])); ?></span>
+                                </div>
+                                <div class="reservation-company"><?php echo htmlspecialchars($res['company_name']); ?></div>
+                                <div class="reservation-details">
+                                    <strong>Shipment:</strong> <?php echo htmlspecialchars(substr($res['shipment'], 0, 60)) . (strlen($res['shipment']) > 60 ? '...' : ''); ?><br>
+                                    <strong>Destination:</strong> <?php echo htmlspecialchars(substr($res['address_destination'], 0, 60)) . (strlen($res['address_destination']) > 60 ? '...' : ''); ?>
+                                </div>
+                                <span class="reservation-status <?php echo $res['status']; ?>"><?php echo ucfirst($res['status']); ?></span>
+                                <div class="reservation-actions">
+                                    <button class="use-btn" onclick="fillFromReservation(<?php echo htmlspecialchars(json_encode($res)); ?>)">Use for Trip</button>
+                                    <button class="delete-reservation-btn" onclick="deleteReservation(<?php echo $res['reservation_id']; ?>)">Delete</button>
+                                </div>
+                            </div>
+                        <?php endwhile; ?>
+                    <?php else: ?>
+                        <div class="empty-reservations">
+                            <p>No pending reservations</p>
+                        </div>
+                    <?php endif; ?>
+                </div>
+            </div>
+
+            <!-- CREATE TRIP FORM -->
             <div class="dashboard-card-trip">
                 <h2>Create New Trip</h2>
-                <form action="../__back-end_processes/process_add_trips.php" method="POST">
+                <form action="../__back-end_processes/process_add_trips.php" method="POST" id="createTripForm">
+                    <input type="hidden" name="reservation_id" id="reservation_id">
+
                     <div class="form-group-trip">
                         <label for="trip_driver" class="form-label-trip">Assign Driver</label>
                         <select id="trip_driver" class="form-select-trip" name="assigned_Driver">
@@ -224,16 +409,12 @@ $result01 = mysqli_query($conn, $query);
 
                     <div class="form-group-trip">
                         <label for="trip_client" class="form-label-trip">Assign Client</label>
-                        <select id="trip_client" class="form-select-trip" name="Client">
-                            <option value="">Select a client...</option>
-                            <option value="1">Client A (Manila)</option>
-                            <option value="2">Client B (Batangas)</option>
-                        </select>
+                        <input type="text" id="trip_client" class="form-input-trip" placeholder="Enter client/company name" name="Client" required>
                     </div>
 
                     <div class="form-group-trip">
-                        <label for="trip_driver" class="form-label-trip">Type of Delivery</label>
-                        <select id="trip_driver" class="form-select-trip" name="tripType">
+                        <label for="trip_type" class="form-label-trip">Type of Delivery</label>
+                        <select id="trip_type" class="form-select-trip" name="tripType">
                             <option value="">Type of Delivery</option>
                             <option value="call-in">Call-in</option>
                             <option value="reservation">Reservation</option>
@@ -245,10 +426,16 @@ $result01 = mysqli_query($conn, $query);
                         <input type="text" id="trip_destination" class="form-input-trip" placeholder="e.g., Manila Port" name="delivery_Destination" required>
                     </div>
 
+                    <div class="form-group-trip">
+                        <label for="trip_destination" class="form-label-trip">Recipient Contact</label>
+                        <input type="text" id="trip_recipient" class="form-input-trip" placeholder="Email or Contact No." name="contact" required>
+                    </div>
+
                     <button type="submit" class="form-button-trip">Create Trip</button>
                 </form>
             </div>
 
+            <!-- ALL TRIPS TABLE -->
             <div class="dashboard-card-trip">
                 <h2>All Trips</h2>
                 <div class="card-content-table-wrapper-trip">
@@ -287,6 +474,7 @@ $result01 = mysqli_query($conn, $query);
                 </div>
             </div>
 
+
         </div>
 
     </div>
@@ -301,7 +489,7 @@ $result01 = mysqli_query($conn, $query);
             <form id="editTripForm" action="../__back-end_processes/process_edit_trip.php" method="POST">
                 <div class="modal-body">
                     <input type="hidden" id="modal_trip_id" name="trip_id">
-                    
+
                     <div class="modal-field">
                         <label>Trip ID</label>
                         <input type="text" id="modal_trip_id_display" disabled>
@@ -329,11 +517,8 @@ $result01 = mysqli_query($conn, $query);
 
                     <div class="modal-field">
                         <label for="trip_client" class="form-label-trip">Assign Client</label>
-                        <select id="modal_client" class="form-select-trip" name="client">
-                            <option value="">Select a client...</option>
-                            <option value="1">Client A (Manila)</option>
-                            <option value="2">Client B (Batangas)</option>
-                        </select>
+                        <input type="text" id="modal_client" class="form-input-trip" placeholder="Enter client/company name" name="client" required>
+                        
                     </div>
 
                     <div class="modal-field">
@@ -349,7 +534,7 @@ $result01 = mysqli_query($conn, $query);
                         </select>
                     </div>
 
-                    
+
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="modal-btn btn-save">Save Changes</button>
@@ -383,6 +568,32 @@ $result01 = mysqli_query($conn, $query);
             });
         });
 
+        // Fill form from reservation
+        function fillFromReservation(reservation) {
+            document.getElementById('reservation_id').value = reservation.reservation_id;
+            document.getElementById('trip_client').value = reservation.company_name;
+            document.getElementById('trip_destination').value = reservation.address_destination;
+            document.getElementById('trip_type').value = 'reservation';
+
+            // Scroll to form
+            document.getElementById('createTripForm').scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+
+            // Highlight the form briefly
+            const form = document.getElementById('createTripForm').parentElement;
+            form.style.boxShadow = '0 0 20px rgba(0, 153, 0, 0.3)';
+            setTimeout(() => {
+                form.style.boxShadow = '';
+            }, 2000);
+        }
+
+        // Delete reservation
+        function deleteReservation(reservationId) {
+            window.location.href = '../__back-end_processes/process_delete_reservation.php?reservation_id=' + reservationId;
+        }
+
         // Modal Functions
         function openModal(tripData) {
             document.getElementById('modal_trip_id').value = tripData.trip_id;
@@ -391,8 +602,8 @@ $result01 = mysqli_query($conn, $query);
             document.getElementById('modal_vehicle').value = tripData.vehicle;
             document.getElementById('modal_client').value = tripData.client;
             document.getElementById('modal_destination').value = tripData.destination;
-            document.getElementById('modal_trip_type').value = tripData.trip_type;  
-            
+            document.getElementById('modal_trip_type').value = tripData.trip_type;
+
             document.getElementById('tripModal').style.display = 'block';
         }
 
@@ -403,7 +614,7 @@ $result01 = mysqli_query($conn, $query);
         function deleteTrip() {
             const tripId = document.getElementById('modal_trip_id').value;
             window.location.href = '../__back-end_processes/process_delete_trip.php?trip_id=' + tripId;
-            
+
         }
 
         // Close modal when clicking outside

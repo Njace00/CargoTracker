@@ -20,17 +20,13 @@ if (isset($_SESSION['account_id'])) {
 
 ?>
 
-
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GNBTL Rate Calculator</title>
+    <title>GNBTL Reservation</title>
     <link rel="stylesheet" href="../css/style.css">
     <link rel="icon" type="image/x-icon" href="../images/favicon.jpg">
     <style>
@@ -48,33 +44,24 @@ if (isset($_SESSION['account_id'])) {
             }
         }
 
-        /* --- General Page Body --- */
-
-
         .main-content {
             flex-grow: 1;
             padding-top: 40px;
             padding-bottom: 60px;
         }
 
-        /* --- Main Quote Page Layout --- */
         .quote-page-layout {
             display: flex;
             flex-wrap: wrap;
-            /* Allows stacking on mobile */
             max-width: 1200px;
             margin: 0 auto;
             gap: 40px;
-            /* Space between form and sidebar */
             padding: 0 5%;
         }
 
-        /* --- 1. Form Container (Left Side) --- */
         .quote-form-container {
             flex: 2;
-            /* Form takes 2/3 of the space */
             min-width: 300px;
-            /* Prevents it from getting too small */
             background: #fff;
             padding: 40px;
             border-radius: 8px;
@@ -94,7 +81,6 @@ if (isset($_SESSION['account_id'])) {
             margin-bottom: 30px;
         }
 
-        /* --- Form Styling --- */
         .quote-form fieldset {
             border: 1px solid #ddd;
             border-radius: 8px;
@@ -106,7 +92,6 @@ if (isset($_SESSION['account_id'])) {
             font-size: 20px;
             font-weight: 600;
             color: #009900;
-            /* Brand color */
             padding: 0 10px;
         }
 
@@ -135,7 +120,6 @@ if (isset($_SESSION['account_id'])) {
             border: 1px solid #ccc;
             border-radius: 5px;
             box-sizing: border-box;
-            /* Important for padding to work */
             transition: border-color 0.3s;
         }
 
@@ -148,12 +132,10 @@ if (isset($_SESSION['account_id'])) {
         .form-group select:focus,
         .form-group textarea:focus {
             border-color: #009900;
-            /* Highlight on focus */
             outline: none;
             box-shadow: 0 0 5px rgba(0, 86, 179, 0.2);
         }
 
-        /* Utility for side-by-side fields */
         .form-row {
             display: flex;
             flex-wrap: wrap;
@@ -163,7 +145,6 @@ if (isset($_SESSION['account_id'])) {
         .form-row .form-group {
             flex: 1;
             min-width: 200px;
-            /* Fields will stack if space is tight */
         }
 
         .submit-button {
@@ -184,10 +165,8 @@ if (isset($_SESSION['account_id'])) {
             background-color: #004a99;
         }
 
-        /* --- 2. Sidebar (Right Side) --- */
         .quote-sidebar {
             flex: 1;
-            /* Sidebar takes 1/3 of the space */
             min-width: 300px;
         }
 
@@ -224,7 +203,6 @@ if (isset($_SESSION['account_id'])) {
 
         .sidebar-widget ul li::before {
             content: '✓';
-            /* Simple icon */
             font-weight: 700;
             color: #009900;
             margin-right: 12px;
@@ -237,16 +215,12 @@ if (isset($_SESSION['account_id'])) {
             line-height: 1.6;
         }
 
-        /* --- Responsive Design --- */
         @media (max-width: 900px) {
             .quote-page-layout {
                 flex-direction: column-reverse;
-                /* Stacks sidebar on top on mobile */
             }
         }
     </style>
-
-
 </head>
 
 <body>
@@ -259,23 +233,20 @@ if (isset($_SESSION['account_id'])) {
             <a href="user_index.php">Home</a>
             <a href="user_about.php">About Us</a>
             <a href="user_contact.php">Contact</a>
-            <a href="user_rate.php">Quote</a>
-
+            <a href="user_rate.php">Reservation</a>
 
             <?php if ($logged_in_username): ?>
-                <!-- Show username dropdown if logged in -->
                 <div class="user-dropdown">
                     <button>
                         <span class="username-display"><?php echo htmlspecialchars($logged_in_username); ?></span> &#9660;
                     </button>
-                    <div class="user-dropdown-menu"
+                    <div class="user-dropdown-menu">
                         <form action="../_admin_interface/auth_logout.php" method="post">
-                        <button type="submit" class="logout-btn">Log Out</button>
+                            <button type="submit" class="logout-btn">Log Out</button>
                         </form>
                     </div>
                 </div>
             <?php else: ?>
-                <!-- Show Sign In link if not logged in -->
                 <a href="../_user_interface/user_signup.php">Sign In</a>
             <?php endif; ?>
         </div>
@@ -285,88 +256,87 @@ if (isset($_SESSION['account_id'])) {
         <div class="quote-page-layout">
 
             <div class="quote-form-container">
-                <h1>Request a Quote</h1>
-                <p class="subtitle">Get a free, no-obligation quote for your shipping needs. Fill out the form below, and one of our logistics specialists will contact you shortly.</p>
+                <h1>Book Your Shipment</h1>
+                <p class="subtitle">Reserve your trucking service with GNBTL. Complete the form below to confirm your booking, and we'll handle the rest.</p>
 
-                <form action="process_quote.php" method="POST" class="quote-form">
+                <?php if (isset($_SESSION['error'])): ?>
+                    <div style="padding: 15px; background: #ffebee; color: #c62828; border-radius: 5px; margin-bottom: 20px; border-left: 4px solid #c62828;">
+                        <?php 
+                        echo htmlspecialchars($_SESSION['error']); 
+                        unset($_SESSION['error']);
+                        ?>
+                    </div>
+                <?php endif; ?>
+
+                <?php if (isset($_SESSION['success'])): ?>
+                    <div style="padding: 15px; background: #e8f5e9; color: #2e7d32; border-radius: 5px; margin-bottom: 20px; border-left: 4px solid #2e7d32;">
+                        <?php 
+                        echo htmlspecialchars($_SESSION['success']); 
+                        unset($_SESSION['success']);
+                        ?>
+                    </div>
+                <?php endif; ?>
+
+                <form action="../__back-end_processes/process_reservation.php" method="POST" class="quote-form">
 
                     <fieldset>
-                        <legend>1. Contact Information</legend>
+                        <legend>Reservation Details</legend>
 
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="first-name">First Name</label>
-                                <input type="text" id="first-name" name="first_name" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="last-name">Last Name</label>
-                                <input type="text" id="last-name" name="last_name" required>
-                            </div>
+                        <div class="form-group">
+                            <label for="reservation-date">Date of Reservation</label>
+                            <input type="date" id="reservation-date" name="reservation_date" required>
                         </div>
 
                         <div class="form-group">
-                            <label for="company-name">Company Name (Optional)</label>
-                            <input type="text" id="company-name" name="company_name">
+                            <label for="company-name">Name of the Company</label>
+                            <input type="text" id="company-name" name="company_name" placeholder="Enter company name" required>
                         </div>
 
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="email">Email Address</label>
-                                <input type="email" id="email" name="email" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="phone">Phone Number</label>
-                                <input type="tel" id="phone" name="phone" required>
-                            </div>
+                        <div class="form-group">
+                            <label for="shipment">Shipment</label>
+                            <textarea id="shipment" name="shipment" rows="4" placeholder="Describe your shipment (type, quantity, weight, etc.)" required></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="address-destination">Address/Destination</label>
+                            <textarea id="address-destination" name="address_destination" rows="4" placeholder="Enter complete delivery address and destination" required></textarea>
                         </div>
                     </fieldset>
 
-                    <fieldset>
-                        <legend>2. Shipment Details</legend>
-
-                        <div class="form-group">
-                            <label for="pickup-address">Pickup Address</label>
-                            <textarea id="pickup-address" name="pickup_address" rows="3" placeholder="Enter street, city, and zip code" required></textarea>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="destination-address">Destination Address</label>
-                            <textarea id="destination-address" name="destination_address" rows="3" placeholder="Enter street, city, and zip code" required></textarea>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="pickup-date">Requested Pickup Date</label>
-                            <input type="date" id="pickup-date" name="pickup_date" required>
-                        </div>
-                    </fieldset>
-
-                    <button type="submit" class="submit-button">Get My Quote</button>
+                    <button type="submit" class="submit-button">Confirm Reservation</button>
 
                 </form>
             </div>
 
             <div class="quote-sidebar">
                 <div class="sidebar-widget">
-                    <h3>Why Ship with GNBTL?</h3>
+                    <h3>Reservation Benefits</h3>
                     <ul>
-                        <li>Reliable, On-Time Delivery</li>
-                        <li>Competitive & Transparent Pricing</li>
-                        <li>Real-Time GPS Tracking</li>
-                        <li>24/7 Customer Support</li>
-                        <li>Modern, Well-Maintained Fleet</li>
+                        <li>Guaranteed Pickup Time</li>
+                        <li>Priority Scheduling</li>
+                        <li>Dedicated Support Team</li>
+                        <li>Real-Time Shipment Tracking</li>
+                        <li>Flexible Rescheduling Options</li>
                     </ul>
                 </div>
 
                 <div class="sidebar-widget">
-                    <h3>What Happens Next?</h3>
+                    <h3>Reservation Process</h3>
                     <p>
-                        <strong>1. Submit Your Form:</strong> Once you send your request, our system logs it instantly.
+                        <strong>1. Submit Reservation:</strong> Fill out the form with your shipment details and preferred pickup time.
                     </p>
                     <p>
-                        <strong>2. We Process Your Request:</strong> Once we receive your requested quote, we will email you within one business hour.
+                        <strong>2. Instant Confirmation:</strong> You'll receive an email confirmation with your reservation reference number within minutes.
                     </p>
                     <p>
-                        <strong>3. We Contact You:</strong> One of our representatives will call or email you within one business hour to discuss your quote and next steps.
+                        <strong>3. Pickup & Delivery:</strong> Our driver will arrive at your specified time and location to complete your shipment safely.
+                    </p>
+                </div>
+
+                <div class="sidebar-widget">
+                    <h3>Need Help?</h3>
+                    <p>
+                        Our customer service team is available 24/6 to assist with your reservation. Call us at <strong>(02) 1234-5678</strong> or email <strong>reservations@gnbtl.com</strong>
                     </p>
                 </div>
             </div>
@@ -403,75 +373,9 @@ if (isset($_SESSION['account_id'])) {
     </footer>
 
     <script>
-        // Location data with cities per region
-        const locations = {
-            NCR: [
-                'Manila', 'Quezon City', 'Makati', 'Pasig', 'Taguig',
-                'Mandaluyong', 'Pasay', 'Caloocan', 'Las Piñas',
-                'Muntinlupa', 'Parañaque', 'Valenzuela', 'Malabon',
-                'Navotas', 'San Juan', 'Marikina', 'Pateros'
-            ],
-            Region3: [
-                'Angeles City', 'San Fernando (Pampanga)', 'Mabalacat',
-                'Olongapo', 'Tarlac City', 'Cabanatuan', 'San Jose (Nueva Ecija)',
-                'Balanga', 'Gapan', 'Meycauayan', 'San Jose del Monte',
-                'Malolos', 'Baliuag'
-            ],
-            Region4: [
-                'Calamba', 'Batangas City', 'Lipa', 'San Pablo',
-                'Lucena', 'Antipolo', 'Bacoor', 'Dasmariñas',
-                'Imus', 'Cavite City', 'Santa Rosa', 'Biñan',
-                'Tagaytay', 'Tanauan', 'Calapan'
-            ]
-        };
-
-        // Comprehensive distance matrix (in km) - based on actual road distances
-
-
-        // Pricing structure
-        const baseRatePerKm = 30; // ₱30 per km
-
-        // Truck size fees (base fee + per km multiplier)
-        const truckPricing = {
-            '2': {
-                baseFee: 800,
-                multiplier: 1.0
-            }, // 2-tonner: base pricing
-            '5': {
-                baseFee: 1500,
-                multiplier: 1.3
-            }, // 5-tonner: +30% per km
-            '10': {
-                baseFee: 2500,
-                multiplier: 1.6
-            } // 10-tonner: +60% per km
-        };
-
-
-
-        // Populate city dropdown based on region selection
-        function populateCities(regionSelect, citySelect) {
-            regionSelect.addEventListener('change', function() {
-                const region = this.value;
-                citySelect.innerHTML = '<option value="">Select City/Area</option>';
-
-                if (region && locations[region]) {
-                    citySelect.disabled = false;
-                    locations[region].forEach(city => {
-                        const option = document.createElement('option');
-                        option.value = city;
-                        option.textContent = city;
-                        citySelect.appendChild(option);
-                    });
-                } else {
-                    citySelect.disabled = true;
-                }
-            });
-        }
-
-        // Initialize dropdowns
-        populateCities(document.getElementById('regionA'), document.getElementById('cityA'));
-        populateCities(document.getElementById('regionB'), document.getElementById('cityB'));
+        // Set minimum date to today
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('reservation-date').setAttribute('min', today);
     </script>
 
 </body>

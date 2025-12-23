@@ -18,6 +18,12 @@ if (isset($_SESSION['account_id'])) {
     $stmt->close();
 }
 
+// Only allow verified clients (role = 0, is_new_client = 0)
+if (!isset($_SESSION['account_id']) || $_SESSION['role'] != 0 || $_SESSION['is_new_client'] != 0) {
+    header("Location: ../_user_interface/user_signup.php");
+    exit();
+}
+
 ?>
 
 
@@ -243,6 +249,7 @@ if (isset($_SESSION['account_id'])) {
             <a href="user_index.php">Home</a>
             <a href="user_about.php">About Us</a>
             <a href="user_contact.php">Contact</a>
+            <a href="user_rate.php">Reservation</a>
 
             <div class="dropdown">
                 <button>Rates&#9660;</button>
@@ -286,7 +293,7 @@ if (isset($_SESSION['account_id'])) {
                 <h1>Request a Quote</h1>
                 <p class="subtitle">Get a free, no-obligation quote for your shipping needs. Fill out the form below, and one of our logistics specialists will contact you shortly.</p>
 
-                <form action="process_quote.php" method="POST" class="quote-form">
+                <form action="../__back-end_processes/process_reservation.php" method="POST" class="quote-form">
 
                     <fieldset>
                         <legend>1. Contact Information</legend>

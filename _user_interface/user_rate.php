@@ -120,6 +120,17 @@ if (!isset($_SESSION['account_id']) || $_SESSION['role'] != 0 || $_SESSION['is_n
                             <input type="text" name="company_name" required>
                         </div>
 
+                        
+                        <div class="form-group">
+                            <label for="contact-number">Contact Number</label>
+                            <input type="tel" id="contact-number" name="contact-number" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email-address">Email Address</label>
+                            <input type="email" id="email-address" name="email-address" required>
+                        </div>
+
                         <div class="form-group">
                             <label>Shipment Information</label>
                             <textarea name="shipment" rows="4" placeholder="Describe items, weight, etc." required></textarea>

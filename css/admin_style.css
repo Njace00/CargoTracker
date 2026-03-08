@@ -1504,3 +1504,97 @@
     opacity: 0.9;
     transform: translateY(-1px);
 }
+
+
+
+
+
+
+
+
+
+/* ==================== ADMIN RESPONSIVE LAYOUT ==================== */
+
+@media (max-width: 768px) {
+    .sidebar {
+        transform: translateX(-100%);
+        position: fixed;
+        height: 100vh;
+        z-index: 1000;
+        transition: transform 0.3s ease-in-out;
+    }
+    
+    .sidebar.open {
+        transform: translateX(0);
+    }
+
+    .main-content-vehicle, 
+    .main-content-account, 
+    .main-content-dashboard,
+    .main-content-trips,
+    .main-content-trip {
+        margin-left: 0 !important;
+        padding: 15px;
+        width: 100%;
+    }
+
+    .dashboard-columns-vehicle, 
+    .dashboard-columns-account,
+    .dashboard-columns-trips,
+    .dashboard-columns-trip {
+        display: flex !important;
+        flex-direction: column !important;
+        grid-template-columns: 1fr !important;
+        gap: 15px;
+    }
+
+    
+    /* Pang baba */
+    .dashboard-columns-trip > div:nth-child(1) {
+        order: 1 !important;
+    }
+    
+    .dashboard-columns-trip > div:nth-child(2) {
+        order: 2 !important;
+    }
+
+    .dashboard-columns-trip > div:nth-child(3) {
+        order: 3 !important;
+    }
+
+    .card-content-table-wrapper-vehicle, 
+    .card-content-table-wrapper-account,
+    .card-content-table-wrapper-trips,
+    .card-content-table-wrapper-trip {
+        overflow-x: auto;
+        display: block;
+        width: 100%;
+    }
+
+    .modal-content {
+        width: 95%;
+        margin: 20% auto;
+    }
+}
+
+@media (min-width: 769px) {
+    .mobile-header {
+        display: none;
+    }
+    
+    .sidebar {
+        transform: translateX(0);
+        position: fixed;
+        width: 250px;
+        height: 100vh;
+    }
+
+    .main-content-vehicle, 
+    .main-content-account, 
+    .main-content-dashboard,
+    .main-content-trips,
+    .main-content-trip {
+        margin-left: 250px;
+        padding: 20px;
+    }
+}

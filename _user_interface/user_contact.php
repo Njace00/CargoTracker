@@ -28,7 +28,6 @@ if (isset($_SESSION['account_id'])) {
     <link rel="icon" type="image/x-icon" href="../images/favicon.jpg">
     <title>Contact</title>
     <style>
-        /* User dropdown styling */
         .user-dropdown {
             position: relative;
             display: inline-block;
@@ -142,7 +141,6 @@ if (isset($_SESSION['account_id'])) {
             }
             .user-dropdown { width: 100%; text-align: center; }
             
-            /* Center Form for Mobile */
             .contact-section {
                 width: 92% !important;
                 margin: 20px auto !important;

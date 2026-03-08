@@ -29,25 +29,113 @@ if (isset($_SESSION['account_id'])) {
     <title>Home | GNBTL</title>
     <style>
         /* User dropdown styling */
-        .user-dropdown { position: relative; display: inline-block; padding: 0.4rem; }
-        .user-dropdown button { background-color: transparent; color: inherit; border: none; padding: 10px 15px; cursor: pointer; font-size: 16px; font-weight: 500; }
-        .user-dropdown-menu { display: none; position: absolute; right: 0; background-color: white; min-width: 180px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); border-radius: 4px; z-index: 1000; margin-top: 5px; }
-        .user-dropdown:hover .user-dropdown-menu { display: block; }
-        .user-dropdown-menu a, .user-dropdown-menu form { display: block; width: 100%; }
-        .user-dropdown-menu a { color: #333; padding: 12px 16px; text-decoration: none; }
-        .user-dropdown-menu .logout-btn { width: 100%; padding: 12px 16px; background-color: transparent; border: none; text-align: left; cursor: pointer; color: #d9534f; font-size: 16px; }
-        .username-display { font-weight: 600; color: #009900; }
+        .user-dropdown { 
+            position: relative; 
+            display: inline-block; 
+            padding: 0.4rem; 
+        }
+
+        .user-dropdown button { 
+            background-color: transparent; 
+            color: inherit; 
+            border: none; 
+            padding: 10px 15px;
+             cursor: pointer; 
+             font-size: 16px; 
+             font-weight: 500; 
+            }
+
+        .user-dropdown-menu { 
+            display: none; 
+            position: absolute; 
+            right: 0; 
+            background-color: white;
+             min-width: 180px; 
+             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+             border-radius: 4px; 
+             z-index: 1000; 
+             margin-top: 5px; 
+            }
+
+        .user-dropdown:hover .user-dropdown-menu { 
+            display: block; 
+        }
+
+        .user-dropdown-menu a, .user-dropdown-menu form { 
+            display: block; 
+            width: 100%; 
+        }
+
+        .user-dropdown-menu a { 
+            color: #333; 
+            padding: 12px 16px; 
+            text-decoration: none; 
+        }
+
+        .user-dropdown-menu .logout-btn { 
+            width: 100%; 
+            padding: 12px 16px; 
+            background-color: transparent; 
+            border: none; 
+            text-align: left; 
+            cursor: pointer; 
+            color: #d9534f; 
+            font-size: 16px; 
+        }
+
+        .username-display { 
+            font-weight: 600; 
+            color: #009900; 
+        }
 
         /* HEADER RESPONSIVENESS */
         .menu-toggle { display: none; }
 
         @media (max-width: 768px) {
-            .menu-toggle { display: block; font-size: 28px; background: none; border: none; cursor: pointer; color: #009900; padding: 10px; }
-            nav { justify-content: space-between !important; padding: 10px 20px !important; position: relative; }
-            .navbar-div { display: none; flex-direction: column; position: absolute; top: 70px; left: 0; width: 100%; background: #f5f5f5; z-index: 100; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-            .navbar-div.active { display: flex; }
-            .navbar-div a { width: 100%; text-align: center; padding: 15px !important; border-bottom: 1px solid #ddd; color: #333; }
-            .user-dropdown { width: 100%; text-align: center; }
+            .menu-toggle { 
+                display: block; 
+                font-size: 28px; 
+                background: none; 
+                border: none; 
+                cursor: pointer; 
+                color: #009900; 
+                padding: 10px; 
+            }
+
+            nav { 
+                justify-content: space-between !important; 
+                padding: 10px 20px !important; 
+                position: relative; 
+            }
+
+            .navbar-div { 
+                display: none; 
+                flex-direction: column; 
+                position: absolute; 
+                top: 70px; 
+                left: 0; 
+                width: 100%; 
+                background: #f5f5f5; 
+                z-index: 100; 
+                box-shadow: 0 4px 6px rgba(0,0,0,0.1); 
+            }
+            
+            .navbar-div.active { 
+                display: flex; 
+            }
+
+            .navbar-div a { 
+                width: 100%; 
+                text-align: center; 
+                padding: 15px !important; 
+                border-bottom: 1px solid #ddd; 
+                color: #333;
+             }
+
+            .user-dropdown { 
+                width: 100%; 
+                text-align: center; 
+            }
         }
     </style>
 </head>

@@ -31,14 +31,12 @@ if (isset($_SESSION['account_id'])) {
     <style>
         .main-content { flex-grow: 1; background-color: #085508ff; }
         
-        /* Hero Section */
         .hero-section { position: relative; height: 40vh; background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; text-align: center; color: #fff; background-color: #065706; }
         .hero-section::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.5); }
         .hero-content { position: relative; z-index: 1; }
         .hero-content h1 { font-size: 48px; margin: 0; font-weight: 700; }
         .hero-content p { font-size: 20px; margin-top: 10px; }
 
-        /* Content Layout */
         .about-layout { display: flex; flex-wrap: wrap; align-items: center; padding: 60px 5%; max-width: 1200px; margin: 0 auto; gap: 40px; background-color: #085508ff; }
         .about-text { flex: 1; min-width: 300px; color: #f9f9f9; }
         .about-text h2 { font-size: 36px; margin-top: 0; }
@@ -46,7 +44,6 @@ if (isset($_SESSION['account_id'])) {
         .about-image { flex: 1; min-width: 300px; }
         .about-image img { width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); }
 
-        /* Dropdown Styling */
         .user-dropdown { position: relative; display: inline-block; padding: 0.4rem; }
         .user-dropdown button { background-color: transparent; color: inherit; border: none; padding: 10px 15px; cursor: pointer; font-size: 16px; font-weight: 500; }
         .user-dropdown-menu { display: none; position: absolute; right: 0; background-color: white; min-width: 180px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); border-radius: 4px; z-index: 1000; margin-top: 5px; }
@@ -56,7 +53,6 @@ if (isset($_SESSION['account_id'])) {
         .user-dropdown-menu .logout-btn { width: 100%; padding: 12px 16px; background-color: transparent; border: none; text-align: left; cursor: pointer; color: #d9534f; font-size: 16px; }
         .username-display { font-weight: 600; color: #009900; }
 
-        /* Navigation Responsiveness */
         .menu-toggle { display: none; }
 
         @media (max-width: 768px) {

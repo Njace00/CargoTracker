@@ -31,43 +31,206 @@ if (!isset($_SESSION['account_id']) || $_SESSION['role'] != 0 || $_SESSION['is_n
     <title>Reservation | GNBTL</title>
     <link rel="icon" type="image/x-icon" href="../images/favicon.jpg">
     <style>
-        /* --- General Layout --- */
-        .main-content { flex-grow: 1; padding: 40px 0 60px; }
+        .main-content { 
+            flex-grow: 1; 
+            padding: 40px 0 60px; 
+        }
         
-        /* Dropdown Styling */
-        .user-dropdown { position: relative; display: inline-block; padding: 0.4rem; }
-        .user-dropdown button { background-color: transparent; color: inherit; border: none; padding: 10px 15px; cursor: pointer; font-size: 16px; font-weight: 500; }
-        .user-dropdown-menu { display: none; position: absolute; right: 0; background-color: white; min-width: 180px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); border-radius: 4px; z-index: 1000; margin-top: 5px; }
-        .user-dropdown:hover .user-dropdown-menu { display: block; }
-        .user-dropdown-menu a, .user-dropdown-menu form { display: block; width: 100%; }
-        .user-dropdown-menu a { color: #333; padding: 12px 16px; text-decoration: none; }
-        .user-dropdown-menu .logout-btn { width: 100%; padding: 12px 16px; background-color: transparent; border: none; text-align: left; cursor: pointer; color: #d9534f; font-size: 16px; }
-        .username-display { font-weight: 600; color: #009900; }
+        /* Dropdown */
+        .user-dropdown { 
+            position: relative; 
+            display: inline-block; 
+            padding: 0.4rem; 
+        }
+
+        .user-dropdown button { 
+            background-color: transparent; 
+            color: inherit; border: 
+            none; padding: 10px 15px; 
+            cursor: pointer; 
+            font-size: 16px; 
+            font-weight: 500; 
+        }
+
+        .user-dropdown-menu { 
+            display: none; 
+            position: absolute; 
+            right: 0; 
+            background-color: white; 
+            min-width: 180px; 
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+            border-radius: 4px; 
+            z-index: 1000; 
+            margin-top: 5px; 
+        }
+
+        .user-dropdown:hover .user-dropdown-menu { 
+            display: block; 
+        }
+
+        .user-dropdown-menu a, .user-dropdown-menu form { 
+            display: block; 
+            width: 100%;
+         }
+
+        .user-dropdown-menu a { 
+            color: #333; 
+            padding: 12px 16px; 
+            text-decoration: none;
+         }
+
+        .user-dropdown-menu .logout-btn { 
+            width: 100%; 
+            padding: 12px 16px; 
+            background-color: transparent; 
+            border: none; text-align: 
+            left; cursor: 
+            pointer; color: #d9534f; 
+            font-size: 16px; 
+        }
+
+        .username-display { 
+            font-weight: 600; 
+            color: #009900;
+         }
+
 
         /* Reservation Layout */
-        .quote-page-layout { display: flex; flex-wrap: wrap; max-width: 1200px; margin: 0 auto; gap: 40px; padding: 0 5%; }
-        .quote-form-container { flex: 2; min-width: 300px; background: #fff; padding: 40px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); }
-        .quote-form-container h1 { font-size: 36px; color: #333; margin: 0 0 10px; }
-        .quote-form fieldset { border: 1px solid #ddd; border-radius: 8px; padding: 20px; margin-bottom: 25px; }
-        .quote-form legend { font-size: 20px; font-weight: 600; color: #009900; padding: 0 10px; }
-        .form-group { margin-bottom: 20px; }
-        .form-group label { display: block; font-weight: 600; margin-bottom: 8px; color: #333; }
-        .form-group input, .form-group textarea { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; }
-        .submit-button { width: 100%; padding: 15px; font-size: 18px; font-weight: 700; color: #fff; background-color: #009900; border: none; border-radius: 5px; cursor: pointer; transition: 0.3s; }
-        .quote-sidebar { flex: 1; min-width: 300px; }
-        .sidebar-widget { background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); margin-bottom: 30px; }
+        .quote-page-layout { 
+            display: flex; 
+            flex-wrap: wrap; 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            gap: 40px; 
+            padding: 0 5%; 
+        }
+
+        .quote-form-container { 
+            flex: 2; 
+            min-width: 300px; 
+            background: #fff; 
+            padding: 40px; 
+            border-radius: 8px; 
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); 
+        }
+
+        .quote-form-container h1 { 
+            font-size: 36px; 
+            color: #333; 
+            margin: 0 0 10px; 
+        }
+
+        .quote-form fieldset { 
+            border: 1px solid #ddd; 
+            border-radius: 8px; 
+            padding: 20px; 
+            margin-bottom: 25px; 
+        }
+
+        .quote-form legend { 
+            font-size: 20px; 
+            font-weight: 600; 
+            color: #009900; 
+            padding: 0 10px; 
+        }
+
+        .form-group { 
+            margin-bottom: 20px; 
+        }
+
+        .form-group label { 
+            display: block; 
+            font-weight: 600; 
+            margin-bottom: 8px; 
+            color: #333; 
+        }
+
+        .form-group input, .form-group textarea { 
+            width: 100%; 
+            padding: 12px; 
+            border: 1px solid #ccc; 
+            border-radius: 5px; 
+            box-sizing: border-box; 
+        }
+
+        .submit-button { 
+            width: 100%; 
+            padding: 15px; 
+            font-size: 18px; 
+            font-weight: 700; 
+            color: #fff; 
+            background-color: #009900; 
+            border: none; 
+            border-radius: 5px; 
+            cursor: pointer; 
+            transition: 0.3s; 
+        }
+
+        .quote-sidebar { 
+            flex: 1; 
+            min-width: 300px; 
+        }
+
+        .sidebar-widget { 
+            background: #fff; 
+            padding: 30px; 
+            border-radius: 8px; 
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); 
+            margin-bottom: 30px; 
+        }
 
         /* --- Header Responsiveness --- */
         .menu-toggle { display: none; }
 
         @media (max-width: 768px) {
-            .menu-toggle { display: block; font-size: 28px; background: none; border: none; cursor: pointer; color: #009900; padding: 10px; }
-            nav { justify-content: space-between !important; padding: 10px 20px !important; position: relative; }
-            .navbar-div { display: none; flex-direction: column; position: absolute; top: 70px; left: 0; width: 100%; background: #f5f5f5; z-index: 100; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-            .navbar-div.active { display: flex; }
-            .navbar-div a { width: 100%; text-align: center; padding: 15px !important; border-bottom: 1px solid #ddd; color: #333; }
-            .user-dropdown { width: 100%; text-align: center; }
-            .quote-page-layout { flex-direction: column-reverse; }
+            .menu-toggle { 
+                display: block; 
+                font-size: 28px; 
+                background: none; 
+                border: none; 
+                cursor: pointer; 
+                color: #009900; 
+                padding: 10px; 
+            }
+
+            nav { 
+                justify-content: space-between !important; 
+                padding: 10px 20px !important; 
+                position: relative; 
+            }
+
+            .navbar-div { 
+                display: none; 
+                flex-direction: column; 
+                position: absolute; 
+                top: 70px; 
+                left: 0; 
+                width: 100%; 
+                background: #f5f5f5; 
+                z-index: 100; 
+                box-shadow: 0 4px 6px rgba(0,0,0,0.1); 
+            }
+
+            .navbar-div.active { 
+                display: flex; 
+            }
+
+            .navbar-div a { 
+                width: 100%; 
+                text-align: center; 
+                padding: 15px !important; 
+                border-bottom: 1px solid #ddd; 
+                color: #333; 
+            }
+
+            .user-dropdown { 
+                width: 100%; 
+                text-align: center; 
+            }
+            
+            .quote-page-layout { 
+                flex-direction: column-reverse; 
+            }
         }
     </style>
 </head>

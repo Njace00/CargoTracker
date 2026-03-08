@@ -11,37 +11,46 @@ if (isset($_SESSION['account_id'])) {
     $stmt->bind_param("i", $account_id);
     $stmt->execute();
     $result = $stmt->get_result();
-    
+
     if ($row = $result->fetch_assoc()) {
         $logged_in_username = $row['username'];
     }
     $stmt->close();
 }
 
-
+// Only allow verified clients (role = 0, is_new_client = 0)
+// if (!isset($_SESSION['account_id']) || $_SESSION['role'] != 0 || $_SESSION['is_new_client'] != 0) {
+//     header("Location: ../_user_interface/user_signup.php");
+//     exit();
+// }
 
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/style.css"> <title>About Us | GNBTL</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <title>About Us | GNBTL</title>
     <link rel="icon" type="image/x-icon" href="../images/favicon.jpg">
     <style>
         /* --- General Page Body --- */
-        
+
 
         /* Make main content area flexible */
         .main-content {
-            flex-grow: 1; /* This pushes the footer down */
+            flex-grow: 1;
+            /* This pushes the footer down */
+            background-color: #085508ff;
         }
-    
+
         /* --- 1. Hero Section --- */
         .hero-section {
             position: relative;
-            height: 40vh; /* 40% of the viewport height */
+            height: 40vh;
+            /* 40% of the viewport height */
             /* Placeholder: Replace with a real image */
             background-size: cover;
             background-position: center;
@@ -50,6 +59,7 @@ if (isset($_SESSION['account_id'])) {
             justify-content: center;
             text-align: center;
             color: #fff;
+            background-color: #065706;
         }
 
         .hero-section::before {
@@ -60,11 +70,12 @@ if (isset($_SESSION['account_id'])) {
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.5); 
+            background: rgba(0, 0, 0, 0.5);
         }
 
         .hero-content {
-            position: relative; /* Sits on top of the overlay */
+            position: relative;
+            /* Sits on top of the overlay */
             z-index: 1;
         }
 
@@ -72,30 +83,38 @@ if (isset($_SESSION['account_id'])) {
             font-size: 48px;
             margin: 0;
             font-weight: 700;
-            
+
         }
 
         .hero-content p {
             font-size: 20px;
             margin-top: 10px;
-            
+
         }
 
         /* --- 2. Two-Column About Section --- */
         .about-layout {
+            background-size: cover;
+            background-position: center;
             display: flex;
-            flex-wrap: wrap; /* Allows stacking on mobile */
+            flex-wrap: wrap;
+            /* Allows stacking on mobile */
             align-items: center;
-            padding: 60px 5%; /* 5% padding on sides */
+            padding: 60px 5%;
+            /* 5% padding on sides */
             max-width: 1200px;
-            margin: 0 auto; /* Center the layout */
-            gap: 40px; /* Space between text and image */
+            margin: 0 auto;
+            /* Center the layout */
+            gap: 40px;
+            background-color: #085508ff;
         }
 
         .about-text {
-            flex: 1; /* Takes up remaining space */
-            min-width: 300px; /* Prevents text from getting too squished */
-            color:#f9f9f9;
+            flex: 1;
+            /* Takes up remaining space */
+            min-width: 300px;
+            /* Prevents text from getting too squished */
+            color: #f9f9f9;
         }
 
         .about-text h2 {
@@ -106,7 +125,7 @@ if (isset($_SESSION['account_id'])) {
         .about-text p {
             font-size: 18px;
             line-height: 1.6;
-            color:#f9f9f9;
+            color: #f9f9f9;
         }
 
         .about-image {
@@ -118,12 +137,13 @@ if (isset($_SESSION['account_id'])) {
             width: 100%;
             height: auto;
             border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
         /* --- 3. Trust-Building Section (Values/Why Us) --- */
         .values-section {
-            background-color: #f9f9f9; /* A light grey background */
+            background-color: #f9f9f9;
+            /* A light grey background */
             padding: 60px 5%;
             text-align: center;
         }
@@ -144,19 +164,22 @@ if (isset($_SESSION['account_id'])) {
         }
 
         .value-card {
-            flex-basis: 280px; /* Each card aims for 280px width */
+            flex-basis: 280px;
+            /* Each card aims for 280px width */
             padding: 20px;
             background: #fff;
             border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
         }
 
         .value-card .icon {
-            font-size: 48px; /* Placeholder for icon */
-            color: #009900; /* A sample primary color */
+            font-size: 48px;
+            /* Placeholder for icon */
+            color: #009900;
+            /* A sample primary color */
             margin-bottom: 15px;
         }
-        
+
         .value-card h3 {
             font-size: 22px;
             color: #333;
@@ -176,10 +199,10 @@ if (isset($_SESSION['account_id'])) {
             margin: 0 auto;
             text-align: center;
         }
-        
+
         .fleet-showcase h2 {
             font-size: 36px;
-            color:#f9f9f9;
+            color: #f9f9f9;
             margin-bottom: 40px;
         }
 
@@ -191,11 +214,13 @@ if (isset($_SESSION['account_id'])) {
         }
 
         .fleet-card {
-            flex-basis: 350px; /* Each card aims for 350px width */
+            flex-basis: 350px;
+            /* Each card aims for 350px width */
             border: 1px solid #ffffff;
             border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            overflow: hidden; /* Keeps image corners rounded */
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            /* Keeps image corners rounded */
             text-align: left;
             background: #ffffff;
         }
@@ -203,9 +228,10 @@ if (isset($_SESSION['account_id'])) {
         .fleet-card img {
             width: 100%;
             height: 220px;
-            object-fit: cover; /* Ensures image covers the area */
+            object-fit: cover;
+            /* Ensures image covers the area */
         }
-        
+
         .fleet-card-content {
             padding: 20px;
         }
@@ -222,7 +248,7 @@ if (isset($_SESSION['account_id'])) {
             line-height: 1.5;
             color: #555;
         }
-        
+
         /* --- 5. Call to Action (CTA) Section --- */
         .cta-section {
             /* A strong brand color */
@@ -237,7 +263,7 @@ if (isset($_SESSION['account_id'])) {
             margin-top: 0;
             margin-bottom: 20px;
         }
-        
+
         .cta-section p {
             font-size: 18px;
             max-width: 600px;
@@ -248,7 +274,8 @@ if (isset($_SESSION['account_id'])) {
         .cta-button {
             display: inline-block;
             background-color: #fff;
-            color: #009900; /* Button text color */
+            color: #009900;
+            /* Button text color */
             padding: 14px 28px;
             font-size: 18px;
             font-weight: 700;
@@ -260,7 +287,7 @@ if (isset($_SESSION['account_id'])) {
         .cta-button:hover {
             background-color: #f0f0f0;
             transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
 
         /* --- Your Original Responsive Design --- */
@@ -269,6 +296,7 @@ if (isset($_SESSION['account_id'])) {
             .hero-content h1 {
                 font-size: 32px;
             }
+
             .hero-content p {
                 font-size: 18px;
             }
@@ -284,33 +312,19 @@ if (isset($_SESSION['account_id'])) {
         }
     </style>
 </head>
+
 <body>
     <nav>
         <div class="logo-container">
             <img src="../images/GNBTL logo only.png" alt="Logo">
         </div>
-        
+
         <div class="navbar-div">
             <a href="user_index.php">Home</a>
             <a href="user_about.php">About Us</a>
             <a href="user_contact.php">Contact</a>
-            
-            <div class="dropdown">
-                <button>Rates&#9660;</button>
-                <div class="dropdown-menu">
-                    <a href="user_qoute.php">Request a Quote</a>
-                    <a href="user_rate.php">Rate Calculator</a>
-                </div>  
-            </div>
-            
-            <div class="dropdown">
-                <button>Cargo&#9660;</button>
-                <div class="dropdown-menu">
-                    <a href="user_tracker.php">Track your Delivery</a>
-                    <a href="#">Contact Courier</a>
-                </div>  
-            </div>
-            
+            <a href="user_rate.php">Reservation</a>
+
             <?php if ($logged_in_username): ?>
                 <!-- Show username dropdown if logged in -->
                 <div class="user-dropdown">
@@ -343,15 +357,9 @@ if (isset($_SESSION['account_id'])) {
             <div class="about-text">
                 <h2>Who We Are</h2>
                 <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam velit quas 
-                    mollitia quia, ipsum repudiandae similique temporibus labore maiores vero 
-                    quisquam perferendis molestias doloremque, veniam quis facere corrupti est! 
-                    Commodi!
+                    We are a local logistics company providing reliable and efficient delivery services for businesses and individuals. With a dedicated team and well-maintained vehicles, we ensure your goods are transported safely and on time.
                 </p>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae, rerum 
-                    facere. Earum .
-                </p>
+
             </div>
             <div class="about-image">
                 <img src="../images/18-wheeler.png" alt="GNBTL Team or Office">
@@ -362,19 +370,19 @@ if (isset($_SESSION['account_id'])) {
             <h2>Why Choose Us?</h2>
             <div class="values-grid">
                 <div class="value-card">
-                    <div class="icon">✓</div> 
+                    <div class="icon">✓</div>
                     <h3>Reliability</h3>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam velit quas mollitia quia, ipsum repudiandae similique temporibus labore maiores vero quisquam perferendis molestias doloremque, veniam quis facere corrupti est! Commodi!</p>
+                    <p>We deliver on time, every time. Our operations are carefully planned to ensure consistent and dependable service you can trust.</p>
                 </div>
                 <div class="value-card">
                     <div class="icon">🔒</div>
                     <h3>Safety & Security</h3>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam velit quas mollitia quia, ipsum repudiandae similique temporibus labore maiores vero quisquam perferendis molestias doloremque, veniam quis facere corrupti est! Commodi!.</p>
+                    <p>Your cargo is our priority. We follow strict handling procedures to keep your goods safe and secure throughout the delivery process.</p>
                 </div>
                 <div class="value-card">
                     <div class="icon">💬</div>
-                    <h3>24/7 Support</h3>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam velit quas mollitia quia, ipsum repudiandae similique temporibus labore maiores vero quisquam perferendis molestias doloremque, veniam quis facere corrupti est! Commodi!</p>
+                    <h3>24/6 Support</h3>
+                    <p>We are always ready to assist you. Our support team is available to answer inquiries, provide updates, and ensure smooth coordination whenever you need us.</p>
                 </div>
             </div>
         </section>
@@ -412,33 +420,34 @@ if (isset($_SESSION['account_id'])) {
             <a href="user_rates.php" class="cta-button">Request a Quote</a>
         </section>
 
-    </div> 
+    </div>
     <footer>
         <div>
             <h1>GNBTL</h1>
         </div>
-        
+
         <div>
             <p>Trucking Logistics</p>
         </div>
-        
+
         <div class="footer-grid">
-            <p>Providing reliable trucking and logistics services across the nation. Our commitment to excellence 
-            ensures your cargo arrives safely and on time, every time.</p>
-            <p>With modern fleet management and real-time tracking, we offer transparency and efficiency in all 
-            our operations. Trust us for your transportation needs.</p>
-            <p>Our professional team is available 24/7 to assist you with quotes, tracking, and any logistics 
-            inquiries. Customer satisfaction is our top priority.</p>
-            <p>Contact us today to learn more about our competitive rates and comprehensive logistics solutions 
-            tailored to your business requirements.</p>
+            <p>Providing reliable trucking and logistics services across the nation. Our commitment to excellence
+                ensures your cargo arrives safely and on time, every time.</p>
+            <p>With modern fleet management and real-time tracking, we offer transparency and efficiency in all
+                our operations. Trust us for your transportation needs.</p>
+            <p>Our professional team is available 24/7 to assist you with quotes, tracking, and any logistics
+                inquiries. Customer satisfaction is our top priority.</p>
+            <p>Contact us today to learn more about our competitive rates and comprehensive logistics solutions
+                tailored to your business requirements.</p>
         </div>
-        
+
         <hr>
 
         <div class="footer-copyright">
-            <p>@GNBTL</p> 
+            <p>@GNBTL</p>
             <p>All Rights Reserved</p>
         </div>
     </footer>
 </body>
+
 </html>

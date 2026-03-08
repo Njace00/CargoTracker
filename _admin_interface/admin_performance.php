@@ -1,4 +1,5 @@
 <?php
+include '../__back-end_processes\db_connect.php';
 session_start();
 
 // If not logged in OR not driver, redirect away
@@ -6,9 +7,17 @@ if (!isset($_SESSION['account_id']) || $_SESSION['role'] != 2) {
     header("Location: ../_user_interface/user_signup.php");
     exit();
 }
+
+$query = "SELECT trips_completed, fullname FROM account WHERE role = 1";
+$driver_trips_complete = mysqli_query($conn, $query);
+
+$query ="SELECT vehicle_id, vehicle_name, total_trips FROM vehicles WHERE is_archived = 0";
+$vehicle_total_trips = mysqli_query($conn, $query);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,6 +26,7 @@ if (!isset($_SESSION['account_id']) || $_SESSION['role'] != 2) {
     <link rel="stylesheet" href="../css/admin_style.css">
 
 </head>
+
 <body>
 
     <div class="mobile-header">
@@ -34,11 +44,10 @@ if (!isset($_SESSION['account_id']) || $_SESSION['role'] != 2) {
         <nav>
             <ul class="nav-links">
                 <li><a href="../_admin_interface/admin.php">Dashboard</a></li>
-                <li><a href="../_admin_interface/admin_overview.php">Overview Metrics</a></li>
-                <li><a href="../_admin_interface/admin_trips.php">Trips</a></li>
+                <li><a href="../_admin_interface/admin_verify_account.php">Verify Accounts</a></li>
+                <li><a href="../_admin_interface/admin_trips.php">Trips & Reservation</a></li>
                 <li><a href="../_admin_interface/admin_vehicles.php">Vehicles</a></li>
                 <li><a href="../_admin_interface/admin_performance.php">Performance</a></li>
-                <li><a href="../_admin_interface/admin_activity.php">Recent Activity</a></li>
                 <li><a href="../_admin_interface/admin_accounts.php">Driver Accounts</a></li>
                 <li><a href="../_admin_interface/admin_announcement.php">Announcement</a></li>
             </ul>
@@ -51,7 +60,7 @@ if (!isset($_SESSION['account_id']) || $_SESSION['role'] != 2) {
     </div>
 
     <div class="main-content-performance">
-        
+
         <h1>Performance Analytics</h1>
 
         <div class="dashboard-card-performance">
@@ -61,31 +70,16 @@ if (!isset($_SESSION['account_id']) || $_SESSION['role'] != 2) {
                     <thead>
                         <tr>
                             <th>Driver Name</th>
-                            <th>Trips Completed</th>                  
-                            <th>Issues Reported</th>
+                            <th>Trips Completed</th>   
                         </tr>
                     </thead>
                     <tbody>
+                        <?php while ($row = mysqli_fetch_assoc($driver_trips_complete)): ?>
                         <tr>
-                            <td>Neil Jason Flores</td>
-                            <td>32</td>                           
-                            <td>1</td>
+                            <td><?php echo strtolower(htmlspecialchars($row['fullname'])); ?></td>
+                            <td><?php echo strtolower(htmlspecialchars($row['trips_completed'])); ?></td>
                         </tr>
-                        <tr>
-                            <td>Driefen Alfonso</td>
-                            <td>28</td>                            
-                            <td>3</td>
-                        </tr>
-                        <tr>
-                            <td>Edward Ringor</td>
-                            <td>30</td>                           
-                            <td>0</td>
-                        </tr>
-                        <tr>
-                            <td>Keon Kazu Capua</td>
-                            <td>25</td>                           
-                            <td>2</td>
-                        </tr>
+                        <?php endwhile; ?>
                     </tbody>
                 </table>
             </div>
@@ -97,41 +91,37 @@ if (!isset($_SESSION['account_id']) || $_SESSION['role'] != 2) {
                 <table class="content-table-performance">
                     <thead>
                         <tr>
-                            <th>Vehicle (Plate)</th>
+                            <th>Vehicle ID</th>
                             <th>Total Trips</th>
                             <th>Status</th>
                         </tr>
                     </thead>
                     <tbody>
+                        <?php while ($row = mysqli_fetch_assoc($vehicle_total_trips)): ?>
                         <tr>
-                            <td>TRUCK-001 (ABC 123)</td>
-                            <td>45</td>
-                            <td>Available</td>
+                            <td><?php echo strtolower(htmlspecialchars($row['vehicle_id'])); ?></td>
+                            <td><?php echo strtolower(htmlspecialchars($row['vehicle_name'])); ?></td>
+                            <td><?php echo strtolower(htmlspecialchars($row['total_trips'])); ?></td>
                         </tr>
-                        <tr>
-                            <td>TRUCK-002 (DEF 456)</td>
-                            <td>51</td>
-                            <td>Available</td>
-                        </tr>
-                        <tr>
-                            <td>TRUCK-003 (GHI 789)</td>
-                            <td>42</td>
-                            <td>Maintenance</td>
-                        </tr>
+                        <?php endwhile; ?>
                     </tbody>
                 </table>
             </div>
         </div>
-        
+
     </div>
-    
+
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             var menuButton = document.getElementById("menu-toggle-btn");
             var closeButton = document.getElementById("sidebar-close-btn");
             var sidebar = document.getElementById("sidebar");
-            menuButton.addEventListener("click", function() { sidebar.classList.add("open"); });
-            closeButton.addEventListener("click", function() { sidebar.classList.remove("open"); });
+            menuButton.addEventListener("click", function() {
+                sidebar.classList.add("open");
+            });
+            closeButton.addEventListener("click", function() {
+                sidebar.classList.remove("open");
+            });
 
             const currentPage = window.location.pathname.split('/').pop();
             const navLinks = document.querySelectorAll('.nav-links a');
@@ -146,4 +136,5 @@ if (!isset($_SESSION['account_id']) || $_SESSION['role'] != 2) {
     </script>
 
 </body>
+
 </html>

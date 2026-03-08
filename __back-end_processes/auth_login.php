@@ -1,6 +1,6 @@
 <?php
 session_start();
-include 'db_connect.php'; 
+include 'db_connect.php';
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -21,6 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['account_id'] = $user['account_id'];
             $_SESSION['username'] = $user['username'];
             $_SESSION['role'] = $user['role'];
+            $_SESSION['is_new_client'] = $user['is_new_client']; // ✅ ADD THIS LINE
 
             // Step 3: Redirect based on role
             if ($user['role'] == 2) {
@@ -33,7 +34,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 header("Location: ../_user_interface/user_index.php");
                 exit();
             }
-
         } else {
             // X Wrong password
             $_SESSION['error'] = "Please check your credentials.";
@@ -47,4 +47,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     }
 }
-?>

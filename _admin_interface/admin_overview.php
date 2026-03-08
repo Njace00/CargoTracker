@@ -9,6 +9,7 @@ if (!isset($_SESSION['account_id']) || $_SESSION['role'] != 2) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,6 +17,7 @@ if (!isset($_SESSION['account_id']) || $_SESSION['role'] != 2) {
     <link rel="icon" type="image/x-icon" href="../images/favicon.jpg">
     <link rel="stylesheet" href="../css/admin_style.css">
 </head>
+
 <body>
 
     <div class="mobile-header">
@@ -33,11 +35,10 @@ if (!isset($_SESSION['account_id']) || $_SESSION['role'] != 2) {
         <nav>
             <ul class="nav-links">
                 <li><a href="../_admin_interface/admin.php">Dashboard</a></li>
-                <li><a href="../_admin_interface/admin_overview.php">Overview Metrics</a></li>
-                <li><a href="../_admin_interface/admin_trips.php">Trips</a></li>
+                <li><a href="../_admin_interface/admin_verify_account.php">Verify Accounts</a></li>
+                <li><a href="../_admin_interface/admin_trips.php">Trips & Reservation</a></li>
                 <li><a href="../_admin_interface/admin_vehicles.php">Vehicles</a></li>
                 <li><a href="../_admin_interface/admin_performance.php">Performance</a></li>
-                <li><a href="../_admin_interface/admin_activity.php">Recent Activity</a></li>
                 <li><a href="../_admin_interface/admin_accounts.php">Driver Accounts</a></li>
                 <li><a href="../_admin_interface/admin_announcement.php">Announcement</a></li>
             </ul>
@@ -50,11 +51,11 @@ if (!isset($_SESSION['account_id']) || $_SESSION['role'] != 2) {
     </div>
 
     <div class="main-content-overview">
-        
+
         <h1>Overview Metrics</h1>
 
         <div class="metrics-grid-overview">
-            
+
             <div class="metric-card-overview">
                 <div class="icon-overview revenue"> </div>
                 <div class="info-overview">
@@ -86,7 +87,7 @@ if (!isset($_SESSION['account_id']) || $_SESSION['role'] != 2) {
                     <div class="label-overview">All Pending Issues</div>
                 </div>
             </div>
-            
+
             <div class="metric-card-overview">
                 <div class="icon-overview vehicles"> </div>
                 <div class="info-overview">
@@ -110,7 +111,7 @@ if (!isset($_SESSION['account_id']) || $_SESSION['role'] != 2) {
                     <div class="label-overview">Active Clients</div>
                 </div>
             </div>
-            
+
             <div class="metric-card-overview">
                 <div class="icon-overview revenue"> </div>
                 <div class="info-overview">
@@ -122,22 +123,27 @@ if (!isset($_SESSION['account_id']) || $_SESSION['role'] != 2) {
         </div>
 
         <div class="dashboard-columns-overview">
-            <div class="dashboard-card-overview" style="grid-column: 1 / -1;"> <h2>Revenue vs. Trips (Last 30 Days)</h2>
+            <div class="dashboard-card-overview" style="grid-column: 1 / -1;">
+                <h2>Revenue vs. Trips (Last 30 Days)</h2>
                 <div class="card-content-scrollable-overview" style="display: flex; align-items: center; justify-content: center; min-height: 300px; color: #999; background-color: #fafafa; border-radius: 8px;">
                     [Chart Area Placeholder]
                 </div>
             </div>
         </div>
-        
+
     </div>
-    
+
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             var menuButton = document.getElementById("menu-toggle-btn");
             var closeButton = document.getElementById("sidebar-close-btn");
             var sidebar = document.getElementById("sidebar");
-            menuButton.addEventListener("click", function() { sidebar.classList.add("open"); });
-            closeButton.addEventListener("click", function() { sidebar.classList.remove("open"); });
+            menuButton.addEventListener("click", function() {
+                sidebar.classList.add("open");
+            });
+            closeButton.addEventListener("click", function() {
+                sidebar.classList.remove("open");
+            });
 
             const currentPage = window.location.pathname.split('/').pop();
             const navLinks = document.querySelectorAll('.nav-links a');
@@ -152,4 +158,5 @@ if (!isset($_SESSION['account_id']) || $_SESSION['role'] != 2) {
     </script>
 
 </body>
+
 </html>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,23 +8,32 @@
   <link rel="icon" type="image/x-icon" href="../images/favicon.jpg">
   <title>Login / Sign Up</title>
 </head>
+
 <body>
 
 
   <a href="user_index.php" class="back-btn">← Back</a>
-  
+
   <div class="container" id="container">
     <!-- Sign Up -->
     <div class="form-container sign-up-container">
-      <form method="POST" action="../__back-end_processes/auth_signup.php">
+      <form method="POST" action="../__back-end_processes/auth_signup.php" id="signupForm">
         <h1>Create Account</h1>
-        <div class="social-container">
-          <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+        
+        <input type="text" placeholder="Username" name="name" required>
+        <input type="text" placeholder="Fullname" name="fname" required>
+        <input type="text" placeholder="Company Name" name="cname" required>
+        <input type="email" placeholder="Email" name="email" required>
+        <input type="password" placeholder="Password" name="password" id="signupPassword" required oninput="validatePassword(this.value)">
+        <div class="pwd-requirements" id="pwdRequirements">
+          <span id="req-length" class="req fail">&#10007; 8&ndash;16 characters</span>
+          <span id="req-number" class="req fail">&#10007; At least 1 number</span>
         </div>
-        <span>or use your email</span>
-        <input type="text" placeholder="Name" name="name">
-        <input type="email" placeholder="Email" name="email">
-        <input type="password" placeholder="Password" name="password">
+        <?php if (isset($_GET['error']) && $_GET['error'] === 'invalid_password'): ?>
+          <p class="error show">Password does not meet the requirements.</p>
+        <?php endif; ?>
+        <input type="tel" name="number" placeholder="Phone Number (eg, +639123456789)" value="+639" pattern="\+639\d{9}"  maxlength="13" title="Please enter a valid Philippine mobile number starting with +639 followed by 9 digits." required
+>
         <button type="submit">Sign Up</button>
       </form>
     </div>
@@ -33,18 +43,18 @@
       <form Method="POST" action="../__back-end_processes/auth_login.php">
         <h1>Sign In</h1>
         <div class="social-container">
-         
+
         </div>
         <span>or use your account</span>
         <p class="error <?php echo isset($_SESSION['error']) ? 'show' : ''; ?>">
-        Please check your credentials.
+          Please check your credentials.
         </p>
         <?php unset($_SESSION['error']); ?>
         <input type="email" placeholder="Email" name="email">
         <input type="password" placeholder="Password" name="password">
         <a href="#" class="text-[#ffffff]">Forgot your password?</a>
         <button type="submit">Sign In</button>
-        
+
       </form>
     </div>
 
@@ -68,4 +78,5 @@
   <!-- Scripts -->
   <script src="../js/account.js"></script>
 </body>
+
 </html>

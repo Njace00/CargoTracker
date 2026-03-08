@@ -1403,3 +1403,104 @@
         }
 
 /* ==================== ADMIN DASHBOARD END ==================== */
+
+/* ==================== ADMIN RESERVATION  ==================== */
+
+/* TABLE */
+/* ===== RESERVATIONS CARD ===== */
+.dashboard-card-dashboard {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
+    margin-top: 20px;
+}
+
+/* ===== TABLE CONTAINER ===== */
+.table-responsive-dashboard {
+    overflow-x: auto;
+    margin-top: 15px;
+}
+
+/* ===== TABLE ===== */
+.admin-table-dashboard {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 900px;
+    font-size: 14px;
+}
+
+/* HEADER */
+.admin-table-dashboard thead {
+    background: #f5f7fa;
+}
+
+.admin-table-dashboard th {
+    padding: 14px 12px;
+    text-align: left;
+    font-weight: 600;
+    color: #333;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+/* BODY */
+.admin-table-dashboard td {
+    padding: 14px 12px;
+    border-bottom: 1px solid #f0f0f0;
+    color: #444;
+}
+
+/* ROW HOVER */
+.admin-table-dashboard tbody tr:hover {
+    background: #f9fafb;
+}
+
+/* ===== STATUS BADGES ===== */
+.status-badge {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    display: inline-block;
+}
+
+.status-badge.pending {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.status-badge.approved {
+    background: #d4edda;
+    color: #155724;
+}
+
+/* ===== ACTION BUTTONS ===== */
+.btn-dashboard {
+    padding: 6px 12px;
+    font-size: 12px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    margin-right: 6px;
+    transition: all 0.2s ease;
+}
+
+.btn-dashboard.approve {
+    background: #28a745;
+    color: #fff;
+}
+
+.btn-dashboard.reject {
+    background: #dc3545;
+    color: #fff;
+}
+
+.btn-dashboard.view {
+    background: #007bff;
+    color: #fff;
+}
+
+.btn-dashboard:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}

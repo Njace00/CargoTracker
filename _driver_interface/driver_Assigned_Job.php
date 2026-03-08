@@ -2,159 +2,336 @@
 include '../__back-end_processes/db_connect.php';
 session_start();
 
-// If not logged in OR not driver, redirect away
+// If not logged in OR not driver
 if (!isset($_SESSION['account_id']) || $_SESSION['role'] != 1) {
     header("Location: ../_user_interface/user_signup.php");
     exit();
 }
 
+$logged_in_username = null;
+$logged_in_fullname = null;
 
-$query = "SELECT vehicle_name FROM vehicles";
-$result = mysqli_query($conn, $query);
+if (isset($_SESSION['account_id'])) {
+    $account_id = $_SESSION['account_id'];
+    $query = "SELECT username, fullname FROM account WHERE account_id = ?";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("i", $account_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
+    if ($row = $result->fetch_assoc()) {
+        $logged_in_username = $row['username'];
+        $logged_in_fullname = $row['fullname'];
+    }
+    $stmt->close();
+}
 
+$query = "SELECT * FROM trips WHERE driver = ? AND status != 'completed'";
+$stmt = $conn->prepare($query);
+$stmt->bind_param("s", $logged_in_fullname);
+$stmt->execute();
+$result_Job = $stmt->get_result();
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Driver - Assigned Jobs</title>
-    <link rel="icon" type="image/x-icon" href="../images/favicon.jpg">
-    <style>
-        /* --- 1. Basic Setup (from Admin) --- */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: Arial, sans-serif; background-color: #f4f7fa; }
+<meta charset="UTF-8">
+<title>Driver - Assigned Jobs</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        /* --- 2. Mobile Header (from Admin) --- */
-        .mobile-header { display: flex; align-items: center; padding: 15px 20px; background-color: #1f2c3d; color: white; position: sticky; top: 0; z-index: 500; }
-        #menu-toggle-btn { background-color: transparent; border: none; cursor: pointer; padding: 10px; }
-        .menu-icon-line { display: block; width: 22px; height: 2px; background-color: white; margin: 5px 0; }
-        .mobile-header-title { font-size: 20px; font-weight: bold; margin-left: 15px; }
+<link rel="icon" type="image/x-icon" href="../images/favicon.jpg">
+<link rel="stylesheet" href="../css/driver_style.css">
 
-        /* --- 3. Sidebar (from Admin) --- */
-        .sidebar { width: 260px; height: 100vh; position: fixed; top: 0; left: 0; transform: translateX(-100%); background-color: #1f2c3d; color: white; z-index: 1000; display: flex; flex-direction: column; transition: transform 0.3s ease-in-out; }
-        .sidebar.open { transform: translateX(0%); }
-        #sidebar-close-btn { position: absolute; top: 15px; right: 15px; background-color: transparent; border: none; color: white; font-size: 24px; font-weight: bold; cursor: pointer; }
-        .sidebar-header { padding: 24px 30px; font-size: 28px; font-weight: bold; }
-        .nav-links { list-style: none; padding: 0 15px; margin: 0; flex-grow: 1; }
-        .nav-links li { margin-bottom: 8px; }
-        .nav-links a { display: block; text-decoration: none; color: #dbe2ea; font-size: 16px; font-weight: 500; padding: 14px 15px; border-radius: 8px; transition: background-color 0.3s ease; }
-        .nav-links a:hover { background-color: #2a3a4e; }
-        .nav-links a.active { background-color: #3e4d61; color: #ffffff; font-weight: 600; }
-        .logout-container { padding: 15px 30px 30px 30px; }
-        .logout-btn { display: block; width: 100%; padding: 14px; font-size: 16px; font-weight: 600; color: white; background-color: #d9534f; border: none; border-radius: 8px; cursor: pointer; text-align: center; }
+<style>
+/* ===============================
+   MAIN CONTENT
+================================ */
+.main-content {
+    padding: 30px;
+    background-color: #f4f6f9;
+    min-height: 100vh;
+}
 
-        /* --- 4. Main Content (from Admin) --- */
-        .main-content { padding: 20px; color: #333; }
-        .main-content h1 { font-size: 32px; font-weight: 700; margin-bottom: 20px; color: #1f2c3d; }
-        
-        @media (min-width: 768px) {
-            .mobile-header { display: none; }
-            #sidebar-close-btn { display: none; }
-            .sidebar { transform: translateX(0%); }
-            .main-content { margin-left: 260px; padding: 30px; }
-        }
-        
-        /* --- 5. Page-Specific CSS (from driver_Assigned_Job.html) --- */
-        .job-card {
-            background-color: #ffffff;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-            padding: 25px;
-            margin-bottom: 20px; /* Added margin for list */
-        }
-        .job-card h1 {
-            font-size: 28px;
-            font-weight: 700;
-            color: #1f2c3d;
-            margin-bottom: 20px;
-        }
-        .job-card .job-label {
-            font-size: 14px;
-            color: #6c757d;
-            font-weight: 600;
-            margin-bottom: 5px;
-        }
+.main-content h1 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 25px;
+    color: #1f2c3d;
+}
 
-    </style>
+/* ===============================
+   JOB LIST
+================================ */
+.job-list-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(700px, 1fr));
+    gap: 25px;
+}
+
+/* ===============================
+   JOB CARD
+================================ */
+.job-card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+}
+
+/* ===============================
+   GRID LIKE IMAGE
+================================ */
+.job-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+}
+
+/* ===============================
+   FIELD BOX
+================================ */
+.job-field {
+    border: 2px solid #000;
+    padding: 16px;
+    min-height: 80px;
+}
+
+.job-field label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.job-field span {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+/* ===============================
+   BUTTON
+================================ */
+.mark-progress-btn {
+    margin-top: 20px;
+    width: 100%;
+    padding: 14px;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    border-radius: 6px;
+    background-color: #0d6efd;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.mark-progress-btn:hover {
+    background-color: #0056b3;
+}
+
+.mark-complete-btn {
+    margin-top: 20px;
+    width: 100%;
+    padding: 14px;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    border-radius: 6px;
+    background-color: #28a745;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.mark-complete-btn:hover {
+    background-color: #218838;
+}
+
+.btn-disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+    opacity: 0.65;
+}
+
+.btn-disabled:hover {
+    background-color: #6c757d;
+}
+
+/* ===============================
+   EMPTY STATE
+================================ */
+.empty-state {
+    background: #fff;
+    border-radius: 10px;
+    padding: 60px 40px;
+    text-align: center;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+}
+
+.empty-state svg {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 20px;
+    opacity: 0.3;
+}
+
+.empty-state h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.empty-state p {
+    font-size: 16px;
+    color: #666;
+    line-height: 1.6;
+}
+
+/* ===============================
+   RESPONSIVE
+================================ */
+@media (min-width: 768px) {
+    .main-content {
+        margin-left: 260px;
+    }
+}
+
+@media (max-width: 768px) {
+    .job-grid {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
 </head>
+
 <body>
 
-    <div class="mobile-header">
-        <button id="menu-toggle-btn">
-            <span class="menu-icon-line"></span>
-            <span class="menu-icon-line"></span>
-            <span class="menu-icon-line"></span>
-        </button>
-        <div class="mobile-header-title">Driver Panel</div>
+<!-- MOBILE HEADER -->
+<div class="mobile-header">
+    <button id="menu-toggle-btn">
+        <span class="menu-icon-line"></span>
+        <span class="menu-icon-line"></span>
+        <span class="menu-icon-line"></span>
+    </button>
+    <div class="mobile-header-title">Driver Panel</div>
+</div>
+
+<!-- SIDEBAR -->
+<div class="sidebar" id="sidebar">
+    <button id="sidebar-close-btn">&times;</button>
+
+    <div class="sidebar-header">
+        GNBTL
+        <?php if ($logged_in_username): ?>
+            <div class="username-display">
+                User: <?php echo htmlspecialchars($logged_in_username); ?>
+            </div>
+        <?php endif; ?>
     </div>
 
-    <div class="sidebar" id="sidebar">
-        <button id="sidebar-close-btn">&times;</button>
-        <div class="sidebar-header"> GNBTL </div>
-        <nav>
-            <ul class="nav-links">
-                <li><a href="../_driver_interface/driver_home.php">Dashboard</a></li>
-                <li><a href="../_driver_interface/driver_Announcement.php">Announcement</a></li>
-                <li><a href="../_driver_interface/driver_Delivery.php">Delivery</a></li>
-                <li><a href="../_driver_interface/driver_Assigned_Job.php">Assigned Job</a></li>
-                <li><a href="../_driver_interface/driver_Records.php">Weekly Records</a></li>
-                <li><a href="../_driver_interface/driver_Logs.php">Logs</a></li>
-            </ul>
-        </nav>
-        <div class="logout-container">
-            <form action="../__back-end_processes/auth_logout.php" method="post">
-                <button class="logout-btn">Log out</button>
-            </form>
-        </div>
+    <nav>
+        <ul class="nav-links">
+            <li><a href="../_driver_interface/driver_home.php">Dashboard</a></li>
+            <li><a href="../_driver_interface/driver_Announcement.php">Announcement</a></li>
+            <li><a href="../_driver_interface/driver_Delivery.php">Delivery</a></li>
+            <li><a href="../_driver_interface/driver_Assigned_Job.php" class="active">Assigned Job</a></li>
+        </ul>
+    </nav>
+
+    <div class="logout-container">
+        <form action="../__back-end_processes/auth_logout.php" method="post">
+            <button class="logout-btn">Log out</button>
+        </form>
     </div>
+</div>
 
-    <div class="main-content">
-        
-        <h1>Assigned Jobs</h1>
+<!-- MAIN CONTENT -->
+<div class="main-content">
+    <h1>Assigned Jobs</h1>
 
+    <?php if ($result_Job && $result_Job->num_rows > 0): ?>
         <div class="job-list-container">
+            <?php while ($row = $result_Job->fetch_assoc()): ?>
             <div class="job-card">
-                <p class="job-label">Tracking ID</p>
-                <h1>GNBTL-R5F7GE3</h1>
-                <p class="job-label">Destination</p>
-                <h1>Antipolo City</h1>
-                <p class="job-label">Date</p>
-                <h1>12-23-2025</h1>
-            </div>
 
-            <div class="job-card">
-                <p class="job-label">Tracking ID</p>
-                <h1>GNBTL-A8F2K19</h1>
-                <p class="job-label">Destination</p>
-                <h1>Batangas Port</h1>
-                <p class="job-label">Date</p>
-                <h1>12-24-2025</h1>
+                <div class="job-grid">
+
+                    <div class="job-field">
+                        <label>Trip ID</label>
+                        <span><?= htmlspecialchars($row['trip_id']) ?></span>
+                    </div>
+
+                    <div class="job-field">
+                        <label>Assigned Vehicle</label>
+                        <span><?= htmlspecialchars($row['vehicle']) ?></span>
+                    </div>
+
+                    <div class="job-field">
+                        <label>Driver</label>
+                        <span><?= htmlspecialchars($row['driver']) ?></span>
+                    </div>
+
+                    <div class="job-field">
+                        <label>Destination</label>
+                        <span><?= htmlspecialchars($row['destination']) ?></span>
+                    </div>
+
+                    <div class="job-field">
+                        <label>Status</label>
+                        <span><?= htmlspecialchars($row['status']) ?></span>
+                    </div>
+
+                    <div class="job-field">
+                        <label>Date</label>
+                        <span><?= htmlspecialchars($row['created_at']) ?></span>
+                    </div>
+
+                </div>
+
+                <?php if ($row['status'] == 'pending' || $row['status'] == 'Pending'): ?>
+                    <form action="../__back-end_processes/process_mark_inprogress.php" method="POST">
+                        <input type="hidden" name="trip_id" value="<?php echo $row['trip_id']; ?>">
+                        <input type="hidden" name="driver_name" value="<?php echo htmlspecialchars($row['driver']); ?>">
+                        <input type="hidden" name="vehicle_name" value="<?php echo htmlspecialchars($row['vehicle']); ?>">
+                        <button class="mark-progress-btn" type="submit">Mark as In Progress</button>
+                    </form>
+
+                <?php elseif ($row['status'] == 'in-progress' || $row['status'] == 'In Progress'): ?>
+                    <form action="../__back-end_processes/process_mark_complete.php" method="POST">
+                        <input type="hidden" name="trip_id" value="<?php echo $row['trip_id']; ?>">
+                        <input type="hidden" name="driver_name" value="<?php echo htmlspecialchars($row['driver']); ?>">
+                        <input type="hidden" name="vehicle_name" value="<?php echo htmlspecialchars($row['vehicle']); ?>">
+                        <button class="mark-complete-btn" type="submit">Mark as Complete</button>
+                    </form>
+                <?php else: ?>
+                    <button class="mark-progress-btn btn-disabled" disabled>Completed</button>
+                <?php endif; ?>
+
             </div>
+            <?php endwhile; ?>
         </div>
+    <?php else: ?>
+        <div class="empty-state">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+            </svg>
+            <h2>No Assigned Job Yet</h2>
+            <p>You currently have no jobs assigned to you. Check back later or contact your administrator for more information.</p>
+        </div>
+    <?php endif; ?>
+</div>
 
-    </div>
-    
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            var menuButton = document.getElementById("menu-toggle-btn");
-            var closeButton = document.getElementById("sidebar-close-btn");
-            var sidebar = document.getElementById("sidebar");
-            menuButton.addEventListener("click", function() { sidebar.classList.add("open"); });
-            closeButton.addEventListener("click", function() { sidebar.classList.remove("open"); });
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const menuBtn = document.getElementById("menu-toggle-btn");
+    const closeBtn = document.getElementById("sidebar-close-btn");
+    const sidebar = document.getElementById("sidebar");
 
-            const currentPage = window.location.pathname.split('/').pop();
-            const navLinks = document.querySelectorAll('.nav-links a');
-
-            navLinks.forEach(link => {
-                const linkPage = link.getAttribute('href').split('/').pop();
-                if (linkPage === currentPage) {
-                    link.classList.add('active');
-                }
-            });
-        });
-    </script>
+    menuBtn.addEventListener("click", () => sidebar.classList.add("open"));
+    closeBtn.addEventListener("click", () => sidebar.classList.remove("open"));
+});
+</script>
 
 </body>
 </html>

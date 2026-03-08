@@ -11,25 +11,27 @@ if (isset($_SESSION['account_id'])) {
     $stmt->bind_param("i", $account_id);
     $stmt->execute();
     $result = $stmt->get_result();
-    
+
     if ($row = $result->fetch_assoc()) {
         $logged_in_username = $row['username'];
     }
     $stmt->close();
 }
+// Only allow verified clients (role = 0, is_new_client = 0)
+if (!isset($_SESSION['account_id']) || $_SESSION['role'] != 0 || $_SESSION['is_new_client'] != 0) {
+    header("Location: ../_user_interface/user_signup.php");
+    exit();
+}
 
 ?>
 
-
-
-
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GNBTL Rate Calculator</title>
+    <title>GNBTL Reservation</title>
     <link rel="stylesheet" href="../css/style.css">
     <link rel="icon" type="image/x-icon" href="../images/favicon.jpg">
     <style>
@@ -46,158 +48,304 @@ if (isset($_SESSION['account_id'])) {
                 grid-template-columns: 1fr;
             }
         }
+
+        .main-content {
+            flex-grow: 1;
+            padding-top: 40px;
+            padding-bottom: 60px;
+        }
+
+        .quote-page-layout {
+            display: flex;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+            gap: 40px;
+            padding: 0 5%;
+        }
+
+        .quote-form-container {
+            flex: 2;
+            min-width: 300px;
+            background: #fff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .quote-form-container h1 {
+            font-size: 36px;
+            color: #333;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        .quote-form-container .subtitle {
+            font-size: 18px;
+            color: #555;
+            margin-bottom: 30px;
+        }
+
+        .quote-form fieldset {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+
+        .quote-form legend {
+            font-size: 20px;
+            font-weight: 600;
+            color: #009900;
+            padding: 0 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group input[type="tel"],
+        .form-group input[type="date"],
+        .form-group input[type="number"],
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #009900;
+            outline: none;
+            box-shadow: 0 0 5px rgba(0, 86, 179, 0.2);
+        }
+
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .submit-button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            font-size: 18px;
+            font-weight: 700;
+            color: #fff;
+            background-color: #009900;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .submit-button:hover {
+            background-color: #004a99;
+        }
+
+        .quote-sidebar {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .sidebar-widget {
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+        }
+
+        .sidebar-widget h3 {
+            font-size: 22px;
+            color: #333;
+            margin-top: 0;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 10px;
+        }
+
+        .sidebar-widget ul {
+            list-style: none;
+            padding-left: 0;
+            margin: 0;
+        }
+
+        .sidebar-widget ul li {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .sidebar-widget ul li::before {
+            content: '✓';
+            font-weight: 700;
+            color: #009900;
+            margin-right: 12px;
+            font-size: 18px;
+        }
+
+        .sidebar-widget p {
+            font-size: 16px;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 900px) {
+            .quote-page-layout {
+                flex-direction: column-reverse;
+            }
+        }
     </style>
 </head>
+
 <body>
     <nav>
         <div class="logo-container">
             <img src="../images/GNBTL logo only.png" alt="Logo">
         </div>
-        
+
         <div class="navbar-div">
             <a href="user_index.php">Home</a>
             <a href="user_about.php">About Us</a>
             <a href="user_contact.php">Contact</a>
-            
-            <div class="dropdown">
-                <button>Rates&#9660;</button>
-                <div class="dropdown-menu">
-                    <a href="user_qoute.php">Request a Quote</a>
-                    <a href="user_rate.php">Rate Calculator</a>
-                </div>  
-            </div>
-            
-            <div class="dropdown">
-                <button>Cargo&#9660;</button>
-                <div class="dropdown-menu">
-                    <a href="user_tracker.php">Track your Delivery</a>
-                    <a href="#">Contact Courier</a>
-                </div>  
-            </div>
-            
+            <a href="user_rate.php">Reservation</a>
+
             <?php if ($logged_in_username): ?>
-                <!-- Show username dropdown if logged in -->
                 <div class="user-dropdown">
                     <button>
                         <span class="username-display"><?php echo htmlspecialchars($logged_in_username); ?></span> &#9660;
                     </button>
-                    <div class="user-dropdown-menu"
+                    <div class="user-dropdown-menu">
                         <form action="../_admin_interface/auth_logout.php" method="post">
                             <button type="submit" class="logout-btn">Log Out</button>
                         </form>
                     </div>
                 </div>
             <?php else: ?>
-                <!-- Show Sign In link if not logged in -->
                 <a href="../_user_interface/user_signup.php">Sign In</a>
             <?php endif; ?>
         </div>
     </nav>
 
-    <div class="calculator-container">
-        <h2 class="calculator-title">Calculate Your Shipping Rate</h2>
-        
-        <form class="calculator-form" id="rateForm">
-            
-            <!-- Point A -->
-            <div class="location-section point-a">
-                <div class="section-title">Point A - Pickup Location</div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="regionA">Region</label>
-                        <select name="regionA" id="regionA" required>
-                            <option value="">Select Region</option>
-                            <option value="NCR">NCR (National Capital Region)</option>
-                            <option value="Region3">Region 3 (Central Luzon)</option>
-                            <option value="Region4">Region 4 (CALABARZON)</option>
-                        </select>
+    <div class="main-content">
+        <div class="quote-page-layout">
+
+            <div class="quote-form-container">
+                <h1>Book Your Shipment</h1>
+                <p class="subtitle">Reserve your trucking service with GNBTL. Complete the form below to confirm your booking, and we'll handle the rest.</p>
+
+                <?php if (isset($_SESSION['error'])): ?>
+                    <div style="padding: 15px; background: #ffebee; color: #c62828; border-radius: 5px; margin-bottom: 20px; border-left: 4px solid #c62828;">
+                        <?php 
+                        echo htmlspecialchars($_SESSION['error']); 
+                        unset($_SESSION['error']);
+                        ?>
                     </div>
-                    <div class="form-group">
-                        <label for="cityA">City/Area</label>
-                        <select name="cityA" id="cityA" required disabled>
-                            <option value="">Select Region First</option>
-                        </select>
+                <?php endif; ?>
+
+                <?php if (isset($_SESSION['success'])): ?>
+                    <div style="padding: 15px; background: #e8f5e9; color: #2e7d32; border-radius: 5px; margin-bottom: 20px; border-left: 4px solid #2e7d32;">
+                        <?php 
+                        echo htmlspecialchars($_SESSION['success']); 
+                        unset($_SESSION['success']);
+                        ?>
                     </div>
+                <?php endif; ?>
+
+                <form action="../__back-end_processes/process_reservation.php" method="POST" class="quote-form">
+
+                    <fieldset>
+                        <legend>Reservation Details</legend>
+
+                        <div class="form-group">
+                            <label for="reservation-date">Date of Reservation</label>
+                            <input type="date" id="reservation-date" name="reservation_date" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="company-name">Name of the Company</label>
+                            <input type="text" id="company-name" name="company_name" placeholder="Enter company name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="shipment">Shipment</label>
+                            <textarea id="shipment" name="shipment" rows="4" placeholder="Describe your shipment (type, quantity, weight, etc.)" required></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="address-destination">Address/Destination</label>
+                            <textarea id="address-destination" name="address_destination" rows="4" placeholder="Enter complete delivery address and destination" required></textarea>
+                        </div>
+                    </fieldset>
+
+                    <button type="submit" class="submit-button">Confirm Reservation</button>
+
+                </form>
+            </div>
+
+            <div class="quote-sidebar">
+                <div class="sidebar-widget">
+                    <h3>Reservation Benefits</h3>
+                    <ul>
+                        <li>Guaranteed Pickup Time</li>
+                        <li>Priority Scheduling</li>
+                        <li>Dedicated Support Team</li>
+                        <li>Real-Time Shipment Tracking</li>
+                        <li>Flexible Rescheduling Options</li>
+                    </ul>
+                </div>
+
+                <div class="sidebar-widget">
+                    <h3>Reservation Process</h3>
+                    <p>
+                        <strong>1. Submit Reservation:</strong> Fill out the form with your shipment details and preferred pickup time.
+                    </p>
+                    <p>
+                        <strong>2. Instant Confirmation:</strong> You'll receive an email confirmation with your reservation reference number within minutes.
+                    </p>
+                    <p>
+                        <strong>3. Pickup & Delivery:</strong> Our driver will arrive at your specified time and location to complete your shipment safely.
+                    </p>
+                </div>
+
+                <div class="sidebar-widget">
+                    <h3>Need Help?</h3>
+                    <p>
+                        Our customer service team is available 24/6 to assist with your reservation. Call us at <strong>(02) 1234-5678</strong> or email <strong>reservations@gnbtl.com</strong>
+                    </p>
                 </div>
             </div>
 
-            <!-- Point B -->
-            <div class="location-section point-b">
-                <div class="section-title">Point B - Delivery Location</div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="regionB">Region</label>
-                        <select name="regionB" id="regionB" required>
-                            <option value="">Select Region</option>
-                            <option value="NCR">NCR (National Capital Region)</option>
-                            <option value="Region3">Region 3 (Central Luzon)</option>
-                            <option value="Region4">Region 4 (CALABARZON)</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="cityB">City/Area</label>
-                        <select name="cityB" id="cityB" required disabled>
-                            <option value="">Select Region First</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Truck Section -->
-            <div class="truck-section">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="load_size">Load Size</label>
-                        <select name="load_size" id="load_size" required>
-                            <option value="">Select Size</option>
-                            <option value="2">2-tonner</option>
-                            <option value="5">5-tonner</option>
-                            <option value="10">10-tonner</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="truck_count">Truck(s) Needed</label>
-                        <select name="truck_count" id="truck_count" required>
-                            <option value="">Select Number</option>
-                            <option value="1">1 Truck</option>
-                            <option value="multiple">Multiple Trucks (Contact Us)</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-
-            <button type="submit" class="calculate-btn">Calculate Rate</button>
-        </form>
-
-        <!-- Results Section -->
-        <div class="result-section" id="resultSection">
-            <h3 class="result-title">Estimated Price Breakdown</h3>
-            <div class="breakdown-item">
-                <span>Route</span>
-                <span id="routeDisplay">-</span>
-            </div>
-            <div class="breakdown-item">
-                <span>Distance</span>
-                <span id="distanceDisplay">0 km</span>
-            </div>
-            <div class="breakdown-item">
-                <span>Base Rate (per km)</span>
-                <span id="baseRateDisplay">₱ 0.00</span>
-            </div>
-            <div class="breakdown-item">
-                <span>Truck Size Fee</span>
-                <span id="truckFeeDisplay">₱ 0.00</span>
-            </div>
-            <div class="breakdown-item">
-                <span>Area Surcharge</span>
-                <span id="surchargeDisplay">₱ 0.00</span>
-            </div>
-            <div class="breakdown-item total">
-                <span>Total Estimated Cost</span>
-                <span id="totalDisplay">₱ 0.00</span>
-            </div>
-            <p class="disclaimer">*Final price may vary based on actual road conditions and additional services</p>
         </div>
     </div>
 
@@ -205,97 +353,36 @@ if (isset($_SESSION['account_id'])) {
         <div>
             <h1>GNBTL</h1>
         </div>
-        
+
         <div>
             <p>Trucking Logistics</p>
         </div>
-        
+
         <div class="footer-grid">
-            <p>Providing reliable trucking and logistics services across the nation. Our commitment to excellence 
-            ensures your cargo arrives safely and on time, every time.</p>
-            <p>With modern fleet management and real-time tracking, we offer transparency and efficiency in all 
-            our operations. Trust us for your transportation needs.</p>
-            <p>Our professional team is available 24/7 to assist you with quotes, tracking, and any logistics 
-            inquiries. Customer satisfaction is our top priority.</p>
-            <p>Contact us today to learn more about our competitive rates and comprehensive logistics solutions 
-            tailored to your business requirements.</p>
+            <p>Providing reliable trucking and logistics services across the nation. Our commitment to excellence
+                ensures your cargo arrives safely and on time, every time.</p>
+            <p>With modern fleet management and real-time tracking, we offer transparency and efficiency in all
+                our operations. Trust us for your transportation needs.</p>
+            <p>Our professional team is available 24/7 to assist you with quotes, tracking, and any logistics
+                inquiries. Customer satisfaction is our top priority.</p>
+            <p>Contact us today to learn more about our competitive rates and comprehensive logistics solutions
+                tailored to your business requirements.</p>
         </div>
-        
+
         <hr>
 
         <div class="footer-copyright">
-            <p>@GNBTL</p> 
+            <p>@GNBTL</p>
             <p>All Rights Reserved</p>
         </div>
     </footer>
 
     <script>
-        // Location data with cities per region
-        const locations = {
-            NCR: [
-                'Manila', 'Quezon City', 'Makati', 'Pasig', 'Taguig', 
-                'Mandaluyong', 'Pasay', 'Caloocan', 'Las Piñas', 
-                'Muntinlupa', 'Parañaque', 'Valenzuela', 'Malabon', 
-                'Navotas', 'San Juan', 'Marikina', 'Pateros'
-            ],
-            Region3: [
-                'Angeles City', 'San Fernando (Pampanga)', 'Mabalacat', 
-                'Olongapo', 'Tarlac City', 'Cabanatuan', 'San Jose (Nueva Ecija)',
-                'Balanga', 'Gapan', 'Meycauayan', 'San Jose del Monte', 
-                'Malolos', 'Baliuag'
-            ],
-            Region4: [
-                'Calamba', 'Batangas City', 'Lipa', 'San Pablo', 
-                'Lucena', 'Antipolo', 'Bacoor', 'Dasmariñas', 
-                'Imus', 'Cavite City', 'Santa Rosa', 'Biñan', 
-                'Tagaytay', 'Tanauan', 'Calapan'
-            ]
-        };
-
-        // Comprehensive distance matrix (in km) - based on actual road distances
-    
-
-        // Pricing structure
-        const baseRatePerKm = 30; // ₱30 per km
-        
-        // Truck size fees (base fee + per km multiplier)
-        const truckPricing = {
-            '2': { baseFee: 800, multiplier: 1.0 },    // 2-tonner: base pricing
-            '5': { baseFee: 1500, multiplier: 1.3 },   // 5-tonner: +30% per km
-            '10': { baseFee: 2500, multiplier: 1.6 }   // 10-tonner: +60% per km
-        };
-        
-       
-
-        // Populate city dropdown based on region selection
-        function populateCities(regionSelect, citySelect) {
-            regionSelect.addEventListener('change', function() {
-                const region = this.value;
-                citySelect.innerHTML = '<option value="">Select City/Area</option>';
-                
-                if (region && locations[region]) {
-                    citySelect.disabled = false;
-                    locations[region].forEach(city => {
-                        const option = document.createElement('option');
-                        option.value = city;
-                        option.textContent = city;
-                        citySelect.appendChild(option);
-                    });
-                } else {
-                    citySelect.disabled = true;
-                }
-            });
-        }
-
-        // Initialize dropdowns
-        populateCities(document.getElementById('regionA'), document.getElementById('cityA'));
-        populateCities(document.getElementById('regionB'), document.getElementById('cityB'));
-
-
-        
-        
-
+        // Set minimum date to today
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('reservation-date').setAttribute('min', today);
     </script>
 
 </body>
+
 </html>

@@ -17,6 +17,7 @@ $result1 = mysqli_query($conn, $query);
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,6 +25,7 @@ $result1 = mysqli_query($conn, $query);
     <link rel="icon" type="image/x-icon" href="../images/favicon.jpg">
     <link rel="stylesheet" href="../css/admin_style.css">
 </head>
+
 <body>
 
     <div class="mobile-header">
@@ -41,11 +43,10 @@ $result1 = mysqli_query($conn, $query);
         <nav>
             <ul class="nav-links">
                 <li><a href="../_admin_interface/admin.php">Dashboard</a></li>
-                <li><a href="../_admin_interface/admin_overview.php">Overview Metrics</a></li>
-                <li><a href="../_admin_interface/admin_trips.php">Trips</a></li>
+                <li><a href="../_admin_interface/admin_verify_account.php">Verify Accounts</a></li>
+                <li><a href="../_admin_interface/admin_trips.php">Trips & Reservation</a></li>
                 <li><a href="../_admin_interface/admin_vehicles.php">Vehicles</a></li>
                 <li><a href="../_admin_interface/admin_performance.php">Performance</a></li>
-                <li><a href="../_admin_interface/admin_activity.php">Recent Activity</a></li>
                 <li><a href="../_admin_interface/admin_accounts.php">Driver Accounts</a></li>
                 <li><a href="../_admin_interface/admin_announcement.php">Announcement</a></li>
             </ul>
@@ -58,19 +59,19 @@ $result1 = mysqli_query($conn, $query);
     </div>
 
     <div class="main-content-vehicle">
-        
+
         <h1>Vehicle Management</h1>
 
         <div class="dashboard-columns-vehicle">
 
             <div class="dashboard-card-vehicle">
                 <h2>Add New Vehicle</h2>
-                <form method="POST" action="../__back-end_processes\processs_add_vehicle.php" >
+                <form method="POST" action="../__back-end_processes\processs_add_vehicle.php">
                     <div class="form-group-vehicle">
-                        <label for="vehicle_name" class="form-label-vehicle" >Vehicle Name</label>
-                        <input name="vehicle_name" type="text" id="vehicle_name" class="form-input-vehicle" placeholder="e.g., truck-1"  required>
+                        <label for="vehicle_name" class="form-label-vehicle">Vehicle Name</label>
+                        <input name="vehicle_name" type="text" id="vehicle_name" class="form-input-vehicle" placeholder="e.g., truck-1" required>
                     </div>
-                    
+
                     <div class="form-group-vehicle">
                         <label for="vehicle_class" class="form-label-vehicle">Class</label>
                         <select id="vehicle_class" class="form-select-vehicle" name="vehicle_type">
@@ -78,16 +79,8 @@ $result1 = mysqli_query($conn, $query);
                             <option value="trailer">Trailer</option>
                         </select>
                     </div>
-                    
-                    <div class="form-group-vehicle">
-                        <label for="vehicle_size" class="form-label-vehicle">Size</label>
-                        <select id="vehicle_size" class="form-select-vehicle" name="vehicle_class">
-                            <option value="2-tonner">2-tonner</option>
-                            <option value="5-tonner">5-tonner</option>
-                            <option value="10-tonner">10-tonner</option>
-                        </select>
-                    </div>
-                    
+
+
                     <button type="submit" class="form-button-vehicle">Add Vehicle</button>
                 </form>
             </div>
@@ -96,12 +89,12 @@ $result1 = mysqli_query($conn, $query);
                 <h2>Vehicle Status</h2>
                 <div class="card-content-scrollable-vehicle">
                     <?php while ($row = mysqli_fetch_assoc($result)): ?>
-                    <div class="status-info-vehicle">
-                        <span class="status-info-name-vehicle"><?php echo htmlspecialchars($row['vehicle_name']);?></span>
-                        <span class="status-badge-vehicle available"><?php echo htmlspecialchars($row['status']);?></span>
-                    </div>
+                        <div class="status-info-vehicle">
+                            <span class="status-info-name-vehicle"><?php echo htmlspecialchars($row['vehicle_name']); ?></span>
+                            <span class="status-badge-vehicle available"><?php echo htmlspecialchars($row['status']); ?></span>
+                        </div>
                     <?php endwhile; ?>
-                    
+
                 </div>
             </div>
 
@@ -109,46 +102,48 @@ $result1 = mysqli_query($conn, $query);
                 <h2>Vehicle List</h2>
                 <div class="card-content-table-wrapper-vehicle">
                     <table class="content-table-vehicle">
-                        
+
                         <thead>
                             <tr>
                                 <th>Vehicle Name</th>
                                 <th>Class</th>
-                                <th>Size</th>
-                                <th>Actions</th>
+                                <th>Actions (no function)</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php while ($row = mysqli_fetch_assoc($result1)): ?>
-                            <tr>
-                                <td><?php echo htmlspecialchars($row['vehicle_name']);?></td>
-                                <td><?php echo htmlspecialchars($row['vehicle_type']);?></td>
-                                <td><?php echo htmlspecialchars($row['vehicle_class']);?></td>
-                                <td>
-                                    <button class="action-btn-vehicle edit">Edit</button>
-                                    <form method="POST" action="../__back-end_processes/process_archive-vehicles.php">
-                                        <input type="hidden" name="vehicle_name" value="<?php echo htmlspecialchars($row['vehicle_name']); ?>">
-                                        <button type="submit" class="action-btn-vehicle archive">Archive</button>
-                                    </form>
-                                </td>
-                            </tr>
+                                <tr>
+                                    <td><?php echo htmlspecialchars($row['vehicle_name']); ?></td>
+                                    <td><?php echo htmlspecialchars($row['vehicle_type']); ?></td>
+                                    <td>
+                                        <button class="action-btn-vehicle edit">Edit</button>
+                                        <form method="POST" action="../__back-end_processes/process_archive-vehicles.php">
+                                            <input type="hidden" name="vehicle_name" value="<?php echo htmlspecialchars($row['vehicle_name']); ?>">
+                                            <button type="submit" class="action-btn-vehicle archive">Archive</button>
+                                        </form>
+                                    </td>
+                                </tr>
                             <?php endwhile; ?>
                         </tbody>
                     </table>
                 </div>
             </div>
-            
+
         </div>
-        
+
     </div>
-    
+
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             var menuButton = document.getElementById("menu-toggle-btn");
             var closeButton = document.getElementById("sidebar-close-btn");
             var sidebar = document.getElementById("sidebar");
-            menuButton.addEventListener("click", function() { sidebar.classList.add("open"); });
-            closeButton.addEventListener("click", function() { sidebar.classList.remove("open"); });
+            menuButton.addEventListener("click", function() {
+                sidebar.classList.add("open");
+            });
+            closeButton.addEventListener("click", function() {
+                sidebar.classList.remove("open");
+            });
 
             const currentPage = window.location.pathname.split('/').pop();
             const navLinks = document.querySelectorAll('.nav-links a');
@@ -163,4 +158,11 @@ $result1 = mysqli_query($conn, $query);
     </script>
 
 </body>
+
 </html>
+
+
+
+
+
+

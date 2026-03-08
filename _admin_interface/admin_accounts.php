@@ -15,6 +15,7 @@ $result = mysqli_query($conn, $query);
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,12 +23,13 @@ $result = mysqli_query($conn, $query);
     <link rel="icon" type="image/x-icon" href="../images/favicon.jpg">
     <link rel="stylesheet" href="../css/admin_style.css">
     <style>
-        
 
-        
-       
+
+
+
     </style>
 </head>
+
 <body>
 
     <div class="mobile-header">
@@ -45,11 +47,10 @@ $result = mysqli_query($conn, $query);
         <nav>
             <ul class="nav-links">
                 <li><a href="../_admin_interface/admin.php">Dashboard</a></li>
-                <li><a href="../_admin_interface/admin_overview.php">Overview Metrics</a></li>
-                <li><a href="../_admin_interface/admin_trips.php">Trips</a></li>
+                <li><a href="../_admin_interface/admin_verify_account.php">Verify Accounts</a></li>
+                <li><a href="../_admin_interface/admin_trips.php">Trips & Reservation</a></li>
                 <li><a href="../_admin_interface/admin_vehicles.php">Vehicles</a></li>
                 <li><a href="../_admin_interface/admin_performance.php">Performance</a></li>
-                <li><a href="../_admin_interface/admin_activity.php">Recent Activity</a></li>
                 <li><a href="../_admin_interface/admin_accounts.php">Driver Accounts</a></li>
                 <li><a href="../_admin_interface/admin_announcement.php">Announcement</a></li>
             </ul>
@@ -62,7 +63,7 @@ $result = mysqli_query($conn, $query);
     </div>
 
     <div class="main-content-account">
-        
+
         <h1>Driver Account Management</h1>
 
         <div class="dashboard-columns-account">
@@ -80,11 +81,11 @@ $result = mysqli_query($conn, $query);
                     </div>
                     <div class="form-group-account">
                         <label for="username" class="form-label-account">Username</label>
-                        <input name="username"  type="text" id="username" class="form-input-account" placeholder="e.g., neil.jason" required>
+                        <input name="username" type="text" id="username" class="form-input-account" placeholder="e.g., neil.jason" required>
                     </div>
                     <div class="form-group-account">
                         <label for="password" class="form-label-account">Password</label>
-                        <input name="password"  type="password" id="password" class="form-input-account" placeholder="Set a temporary password" required>
+                        <input name="password" type="password" id="password" class="form-input-account" placeholder="Set a temporary password" required>
                     </div>
                     <button type="submit" class="form-button-account">Create Driver Account</button>
                 </form>
@@ -99,37 +100,41 @@ $result = mysqli_query($conn, $query);
                                 <th>Driver Name</th>
                                 <th>Username</th>
                                 <th>Email</th>
-                                <th>Actions</th>
+                                <th>Actions (no function)</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php while ($row = mysqli_fetch_assoc($result)): ?>
-                            <tr>
-                                <td><?php echo htmlspecialchars($row['fullname']);?></td>
-                                <td><?php echo htmlspecialchars($row['username']);?></td>
-                                <td><?php echo htmlspecialchars($row['email']);?></td>
-                                <td>
-                                    <button class="action-btn-account edit">Edit</button>
-                                    <button class="action-btn-account archive">Archive</button>
-                                </td>
-                            </tr>
+                                <tr>
+                                    <td><?php echo htmlspecialchars($row['fullname']); ?></td>
+                                    <td><?php echo htmlspecialchars($row['username']); ?></td>
+                                    <td><?php echo htmlspecialchars($row['email']); ?></td>
+                                    <td>
+                                        <button class="action-btn-account edit">Edit</button>
+                                        <button class="action-btn-account archive">Archive</button>
+                                    </td>
+                                </tr>
                             <?php endwhile; ?>
                         </tbody>
                     </table>
                 </div>
             </div>
-            
+
         </div>
-        
+
     </div>
-    
+
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             var menuButton = document.getElementById("menu-toggle-btn");
             var closeButton = document.getElementById("sidebar-close-btn");
             var sidebar = document.getElementById("sidebar");
-            menuButton.addEventListener("click", function() { sidebar.classList.add("open"); });
-            closeButton.addEventListener("click", function() { sidebar.classList.remove("open"); });
+            menuButton.addEventListener("click", function() {
+                sidebar.classList.add("open");
+            });
+            closeButton.addEventListener("click", function() {
+                sidebar.classList.remove("open");
+            });
 
             const currentPage = window.location.pathname.split('/').pop();
             const navLinks = document.querySelectorAll('.nav-links a');
@@ -144,4 +149,5 @@ $result = mysqli_query($conn, $query);
     </script>
 
 </body>
+
 </html>

@@ -246,7 +246,7 @@ if (!isset($_SESSION['account_id']) || $_SESSION['role'] != 0 || $_SESSION['is_n
                         <span class="username-display"><?php echo htmlspecialchars($logged_in_username); ?></span> &#9660;
                     </button>
                     <div class="user-dropdown-menu">
-                        <form action="../_admin_interface/auth_logout.php" method="post">
+                        <form action="../__back-end_processes/auth_logout.php" method="POST">
                             <button type="submit" class="logout-btn">Log Out</button>
                         </form>
                     </div>
@@ -295,6 +295,16 @@ if (!isset($_SESSION['account_id']) || $_SESSION['role'] != 0 || $_SESSION['is_n
                         <div class="form-group">
                             <label for="company-name">Name of the Company</label>
                             <input type="text" id="company-name" name="company_name" placeholder="Enter company name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="contact-number">Contact Number</label>
+                            <input type="tel" id="contact-number" name="contact-number" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email-address">Email Address</label>
+                            <input type="email" id="email-address" name="email-address" required>
                         </div>
 
                         <div class="form-group">

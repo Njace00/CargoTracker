@@ -215,14 +215,14 @@ $result1 = mysqli_query($conn, $query);
             });
         });
 
-        // Modal Logic
+        // Modal
         const modal = document.getElementById("editVehicleModal");
 
         function openEditModal(vehicleName, vehicleType) {
             document.getElementById("edit_old_vehicle_name").value = vehicleName;
             document.getElementById("edit_vehicle_name").value = vehicleName;
             
-            // Set dropdown value (handling potential case sensitivity)
+            // Set dropdown value (case sensitivity)
             const select = document.getElementById("edit_vehicle_class");
             for(let i=0; i < select.options.length; i++) {
                 if(select.options[i].value.toLowerCase() === vehicleType.toLowerCase()) {

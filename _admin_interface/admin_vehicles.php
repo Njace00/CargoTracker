@@ -8,7 +8,33 @@ if (!isset($_SESSION['account_id']) || $_SESSION['role'] != 2) {
     exit();
 }
 
+// Edit Vehicle
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['new_vehicle_name'])) {
+    $old_name = $_POST['old_vehicle_name'];
+    $new_name = $_POST['new_vehicle_name'];
+    $type = $_POST['vehicle_type'];
 
+    $stmt = $conn->prepare("UPDATE vehicles SET vehicle_name = ?, vehicle_type = ? WHERE vehicle_name = ?");
+    $stmt->bind_param("sss", $new_name, $type, $old_name);
+    $stmt->execute();
+    $stmt->close();
+    
+    header("Location: admin_vehicles.php");
+    exit();
+}
+
+// Archive Vehicle
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['archive_vehicle_name'])) {
+    $archive_name = $_POST['archive_vehicle_name'];
+
+    $stmt = $conn->prepare("UPDATE vehicles SET is_archived = 1 WHERE vehicle_name = ?");
+    $stmt->bind_param("s", $archive_name);
+    $stmt->execute();
+    $stmt->close();
+    
+    header("Location: admin_vehicles.php");
+    exit();
+}
 
 $query = "SELECT * FROM vehicles WHERE is_archived = 0";
 $result = mysqli_query($conn, $query);
@@ -20,10 +46,17 @@ $result1 = mysqli_query($conn, $query);
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial  -scale=1.0">
     <title>GNBTL Admin - Vehicle Management</title>
     <link rel="icon" type="image/x-icon" href="../images/favicon.jpg">
     <link rel="stylesheet" href="../css/admin_style.css">
+    <style>
+        /* Basic Modal Styles */
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); }
+        .modal-content { background-color: #fff; margin: 10% auto; padding: 20px; border-radius: 8px; width: 90%; max-width: 400px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
+        .close-btn { color: #aaa; float: right; font-size: 24px; font-weight: bold; cursor: pointer; }
+        .close-btn:hover { color: #000; }
+    </style>
 </head>
 
 <body>
@@ -80,7 +113,6 @@ $result1 = mysqli_query($conn, $query);
                         </select>
                     </div>
 
-
                     <button type="submit" class="form-button-vehicle">Add Vehicle</button>
                 </form>
             </div>
@@ -102,12 +134,11 @@ $result1 = mysqli_query($conn, $query);
                 <h2>Vehicle List</h2>
                 <div class="card-content-table-wrapper-vehicle">
                     <table class="content-table-vehicle">
-
                         <thead>
                             <tr>
                                 <th>Vehicle Name</th>
                                 <th>Class</th>
-                                <th>Actions (no function)</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -116,9 +147,10 @@ $result1 = mysqli_query($conn, $query);
                                     <td><?php echo htmlspecialchars($row['vehicle_name']); ?></td>
                                     <td><?php echo htmlspecialchars($row['vehicle_type']); ?></td>
                                     <td>
-                                        <button class="action-btn-vehicle edit">Edit</button>
-                                        <form method="POST" action="../__back-end_processes/process_archive-vehicles.php">
-                                            <input type="hidden" name="vehicle_name" value="<?php echo htmlspecialchars($row['vehicle_name']); ?>">
+                                        <button type="button" class="action-btn-vehicle edit" onclick="openEditModal('<?php echo htmlspecialchars($row['vehicle_name']); ?>', '<?php echo htmlspecialchars($row['vehicle_type']); ?>')" style="display:inline-block; margin-right: 5px;">Edit</button>
+                                        
+                                        <form method="POST" action="" style="display:inline-block;">
+                                            <input type="hidden" name="archive_vehicle_name" value="<?php echo htmlspecialchars($row['vehicle_name']); ?>">
                                             <button type="submit" class="action-btn-vehicle archive">Archive</button>
                                         </form>
                                     </td>
@@ -131,6 +163,33 @@ $result1 = mysqli_query($conn, $query);
 
         </div>
 
+    </div>
+
+    <div id="editVehicleModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeEditModal()">&times;</span>
+            <h2 style="margin-bottom: 15px;">Edit Vehicle</h2>
+            <form method="POST" action="">
+                <input type="hidden" name="old_vehicle_name" id="edit_old_vehicle_name">
+                
+                <div class="form-group-vehicle">
+                    <label for="edit_vehicle_name" class="form-label-vehicle">Vehicle Name</label>
+                    <input name="new_vehicle_name" type="text" id="edit_vehicle_name" class="form-input-vehicle" required>
+                </div>
+
+                <div class="form-group-vehicle" style="margin-top: 15px;">
+                    <label for="edit_vehicle_class" class="form-label-vehicle">Class</label>
+                    <select id="edit_vehicle_class" class="form-select-vehicle" name="vehicle_type">
+                        <option value="rigid">Rigid</option>
+                        <option value="trailer">Trailer</option>
+                        <option value="Rigid">Rigid</option>
+                        <option value="Trailer">Trailer</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="form-button-vehicle" style="margin-top: 20px;">Save Changes</button>
+            </form>
+        </div>
     </div>
 
     <script>
@@ -155,14 +214,37 @@ $result1 = mysqli_query($conn, $query);
                 }
             });
         });
+
+        // Modal Logic
+        const modal = document.getElementById("editVehicleModal");
+
+        function openEditModal(vehicleName, vehicleType) {
+            document.getElementById("edit_old_vehicle_name").value = vehicleName;
+            document.getElementById("edit_vehicle_name").value = vehicleName;
+            
+            // Set dropdown value (handling potential case sensitivity)
+            const select = document.getElementById("edit_vehicle_class");
+            for(let i=0; i < select.options.length; i++) {
+                if(select.options[i].value.toLowerCase() === vehicleType.toLowerCase()) {
+                    select.selectedIndex = i;
+                    break;
+                }
+            }
+            
+            modal.style.display = "block";
+        }
+
+        function closeEditModal() {
+            modal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                closeEditModal();
+            }
+        }
     </script>
 
 </body>
 
 </html>
-
-
-
-
-
-

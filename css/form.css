@@ -234,3 +234,30 @@ input {
 .error.show {
   visibility: visible;
 }
+
+/* Password requirements */
+.pwd-requirements {
+  display: none;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  padding: 6px 10px;
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 6px;
+  margin: 2px 0 6px 0;
+  gap: 3px;
+}
+
+.req {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+}
+
+.req.fail {
+  color: #ff6b6b;
+}
+
+.req.pass {
+  color: #69ff96;
+}

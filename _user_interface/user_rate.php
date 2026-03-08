@@ -17,6 +17,11 @@ if (isset($_SESSION['account_id'])) {
     }
     $stmt->close();
 }
+// Only allow verified clients (role = 0, is_new_client = 0)
+if (!isset($_SESSION['account_id']) || $_SESSION['role'] != 0 || $_SESSION['is_new_client'] != 0) {
+    header("Location: ../_user_interface/user_signup.php");
+    exit();
+}
 
 ?>
 

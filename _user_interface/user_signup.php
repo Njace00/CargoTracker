@@ -17,14 +17,21 @@
   <div class="container" id="container">
     <!-- Sign Up -->
     <div class="form-container sign-up-container">
-      <form method="POST" action="../__back-end_processes/auth_signup.php">
+      <form method="POST" action="../__back-end_processes/auth_signup.php" id="signupForm">
         <h1>Create Account</h1>
         
         <input type="text" placeholder="Username" name="name" required>
         <input type="text" placeholder="Fullname" name="fname" required>
         <input type="text" placeholder="Company Name" name="cname" required>
         <input type="email" placeholder="Email" name="email" required>
-        <input type="password" placeholder="Password" name="password" required>
+        <input type="password" placeholder="Password" name="password" id="signupPassword" required oninput="validatePassword(this.value)">
+        <div class="pwd-requirements" id="pwdRequirements">
+          <span id="req-length" class="req fail">&#10007; 8&ndash;16 characters</span>
+          <span id="req-number" class="req fail">&#10007; At least 1 number</span>
+        </div>
+        <?php if (isset($_GET['error']) && $_GET['error'] === 'invalid_password'): ?>
+          <p class="error show">Password does not meet the requirements.</p>
+        <?php endif; ?>
         <input type="tel" name="number" placeholder="Phone Number (eg, +639123456789)" value="+639" pattern="\+639\d{9}"  maxlength="13" title="Please enter a valid Philippine mobile number starting with +639 followed by 9 digits." required
 >
         <button type="submit">Sign Up</button>

@@ -7,6 +7,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = $_POST['username'] ?? '';
     $email = $_POST['email'] ?? '';
     $password = $_POST['password'] ?? '';
+
+    // Password validation
+    if (strlen($password) < 8 || strlen($password) > 16 || !preg_match('/[0-9]/', $password)) {
+        header("Location: ../user_signup.php?error=invalid_password");
+        exit();
+    }
+
     $hash_pwd = password_hash($password, PASSWORD_DEFAULT);
     $role = 1;
 

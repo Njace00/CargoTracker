@@ -81,7 +81,7 @@ $result = mysqli_query($conn, $query);
                     </div>
                     <div class="form-group-account">
                         <label for="username" class="form-label-account">Username</label>
-                        <input name="username" type="text" id="username" class="form-input-account" placeholder="e.g., neil.jason" required>
+                        <input name="username" type="text" id="username" class="form-input-account" placeholder="e.g., John Doe" required>
                     </div>
                     <div class="form-group-account">
                         <label for="password" class="form-label-account">Password</label>

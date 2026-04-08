@@ -11,11 +11,9 @@
 
 <body>
 
-
   <a href="user_index.php" class="back-btn">← Back</a>
 
   <div class="container" id="container">
-    <!-- Sign Up -->
     <div class="form-container sign-up-container">
       <form method="POST" action="../__back-end_processes/auth_signup.php" id="signupForm">
         <h1>Create Account</h1>
@@ -24,6 +22,14 @@
         <input type="text" placeholder="Fullname" name="fname" required>
         <input type="text" placeholder="Company Name" name="cname" required>
         <input type="email" placeholder="Email" name="email" required>
+        
+        <?php if (isset($_GET['error']) && $_GET['error'] === 'email_taken'): ?>
+          <script>
+            window.onload = function() {
+                alert("This email is already in use. Please try a different email or sign in.");
+            };
+          </script>
+        <?php endif; ?>
         <input type="password" placeholder="Password" name="password" id="signupPassword" required oninput="validatePassword(this.value)">
         <div class="pwd-requirements" id="pwdRequirements">
           <span id="req-length" class="req fail">&#10007; 8&ndash;16 characters</span>
@@ -32,13 +38,11 @@
         <?php if (isset($_GET['error']) && $_GET['error'] === 'invalid_password'): ?>
           <p class="error show">Password does not meet the requirements.</p>
         <?php endif; ?>
-        <input type="tel" name="number" placeholder="Phone Number (eg, +639123456789)" value="+639" pattern="\+639\d{9}"  maxlength="13" title="Please enter a valid Philippine mobile number starting with +639 followed by 9 digits." required
->
+        <input type="tel" name="contact_num" placeholder="Phone Number (eg, +639123456789)" value="+639" pattern="\+639\d{9}"  maxlength="13" title="Please enter a valid Philippine mobile number starting with +639 followed by 9 digits." required>
         <button type="submit">Sign Up</button>
       </form>
     </div>
 
-    <!-- Sign In -->
     <div class="form-container sign-in-container">
       <form Method="POST" action="../__back-end_processes/auth_login.php">
         <h1>Sign In</h1>
@@ -58,7 +62,6 @@
       </form>
     </div>
 
-    <!-- Overlay -->
     <div class="overlay-container">
       <div class="overlay">
         <div class="overlay-panel overlay-left">
@@ -75,7 +78,6 @@
     </div>
   </div>
 
-  <!-- Scripts -->
   <script src="../js/account.js"></script>
 </body>
 

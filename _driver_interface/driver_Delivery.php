@@ -79,7 +79,6 @@ $result = mysqli_query($conn, $query);
 
         <div class="delivery-header">
             <h1 style="margin-bottom: 0;">Past Delivery Records</h1>
-            <button class="filter-btn">Filter: </button>
         </div>
 
         <div class="table-wrapper">

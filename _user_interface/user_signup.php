@@ -56,7 +56,7 @@
         <?php unset($_SESSION['error']); ?>
         <input type="email" placeholder="Email" name="email">
         <input type="password" placeholder="Password" name="password">
-        <a href="#" class="text-[#ffffff]">Forgot your password?</a>
+        <a href="user_forgot_password.php" class="text-[#ffffff]">Forgot your password?</a>
         <button type="submit">Sign In</button>
 
       </form>

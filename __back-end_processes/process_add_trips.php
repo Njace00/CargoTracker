@@ -7,17 +7,18 @@ $Vehicle = $_POST['assigned_Vehicle'] ?? '';
 $Client = $_POST['Client'] ?? '';
 $Destination = $_POST['delivery_Destination'] ?? '';
 $Trip_Type = $_POST['tripType'] ?? '';
-$Contact = $_POST['contact'] ?? '';
+$Contact_Num = $_POST['contact_number'] ?? '';    
+$Contact_Email = $_POST['email_address'] ?? '';   
 
 // Start transaction
 mysqli_begin_transaction($conn);
 
 try {
     // 1. Insert the trip
-    $Insert_DB = "INSERT INTO trips (driver, vehicle, client, destination, trip_type, contacts)
-                  VALUES (?, ?, ?, ?, ?, ?)";
+    $Insert_DB = "INSERT INTO trips (driver, vehicle, client, destination, trip_type, contact_number, email_address)
+                  VALUES (?, ?, ?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($Insert_DB);
-    $stmt->bind_param("ssssss", $Driver, $Vehicle, $Client, $Destination, $Trip_Type, $Contact);
+   $stmt->bind_param("sssssss", $Driver, $Vehicle, $Client, $Destination, $Trip_Type, $Contact_Num, $Contact_Email);
     $stmt->execute();
     $stmt->close();
 

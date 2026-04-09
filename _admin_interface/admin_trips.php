@@ -364,7 +364,9 @@ $result_reservations = mysqli_query($conn, $query_reservations);
                                 <div class="reservation-company"><?php echo htmlspecialchars($res['company_name']); ?></div>
                                 <div class="reservation-details">
                                     <strong>Shipment:</strong> <?php echo htmlspecialchars(substr($res['shipment'], 0, 60)) . (strlen($res['shipment']) > 60 ? '...' : ''); ?><br>
-                                    <strong>Destination:</strong> <?php echo htmlspecialchars(substr($res['address_destination'], 0, 60)) . (strlen($res['address_destination']) > 60 ? '...' : ''); ?>
+                                    <strong>Destination:</strong> <?php echo htmlspecialchars(substr($res['address_destination'], 0, 60)) . (strlen($res['address_destination']) > 60 ? '...' : ''); ?><br>
+                                    <strong>Contact Number:</strong> <?php echo htmlspecialchars(substr($res['contact_number'], 0, 60)) . (strlen($res['contact_number']) > 60 ? '...' : ''); ?><br>
+                                    <strong>Email Address:</strong> <?php echo htmlspecialchars(substr($res['email_address'], 0, 60)) . (strlen($res['email_address']) > 60 ? '...' : ''); ?>
                                 </div>
                                 <span class="reservation-status <?php echo $res['status']; ?>"><?php echo ucfirst($res['status']); ?></span>
                                 <div class="reservation-actions">
@@ -427,8 +429,9 @@ $result_reservations = mysqli_query($conn, $query_reservations);
                     </div>
 
                     <div class="form-group-trip">
-                        <label for="trip_destination" class="form-label-trip">Recipient Contact</label>
-                        <input type="text" id="trip_recipient" class="form-input-trip" placeholder="Email or Contact No." name="contact" required>
+                        <label for="trip_destination" class="form-label-trip">Recipient Contacts</label>
+                        <input type="tel" id="trip_recipient_email" class="form-input-trip" placeholder="Contact No." name="contact_number" required>
+                        <input type="email" id="trip_recipient_num" class="form-input-trip" placeholder="Email" name="email_address" required>
                     </div>
 
                     <button type="submit" class="form-button-trip">Create Trip</button>
@@ -573,7 +576,11 @@ $result_reservations = mysqli_query($conn, $query_reservations);
             document.getElementById('reservation_id').value = reservation.reservation_id;
             document.getElementById('trip_client').value = reservation.company_name;
             document.getElementById('trip_destination').value = reservation.address_destination;
+            document.getElementById('trip_recipient_email').value = reservation.contact_number;
+            document.getElementById('trip_recipient_num').value = reservation.email_address;
             document.getElementById('trip_type').value = 'reservation';
+
+
 
             // Scroll to form
             document.getElementById('createTripForm').scrollIntoView({

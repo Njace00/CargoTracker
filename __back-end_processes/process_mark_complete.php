@@ -32,13 +32,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt1->execute();
         $stmt1->close();
 
-        // 2. Update ng account is_assigned to 0 and increment trips_completed for the driver
+        // 2. Update account is_assigned to 0 and increment trips_completed for the driver
         $stmt2 = $conn->prepare("UPDATE account SET is_assigned = 0, trips_completed = trips_completed + 1 WHERE fullname = ? AND role = 1");
         $stmt2->bind_param("s", $driver_name);
         $stmt2->execute();
         $stmt2->close();
 
-        //Update ng vehicles is_assigned to 0 and increment total_trips for the vehicle
+        // 3. Update vehicles is_assigned to 0 and increment total_trips for the vehicle
         $stmt3 = $conn->prepare("UPDATE vehicles SET is_assigned = 0, total_trips = total_trips + 1 WHERE vehicle_name = ?");
         $stmt3->bind_param("s", $vehicle_name);
         $stmt3->execute();
@@ -47,19 +47,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Commit transaction
         mysqli_commit($conn);
 
-        // 4. Send email receipt to client using contacts column
-        if (!empty($trip_data['contacts'])) {
-            $client_email = $trip_data['contacts'];
-            $client_name = $trip_data['client']; // Using client field as name
+        // 4. Send email receipt to client
+        if (!empty($trip_data['email_address'])) {
+            $client_email = $trip_data['email_address'];
+            $client_name  = $trip_data['client'];
 
             $subject = "Delivery Completed - Trip #{$trip_id}";
 
             $body = "
             <p>Hello {$client_name},</p>
-
-            <p>
-            We are pleased to inform you that your delivery has been successfully completed.
-            </p>
+            <p>We are pleased to inform you that your delivery has been successfully completed.</p>
 
             <p>
             <strong>Trip ID:</strong> {$trip_id}<br>
@@ -68,32 +65,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </p>
 
             <p>
-            Your cargo has been safely dropped off at its destination.
+            <strong>Client:</strong> {$trip_data['client']}<br>
+            <strong>Email Address:</strong> {$trip_data['email_address']}<br>
+            <strong>Contact Number:</strong> {$trip_data['contact_number']}
             </p>
 
-            <p>
-            Thank you for choosing our logistics service.<br>
-            If you have any questions or concerns, feel free to contact us.
-            </p>
-
-            <p>
-            Best regards,<br>
-            GNBTL Logistics
-            </p>
+            <p>Your cargo has been safely dropped off at its destination.</p>
+            <p>Thank you for choosing our logistics service.</p>
+            <p>Best regards,<br>GNBTL Logistics</p>
             ";
 
-
-            // Send the email
             sendEmail($client_email, $client_name, $subject, $body);
         }
 
         $conn->close();
         header("Location: ../_driver_interface/driver_Assigned_Job.php?success=marked_complete");
+
     } catch (Exception $e) {
-        // Rollback on error
         mysqli_rollback($conn);
         $conn->close();
         header("Location: ../_driver_interface/driver_Assigned_Job.php?error=update_failed");
     }
     exit();
 }
+?>

@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -25,19 +26,22 @@
         
         <?php if (isset($_GET['error']) && $_GET['error'] === 'email_taken'): ?>
           <script>
-            window.onload = function() {
+            window.addEventListener('load', function() {
                 alert("This email is already in use. Please try a different email or sign in.");
-            };
+            });
           </script>
         <?php endif; ?>
+        
         <input type="password" placeholder="Password" name="password" id="signupPassword" required oninput="validatePassword(this.value)">
         <div class="pwd-requirements" id="pwdRequirements">
           <span id="req-length" class="req fail">&#10007; 8&ndash;16 characters</span>
           <span id="req-number" class="req fail">&#10007; At least 1 number</span>
         </div>
+        
         <?php if (isset($_GET['error']) && $_GET['error'] === 'invalid_password'): ?>
           <p class="error show">Password does not meet the requirements.</p>
         <?php endif; ?>
+        
         <input type="tel" name="contact_num" placeholder="Phone Number (eg, +639123456789)" value="+639" pattern="\+639\d{9}"  maxlength="13" title="Please enter a valid Philippine mobile number starting with +639 followed by 9 digits." required>
         <button type="submit">Sign Up</button>
       </form>
@@ -47,15 +51,27 @@
       <form Method="POST" action="../__back-end_processes/auth_login.php">
         <h1>Sign In</h1>
         <div class="social-container">
-
         </div>
         <span>or use your account</span>
-        <p class="error <?php echo isset($_SESSION['error']) ? 'show' : ''; ?>">
-          Please check your credentials.
-        </p>
-        <?php unset($_SESSION['error']); ?>
-        <input type="email" placeholder="Email" name="email">
-        <input type="password" placeholder="Password" name="password">
+        
+        <?php if (isset($_SESSION['error'])): ?>
+          <script>
+            window.addEventListener('load', function() {
+                alert("Invalid username or password. Please try again.");
+            });
+          </script>
+          <?php unset($_SESSION['error']); ?>
+        <?php endif; ?>
+        <?php if (isset($_GET['error']) && $_GET['error'] === 'invalid_login'): ?>
+          <script>
+            window.addEventListener('load', function() {
+                alert("Invalid username or password. Please try again.");
+            });
+          </script>
+        <?php endif; ?>
+
+        <input type="email" placeholder="Email" name="email" required>
+        <input type="password" placeholder="Password" name="password" required>
         <a href="user_forgot_password.php" class="text-[#ffffff]">Forgot your password?</a>
         <button type="submit">Sign In</button>
 
